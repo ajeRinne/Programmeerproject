@@ -7,14 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FA9002C91EE96DAB003984BB /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9002C81EE96DAB003984BB /* NavigationBar.swift */; };
 		FAE2FF8B1EE6FCCC0030778D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE2FF8A1EE6FCCC0030778D /* AppDelegate.swift */; };
 		FAE2FF8D1EE6FCCC0030778D /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE2FF8C1EE6FCCC0030778D /* LogInViewController.swift */; };
 		FAE2FF901EE6FCCC0030778D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAE2FF8E1EE6FCCC0030778D /* Main.storyboard */; };
 		FAE2FF921EE6FCCC0030778D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAE2FF911EE6FCCC0030778D /* Assets.xcassets */; };
 		FAE2FF951EE6FCCC0030778D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAE2FF931EE6FCCC0030778D /* LaunchScreen.storyboard */; };
+		FAE2FF9F1EE94ED50030778D /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE2FF9E1EE94ED50030778D /* Button.swift */; };
+		FAE2FFA21EE951240030778D /* Textfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE2FFA11EE951240030778D /* Textfield.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FA9002C81EE96DAB003984BB /* NavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NavigationBar.swift; path = Classes/NavigationBar.swift; sourceTree = "<group>"; };
 		FAE2FF871EE6FCCC0030778D /* Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Project.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAE2FF8A1EE6FCCC0030778D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FAE2FF8C1EE6FCCC0030778D /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +26,8 @@
 		FAE2FF911EE6FCCC0030778D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FAE2FF941EE6FCCC0030778D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FAE2FF961EE6FCCC0030778D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FAE2FF9E1EE94ED50030778D /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Button.swift; path = Classes/Button.swift; sourceTree = "<group>"; };
+		FAE2FFA11EE951240030778D /* Textfield.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Textfield.swift; path = Classes/Textfield.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,12 +62,23 @@
 			children = (
 				FAE2FF8A1EE6FCCC0030778D /* AppDelegate.swift */,
 				FAE2FF8C1EE6FCCC0030778D /* LogInViewController.swift */,
+				FAE2FFA01EE950ED0030778D /* Classes */,
 				FAE2FF8E1EE6FCCC0030778D /* Main.storyboard */,
 				FAE2FF911EE6FCCC0030778D /* Assets.xcassets */,
 				FAE2FF931EE6FCCC0030778D /* LaunchScreen.storyboard */,
 				FAE2FF961EE6FCCC0030778D /* Info.plist */,
 			);
 			path = Project;
+			sourceTree = "<group>";
+		};
+		FAE2FFA01EE950ED0030778D /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				FAE2FF9E1EE94ED50030778D /* Button.swift */,
+				FAE2FFA11EE951240030778D /* Textfield.swift */,
+				FA9002C81EE96DAB003984BB /* NavigationBar.swift */,
+			);
+			name = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,7 +154,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				FAE2FF8D1EE6FCCC0030778D /* LogInViewController.swift in Sources */,
+				FAE2FF9F1EE94ED50030778D /* Button.swift in Sources */,
+				FA9002C91EE96DAB003984BB /* NavigationBar.swift in Sources */,
 				FAE2FF8B1EE6FCCC0030778D /* AppDelegate.swift in Sources */,
+				FAE2FFA21EE951240030778D /* Textfield.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,6 +321,7 @@
 				FAE2FF9B1EE6FCCC0030778D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
