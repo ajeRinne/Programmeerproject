@@ -23,12 +23,12 @@ class NavigationBar: UINavigationItem {
 //            
 //        }
 //    }
-//    @IBInspectable var backgroundColor: UIColor = UIColor.orange {
-//        didSet{
-//            self.navigationBar.barTintColor=UIColor.redColor();
-//            
-//        }
-//    }
+    @IBInspectable var tintColor: UIColor = UIColor.orange {
+        didSet{
+            self.tintColor = UIColor.orange
+            
+        }
+    }
     
     
 }

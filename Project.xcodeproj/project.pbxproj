@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FA39B3281EE9F7760087058F /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA39B3271EE9F7760087058F /* TextView.swift */; };
+		FA85FC9F1EE98DC700D2908D /* AddedByMeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA85FC9E1EE98DC700D2908D /* AddedByMeCell.swift */; };
+		FA85FCA11EE98DFB00D2908D /* EventsIJoinCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA85FCA01EE98DFB00D2908D /* EventsIJoinCell.swift */; };
+		FA85FCA31EE990D300D2908D /* PlacesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA85FCA21EE990D300D2908D /* PlacesTableViewController.swift */; };
+		FA85FCA51EE9910900D2908D /* MyPlacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA85FCA41EE9910900D2908D /* MyPlacesViewController.swift */; };
+		FA85FCA71EE9915B00D2908D /* PlacesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA85FCA61EE9915B00D2908D /* PlacesCell.swift */; };
+		FA85FCA91EE991A800D2908D /* AddPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA85FCA81EE991A800D2908D /* AddPlaceViewController.swift */; };
+		FA85FCAB1EE9930000D2908D /* CreatePlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA85FCAA1EE9930000D2908D /* CreatePlaceViewController.swift */; };
+		FA85FCAD1EE9D65100D2908D /* JoiningUsersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA85FCAC1EE9D65100D2908D /* JoiningUsersCell.swift */; };
 		FA9002C91EE96DAB003984BB /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9002C81EE96DAB003984BB /* NavigationBar.swift */; };
 		FAE2FF8B1EE6FCCC0030778D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE2FF8A1EE6FCCC0030778D /* AppDelegate.swift */; };
 		FAE2FF8D1EE6FCCC0030778D /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE2FF8C1EE6FCCC0030778D /* LogInViewController.swift */; };
@@ -18,6 +27,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FA39B3271EE9F7760087058F /* TextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextView.swift; path = Classes/TextView.swift; sourceTree = "<group>"; };
+		FA85FC9E1EE98DC700D2908D /* AddedByMeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddedByMeCell.swift; path = Classes/AddedByMeCell.swift; sourceTree = "<group>"; };
+		FA85FCA01EE98DFB00D2908D /* EventsIJoinCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventsIJoinCell.swift; path = Classes/EventsIJoinCell.swift; sourceTree = "<group>"; };
+		FA85FCA21EE990D300D2908D /* PlacesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacesTableViewController.swift; sourceTree = "<group>"; };
+		FA85FCA41EE9910900D2908D /* MyPlacesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPlacesViewController.swift; sourceTree = "<group>"; };
+		FA85FCA61EE9915B00D2908D /* PlacesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlacesCell.swift; path = Classes/PlacesCell.swift; sourceTree = "<group>"; };
+		FA85FCA81EE991A800D2908D /* AddPlaceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPlaceViewController.swift; sourceTree = "<group>"; };
+		FA85FCAA1EE9930000D2908D /* CreatePlaceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CreatePlaceViewController.swift; path = ../CreatePlaceViewController.swift; sourceTree = "<group>"; };
+		FA85FCAC1EE9D65100D2908D /* JoiningUsersCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JoiningUsersCell.swift; path = Classes/JoiningUsersCell.swift; sourceTree = "<group>"; };
 		FA9002C81EE96DAB003984BB /* NavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NavigationBar.swift; path = Classes/NavigationBar.swift; sourceTree = "<group>"; };
 		FAE2FF871EE6FCCC0030778D /* Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Project.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAE2FF8A1EE6FCCC0030778D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -41,6 +59,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FA85FC9C1EE98D5900D2908D /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				FAE2FF8E1EE6FCCC0030778D /* Main.storyboard */,
+				FAE2FF931EE6FCCC0030778D /* LaunchScreen.storyboard */,
+			);
+			name = Interface;
+			sourceTree = "<group>";
+		};
+		FA85FC9D1EE98D7700D2908D /* TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				FA85FC9E1EE98DC700D2908D /* AddedByMeCell.swift */,
+				FA85FCA01EE98DFB00D2908D /* EventsIJoinCell.swift */,
+				FA85FCA61EE9915B00D2908D /* PlacesCell.swift */,
+				FA85FCAC1EE9D65100D2908D /* JoiningUsersCell.swift */,
+			);
+			name = TableViewCell;
+			sourceTree = "<group>";
+		};
 		FAE2FF7E1EE6FCCC0030778D = {
 			isa = PBXGroup;
 			children = (
@@ -62,10 +100,14 @@
 			children = (
 				FAE2FF8A1EE6FCCC0030778D /* AppDelegate.swift */,
 				FAE2FF8C1EE6FCCC0030778D /* LogInViewController.swift */,
+				FA85FCA41EE9910900D2908D /* MyPlacesViewController.swift */,
+				FA85FCA21EE990D300D2908D /* PlacesTableViewController.swift */,
+				FA85FCAA1EE9930000D2908D /* CreatePlaceViewController.swift */,
+				FA85FCA81EE991A800D2908D /* AddPlaceViewController.swift */,
+				FA85FC9D1EE98D7700D2908D /* TableViewCell */,
 				FAE2FFA01EE950ED0030778D /* Classes */,
-				FAE2FF8E1EE6FCCC0030778D /* Main.storyboard */,
+				FA85FC9C1EE98D5900D2908D /* Interface */,
 				FAE2FF911EE6FCCC0030778D /* Assets.xcassets */,
-				FAE2FF931EE6FCCC0030778D /* LaunchScreen.storyboard */,
 				FAE2FF961EE6FCCC0030778D /* Info.plist */,
 			);
 			path = Project;
@@ -74,6 +116,7 @@
 		FAE2FFA01EE950ED0030778D /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				FA39B3271EE9F7760087058F /* TextView.swift */,
 				FAE2FF9E1EE94ED50030778D /* Button.swift */,
 				FAE2FFA11EE951240030778D /* Textfield.swift */,
 				FA9002C81EE96DAB003984BB /* NavigationBar.swift */,
@@ -154,10 +197,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				FAE2FF8D1EE6FCCC0030778D /* LogInViewController.swift in Sources */,
+				FA85FCA91EE991A800D2908D /* AddPlaceViewController.swift in Sources */,
+				FA85FCA31EE990D300D2908D /* PlacesTableViewController.swift in Sources */,
+				FA39B3281EE9F7760087058F /* TextView.swift in Sources */,
+				FA85FCAD1EE9D65100D2908D /* JoiningUsersCell.swift in Sources */,
+				FA85FCA51EE9910900D2908D /* MyPlacesViewController.swift in Sources */,
 				FAE2FF9F1EE94ED50030778D /* Button.swift in Sources */,
 				FA9002C91EE96DAB003984BB /* NavigationBar.swift in Sources */,
+				FA85FCAB1EE9930000D2908D /* CreatePlaceViewController.swift in Sources */,
+				FA85FCA71EE9915B00D2908D /* PlacesCell.swift in Sources */,
+				FA85FC9F1EE98DC700D2908D /* AddedByMeCell.swift in Sources */,
 				FAE2FF8B1EE6FCCC0030778D /* AppDelegate.swift in Sources */,
 				FAE2FFA21EE951240030778D /* Textfield.swift in Sources */,
+				FA85FCA11EE98DFB00D2908D /* EventsIJoinCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
