@@ -7,12 +7,16 @@
 //
 
 import UIKit
+import Firebase
 
 class CreatePlaceViewController: UIViewController {
 
     @IBOutlet var createPlaceButton: UIBarButtonItem!
     
     @IBOutlet var signOutButton: UIBarButtonItem!
+    
+    @IBAction func signOutButtonTouched(_ sender: Any) {
+    }
     
     
     @IBAction func createPlaceButtonTouched(_ sender: Any) {

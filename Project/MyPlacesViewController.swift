@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -19,15 +20,14 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet var placesIJoinTableView: UITableView!
     
     @IBOutlet var searchPlacesButton: UIBarButtonItem!
-
- 
-    @IBOutlet var SignOutButton: UIBarButtonItem!
-//    @IBAction func placesButtonTouched(_ sender: Any) {
-//        performSegue(withIdentifier: "myPlacesToPlaces", sender:nil)
-//    }
+    
+    @IBOutlet var signOutButton: UIBarButtonItem!
+    
+    @IBOutlet var signOutButtonTouched: UIBarButtonItem!
     
     @IBAction func searchPlacesButtonTouched(_ sender: Any) {
         performSegue(withIdentifier: "myPlacesToPlaces", sender:nil)
+        
     }
     
     @IBAction func addBarButtonTouched(_ sender: Any) {
@@ -35,7 +35,6 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     override func viewDidLoad() {
-
         super.viewDidLoad()
         addedByMeTableView.dataSource = self
         addedByMeTableView.delegate = self

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class AddPlaceViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -16,12 +17,13 @@ class AddPlaceViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBOutlet var signOutButton: UIBarButtonItem!
     
+    @IBOutlet var signOutButtonTouched: UIBarButtonItem!
     @IBAction func homeButtonTouched(_ sender: Any) {
         self.navigationController?.popToRootViewController(animated: true)
     }
     
     @IBAction func addPlaceButtonTouched(_ sender: Any) {
-        self.navigationController?.popToRootViewController(animated: true)
+        _ = navigationController?.popViewController(animated: true)
     }
     
     override func viewDidLoad() {
