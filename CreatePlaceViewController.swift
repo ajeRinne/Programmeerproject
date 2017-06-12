@@ -12,6 +12,9 @@ class CreatePlaceViewController: UIViewController {
 
     @IBOutlet var createPlaceButton: UIBarButtonItem!
     
+    @IBOutlet var signOutButton: UIBarButtonItem!
+    
+    
     @IBAction func createPlaceButtonTouched(_ sender: Any) {
         performSegue(withIdentifier: "createEventToAddEvent", sender: nil)
     }

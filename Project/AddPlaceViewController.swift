@@ -14,13 +14,14 @@ class AddPlaceViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet var joiningUsersTableView: UITableView!
     @IBOutlet var homeButton: UIBarButtonItem!
     
+    @IBOutlet var signOutButton: UIBarButtonItem!
     
     @IBAction func homeButtonTouched(_ sender: Any) {
         self.navigationController?.popToRootViewController(animated: true)
     }
     
     @IBAction func addPlaceButtonTouched(_ sender: Any) {
-        _ = navigationController?.popViewController(animated: true)
+        self.navigationController?.popToRootViewController(animated: true)
     }
     
     override func viewDidLoad() {

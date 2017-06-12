@@ -18,12 +18,24 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBOutlet var placesIJoinTableView: UITableView!
     
+    @IBOutlet var searchPlacesButton: UIBarButtonItem!
+
+ 
+    @IBOutlet var SignOutButton: UIBarButtonItem!
+//    @IBAction func placesButtonTouched(_ sender: Any) {
+//        performSegue(withIdentifier: "myPlacesToPlaces", sender:nil)
+//    }
+    
+    @IBAction func searchPlacesButtonTouched(_ sender: Any) {
+        performSegue(withIdentifier: "myPlacesToPlaces", sender:nil)
+    }
     
     @IBAction func addBarButtonTouched(_ sender: Any) {
         performSegue(withIdentifier: "myPlacesToCreatePlace", sender:nil)
     }
     
     override func viewDidLoad() {
+
         super.viewDidLoad()
         addedByMeTableView.dataSource = self
         addedByMeTableView.delegate = self
