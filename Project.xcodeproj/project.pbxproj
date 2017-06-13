@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		F415A919B20BBA5934180897 /* Pods_Project.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFE8F03ADFF76D1090304D3E /* Pods_Project.framework */; };
 		FA1E2F371EEEBEEF005C69FD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA1E2F361EEEBEEF005C69FD /* GoogleService-Info.plist */; };
+		FA2082BB1EF0256500EF514A /* Facebook.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2082BA1EF0256500EF514A /* Facebook.swift */; };
 		FA39B3281EE9F7760087058F /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA39B3271EE9F7760087058F /* TextView.swift */; };
 		FA85FC9F1EE98DC700D2908D /* AddedByMeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA85FC9E1EE98DC700D2908D /* AddedByMeCell.swift */; };
 		FA85FCA11EE98DFB00D2908D /* EventsIJoinCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA85FCA01EE98DFB00D2908D /* EventsIJoinCell.swift */; };
@@ -33,6 +34,8 @@
 		0B4EDE2FC7080490FD7E37CF /* Pods-Project.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Project.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Project/Pods-Project.debug.xcconfig"; sourceTree = "<group>"; };
 		AFE8F03ADFF76D1090304D3E /* Pods_Project.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Project.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA1E2F361EEEBEEF005C69FD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FA2082B91EF01C8000EF514A /* Project.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Project.entitlements; sourceTree = "<group>"; };
+		FA2082BA1EF0256500EF514A /* Facebook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Facebook.swift; path = Classes/Facebook.swift; sourceTree = "<group>"; };
 		FA39B3271EE9F7760087058F /* TextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextView.swift; path = Classes/TextView.swift; sourceTree = "<group>"; };
 		FA85FC9E1EE98DC700D2908D /* AddedByMeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddedByMeCell.swift; path = Classes/AddedByMeCell.swift; sourceTree = "<group>"; };
 		FA85FCA01EE98DFB00D2908D /* EventsIJoinCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventsIJoinCell.swift; path = Classes/EventsIJoinCell.swift; sourceTree = "<group>"; };
@@ -124,6 +127,7 @@
 		FAE2FF891EE6FCCC0030778D /* Project */ = {
 			isa = PBXGroup;
 			children = (
+				FA2082B91EF01C8000EF514A /* Project.entitlements */,
 				FAE2FF8A1EE6FCCC0030778D /* AppDelegate.swift */,
 				FAE2FF8C1EE6FCCC0030778D /* LogInViewController.swift */,
 				FA85FCA41EE9910900D2908D /* MyPlacesViewController.swift */,
@@ -145,6 +149,7 @@
 			children = (
 				FA39B3271EE9F7760087058F /* TextView.swift */,
 				FAE2FF9E1EE94ED50030778D /* Button.swift */,
+				FA2082BA1EF0256500EF514A /* Facebook.swift */,
 				FAE2FFA11EE951240030778D /* Textfield.swift */,
 				FA9002C81EE96DAB003984BB /* NavigationBar.swift */,
 			);
@@ -186,7 +191,13 @@
 				TargetAttributes = {
 					FAE2FF861EE6FCCC0030778D = {
 						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = RF658R7Y87;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -282,6 +293,7 @@
 				FA85FCAD1EE9D65100D2908D /* JoiningUsersCell.swift in Sources */,
 				FA85FCA51EE9910900D2908D /* MyPlacesViewController.swift in Sources */,
 				FAE2FF9F1EE94ED50030778D /* Button.swift in Sources */,
+				FA2082BB1EF0256500EF514A /* Facebook.swift in Sources */,
 				FA9002C91EE96DAB003984BB /* NavigationBar.swift in Sources */,
 				FA85FCAB1EE9930000D2908D /* CreatePlaceViewController.swift in Sources */,
 				FA85FCA71EE9915B00D2908D /* PlacesCell.swift in Sources */,
@@ -414,6 +426,8 @@
 			baseConfigurationReference = 0B4EDE2FC7080490FD7E37CF /* Pods-Project.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Project/Project.entitlements;
+				DEVELOPMENT_TEAM = RF658R7Y87;
 				INFOPLIST_FILE = Project/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.mprog.Project;
@@ -427,6 +441,8 @@
 			baseConfigurationReference = 05A5469B1CC76EE3073C9D07 /* Pods-Project.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Project/Project.entitlements;
+				DEVELOPMENT_TEAM = RF658R7Y87;
 				INFOPLIST_FILE = Project/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.mprog.Project;
