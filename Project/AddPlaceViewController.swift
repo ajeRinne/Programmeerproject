@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import FBSDKLoginKit
 
 class AddPlaceViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -17,7 +18,12 @@ class AddPlaceViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBOutlet var signOutButton: UIBarButtonItem!
     
-    @IBOutlet var signOutButtonTouched: UIBarButtonItem!
+    @IBAction func signOutButtonTouched(_ sender: Any) {
+        let loginManager = FBSDKLoginManager()
+        loginManager.logOut()
+        dismiss(animated: true, completion: nil)
+    }
+
     @IBAction func homeButtonTouched(_ sender: Any) {
         self.navigationController?.popToRootViewController(animated: true)
     }

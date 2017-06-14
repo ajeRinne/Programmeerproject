@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import FBSDKLoginKit
 
 class CreatePlaceViewController: UIViewController {
 
@@ -16,6 +17,9 @@ class CreatePlaceViewController: UIViewController {
     @IBOutlet var signOutButton: UIBarButtonItem!
     
     @IBAction func signOutButtonTouched(_ sender: Any) {
+        let loginManager = FBSDKLoginManager()
+        loginManager.logOut()
+        dismiss(animated: true, completion: nil)
     }
     
     

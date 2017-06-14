@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import FBSDKLoginKit
 
 class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -23,7 +24,12 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBOutlet var signOutButton: UIBarButtonItem!
     
-    @IBOutlet var signOutButtonTouched: UIBarButtonItem!
+    @IBAction func signOutButtonTouched(_ sender: Any) {
+        let loginManager = FBSDKLoginManager()
+        loginManager.logOut()
+        dismiss(animated: true, completion: nil)
+    }
+
     
     @IBAction func searchPlacesButtonTouched(_ sender: Any) {
         performSegue(withIdentifier: "myPlacesToPlaces", sender:nil)
@@ -40,7 +46,12 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
         addedByMeTableView.delegate = self
         placesIJoinTableView.dataSource = self
         placesIJoinTableView.delegate = self
-        // Do any additional setup after loading the view.
+        if (FBSDKAccessToken.current() != nil)
+        {
+            print("check3")
+            print(FBSDKAccessToken.current().userID)
+        }
+
     }
 
     override func didReceiveMemoryWarning() {

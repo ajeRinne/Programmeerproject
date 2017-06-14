@@ -321,7 +321,11 @@
                                     <action selector="addBarButtonTouched:" destination="EwG-FH-jgU" id="gqV-1T-huN"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Sign out" id="GWy-4J-xj3"/>
+                            <barButtonItem title="Sign out" id="GWy-4J-xj3">
+                                <connections>
+                                    <action selector="signOutButtonTouched:" destination="EwG-FH-jgU" id="qAA-yA-JWS"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
@@ -330,7 +334,6 @@
                         <outlet property="placesIJoinTableView" destination="7rU-8H-iro" id="2ES-Ft-MEA"/>
                         <outlet property="searchPlacesButton" destination="9Xp-5D-sxF" id="JiA-8c-dr6"/>
                         <outlet property="signOutButton" destination="GWy-4J-xj3" id="Chg-gA-oPB"/>
-                        <outlet property="signOutButtonTouched" destination="GWy-4J-xj3" id="Y2r-B8-dtM"/>
                         <segue destination="81r-bb-2J2" kind="show" identifier="myPlacesToPlaces" id="cPu-66-70J"/>
                         <segue destination="1GB-tv-v1Z" kind="show" identifier="myPlacesToCreatePlace" id="4Iv-7U-0t8"/>
                         <segue destination="GrQ-YP-aJs" kind="show" identifier="myPlacesToAddPlace" id="fA3-st-7ta"/>
@@ -681,7 +684,11 @@
                                     <action selector="addPlaceButtonTouched:" destination="GrQ-YP-aJs" id="rLS-e8-fA7"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Sign out" id="zpt-71-auO"/>
+                            <barButtonItem title="Sign out" id="zpt-71-auO">
+                                <connections>
+                                    <action selector="signOutButtonTouched:" destination="GrQ-YP-aJs" id="LUO-ga-LrO"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
@@ -690,7 +697,6 @@
                         <outlet property="homeButton" destination="YOW-Jj-3Oa" id="Cka-8d-ubQ"/>
                         <outlet property="joiningUsersTableView" destination="kbj-oi-zsj" id="0Ew-ok-xrR"/>
                         <outlet property="signOutButton" destination="zpt-71-auO" id="yMB-w7-TGw"/>
-                        <outlet property="signOutButtonTouched" destination="zpt-71-auO" id="gMI-fW-j4d"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="loi-qY-9Qr" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -720,6 +726,6 @@
         <image name="group" width="744" height="496"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="TYy-Wj-1hS"/>
+        <segue reference="fA3-st-7ta"/>
     </inferredMetricsTieBreakers>
 </document>
