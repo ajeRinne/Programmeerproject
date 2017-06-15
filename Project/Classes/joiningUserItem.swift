@@ -27,12 +27,12 @@ struct JoiningUserItem {
     let profilePictureURL: String
     
     
-    init(placeID: String, credential: String, placeName: String, placePictureURL: String, placeTime: String, placeDescription: String) {
+    init(placeID: String, facebookID: String, credential: String, name: String, profilePicureURL: String) {
         self.placeID = placeID
         self.facebookID = facebookID
         self.credential = credential
         self.name = name
-        self.profilePictureURL = profilePictureURL
+        self.profilePictureURL = profilePicureURL
         
     }
     
@@ -46,14 +46,14 @@ struct JoiningUserItem {
         
         
     }
-    
+
     func toAnyObject() -> Any {
         return [
             "placeID": placeID,
             "facebookID": facebookID,
             "credential": credential,
             "name": name,
-            "placePictureURL": placePictureURL
+            "profilePictureURL": profilePictureURL
         ]
     }
     

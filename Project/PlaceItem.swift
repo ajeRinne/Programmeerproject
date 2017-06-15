@@ -34,7 +34,7 @@ struct PlaceItem {
         placeID = snapshotValue["placeID"] as! String
         credential = snapshotValue["credential"] as! String
         placeName = snapshotValue["placeName"] as! String
-        profilePictureURL = ["profilePictureURL"] as! String
+        placePictureURL = ["placePictureURL"] as! String
         placeTime = snapshotValue["placeTime"] as! String
         placeDescription = snapshotValue["placeDescription"] as! String
         

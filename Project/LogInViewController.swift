@@ -12,9 +12,6 @@ import FBSDKLoginKit
 import FacebookCore
 
 class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
-    
-
-    
     @IBOutlet var logInWithFacebookButton: Button!
     @IBOutlet var userNameTextField: Textfield!
     @IBOutlet var passwordTextField: Textfield!
@@ -32,8 +29,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         let loginButton = FBSDKLoginButton()
         loginButton.delegate = self
         
-//        loginButton.delegate = self
-//            as! FBSDKLoginButtonDelegate
         loginButton.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(loginButton)
@@ -50,18 +45,62 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         
         if (FBSDKAccessToken.current() != nil)
         {
-            print("check7")
             performSegue(withIdentifier: "loginToMyPlaces", sender: nil)
         }
     }
     
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
-        
+        var profilePictureURL : String = ""
+        var name : String = ""
+        var facebookID : String = ""
         if let error = error {
             print(error.localizedDescription)
             return
         } else {
             print("user logged in")
+            
+            let params = ["fields" : "id, name"]
+            let graphRequest = GraphRequest(graphPath: "me", parameters: params)
+            graphRequest.start {
+                (urlResponse, requestResult) in
+                
+                switch requestResult {
+                case .failed(let error):
+                    print("error in graph request:", error)
+                    break
+                case .success(let graphResponse):
+                    if let responseDictionary = graphResponse.dictionaryValue {
+                        print(responseDictionary)
+                        print("check7")
+                        name = (responseDictionary["name"]!) as! String
+                        facebookID = (responseDictionary["id"]!) as! String
+                    }
+                }
+            }
+            let pictureRequest = GraphRequest(graphPath: "me/picture?type=large&redirect=false", parameters: [:])
+            pictureRequest.start{
+                (urlResponse, requestResult) in
+                
+                switch requestResult {
+                case .failed(let error):
+                    print("error in graph request:", error)
+                    break
+                case .success(let graphResponse):
+                    if let responseDictionary = graphResponse.dictionaryValue {
+                        print(responseDictionary)
+                        
+                        var dict: NSDictionary!
+                        
+                        dict = responseDictionary["data"] as! NSDictionary
+                        print("check8")
+                        print(dict)
+                        profilePictureURL = dict["url"]! as! String
+                        
+                    }
+                }
+                
+            }
+
             let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
             print(credential)
             Auth.auth().signIn(with: credential) { (user, error) in
@@ -83,34 +122,15 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         
     }
 
-    func loginButtonTouched(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError?) {
-        print("check5")
-        if let error = error {
-            print(error.localizedDescription)
-            return
-        } else {
-            let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
-            Auth.auth().signIn(with: credential) { (user, error) in
-                if let error = error {
-                    print("could not authenticate user error: \(error)")
-                    return
-                }
-                // User is signed in
-                print("user signed in")
-                 self.performSegue(withIdentifier: "loginToMyPlaces", sender: nil)
-                
-            }
-        }
-        
-    }
+
     
-    override func viewDidAppear(_ animated: Bool) {
-        if (FBSDKAccessToken.current() != nil)
-        {
-            print("check3")
-            self.performSegue(withIdentifier: "loginToMyPlaces", sender: nil)
-        }
-    }
+//    override func viewDidAppear(_ animated: Bool) {
+//        if (FBSDKAccessToken.current() != nil)
+//        {
+//            print("check3")
+//            self.performSegue(withIdentifier: "loginToMyPlaces", sender: nil)
+//        }
+//    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
