@@ -9,10 +9,12 @@
 import UIKit
 import Firebase
 import FBSDKLoginKit
-//import GooglePlaces
+import GooglePlaces
 // api key: AIzaSyDCedmeFG_2z2W3u2sohX13judBZ90Y_xI
 
 class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+
+
     
     let cellIdentifier : String = "cell"
 
@@ -42,12 +44,19 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
         performSegue(withIdentifier: "myPlacesToCreatePlace", sender:nil)
     }
     
+    @IBAction func autocompleteClicked(_ sender: UIButton) {
+        let autocompleteController = GMSAutocompleteViewController()
+        autocompleteController.delegate = self as! GMSAutocompleteViewControllerDelegate
+        present(autocompleteController, animated: true, completion: nil)
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        addedByMeTableView.dataSource = self
-        addedByMeTableView.delegate = self
-        placesIJoinTableView.dataSource = self
-        placesIJoinTableView.delegate = self
+//        addedByMeTableView.dataSource = self
+//        addedByMeTableView.delegate = self
+//        placesIJoinTableView.dataSource = self
+//        placesIJoinTableView.delegate = self
         if (FBSDKAccessToken.current() != nil)
         {
             print("check3")
@@ -69,6 +78,10 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
             return 1
         }
     }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier) as! UITableViewCell
@@ -85,31 +98,55 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
         return cell
     }
     
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         self.performSegue(withIdentifier: "myPlacesToAddPlace", sender: nil)
         
     }
     
-//    override func viewDidAppear(_ animated: Bool) {
-//        if self.tableView.tag == 1{
-//            self.tableView.reloadData()
-//        } else {
-//            self.tableView.reloadData()
-//        }
-//    }
-
-
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            
+//            Add delete option for items
+//            items.remove(at: indexPath.row)
+            tableView.reloadData()
+        }
     }
-    */
+        
+    
+}
 
+extension MyPlacesViewController: GMSAutocompleteViewControllerDelegate {
+    
+    // Handle the user's selection.
+    func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
+        print("Place name: \(place.name)")
+        print("Place address: \(place.formattedAddress)")
+        print("Place attributions: \(place.attributions)")
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
+        // TODO: handle the error.
+        print("Error: ", error.localizedDescription)
+    }
+    
+    // User canceled the operation.
+    func wasCancelled(_ viewController: GMSAutocompleteViewController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    // Turn the network activity indicator on and off again.
+    func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+    }
+    
+    func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+    }
+    
 }

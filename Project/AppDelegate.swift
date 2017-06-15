@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseApp.configure()
         GMSPlacesClient.provideAPIKey("AIzaSyDCedmeFG_2z2W3u2sohX13judBZ90Y_xI")
-//        GMSServices.provideAPIKey("AIzaSyDCedmeFG_2z2W3u2sohX13judBZ90Y_xI")
+//      NetServicees.provideAPIKey("AIzaSyDCedmeFG_2z2W3u2sohX13judBZ90Y_xI")
         Database.database().isPersistenceEnabled = true
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         

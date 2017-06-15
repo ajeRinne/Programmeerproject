@@ -139,13 +139,13 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
 
 
     
-//    override func viewDidAppear(_ animated: Bool) {
-//        if (FBSDKAccessToken.current() != nil)
-//        {
-//            print("check3")
-//            self.performSegue(withIdentifier: "loginToMyPlaces", sender: nil)
-//        }
-//    }
+    override func viewDidAppear(_ animated: Bool) {
+        if (FBSDKAccessToken.current() != nil)
+        {
+            print("check3")
+            self.performSegue(withIdentifier: "loginToMyPlaces", sender: nil)
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
