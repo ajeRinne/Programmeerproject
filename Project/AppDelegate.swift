@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import FBSDKCoreKit
+import GooglePlaces
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,7 +18,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
         FirebaseApp.configure()
+        GMSPlacesClient.provideAPIKey("AIzaSyDCedmeFG_2z2W3u2sohX13judBZ90Y_xI")
+//        GMSServices.provideAPIKey("AIzaSyDCedmeFG_2z2W3u2sohX13judBZ90Y_xI")
         Database.database().isPersistenceEnabled = true
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         

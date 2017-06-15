@@ -9,7 +9,8 @@
 import UIKit
 import Firebase
 import FBSDKLoginKit
-import GooglePlaces
+//import GooglePlaces
+// api key: AIzaSyDCedmeFG_2z2W3u2sohX13judBZ90Y_xI
 
 class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     

@@ -8,11 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		F415A919B20BBA5934180897 /* Pods_Project.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFE8F03ADFF76D1090304D3E /* Pods_Project.framework */; };
-		FA1E2F371EEEBEEF005C69FD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA1E2F361EEEBEEF005C69FD /* GoogleService-Info.plist */; };
 		FA2082BB1EF0256500EF514A /* Facebook.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2082BA1EF0256500EF514A /* Facebook.swift */; };
 		FA2082CA1EF171A400EF514A /* joiningUserItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2082C91EF171A400EF514A /* joiningUserItem.swift */; };
 		FA2082CE1EF2F63800EF514A /* PlaceItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2082CD1EF2F63800EF514A /* PlaceItem.swift */; };
 		FA2082D21EF2FCD300EF514A /* UserItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2082D11EF2FCD300EF514A /* UserItem.swift */; };
+		FA2082D41EF3057F00EF514A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA2082D31EF3057F00EF514A /* GoogleService-Info.plist */; };
 		FA39B3281EE9F7760087058F /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA39B3271EE9F7760087058F /* TextView.swift */; };
 		FA85FC9F1EE98DC700D2908D /* AddedByMeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA85FC9E1EE98DC700D2908D /* AddedByMeCell.swift */; };
 		FA85FCA11EE98DFB00D2908D /* EventsIJoinCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA85FCA01EE98DFB00D2908D /* EventsIJoinCell.swift */; };
@@ -36,12 +36,12 @@
 		05A5469B1CC76EE3073C9D07 /* Pods-Project.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Project.release.xcconfig"; path = "Pods/Target Support Files/Pods-Project/Pods-Project.release.xcconfig"; sourceTree = "<group>"; };
 		0B4EDE2FC7080490FD7E37CF /* Pods-Project.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Project.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Project/Pods-Project.debug.xcconfig"; sourceTree = "<group>"; };
 		AFE8F03ADFF76D1090304D3E /* Pods_Project.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Project.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		FA1E2F361EEEBEEF005C69FD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FA2082B91EF01C8000EF514A /* Project.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Project.entitlements; sourceTree = "<group>"; };
 		FA2082BA1EF0256500EF514A /* Facebook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Facebook.swift; path = Classes/Facebook.swift; sourceTree = "<group>"; };
 		FA2082C91EF171A400EF514A /* joiningUserItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = joiningUserItem.swift; path = Classes/joiningUserItem.swift; sourceTree = "<group>"; };
 		FA2082CD1EF2F63800EF514A /* PlaceItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlaceItem.swift; path = ../PlaceItem.swift; sourceTree = "<group>"; };
 		FA2082D11EF2FCD300EF514A /* UserItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserItem.swift; sourceTree = "<group>"; };
+		FA2082D31EF3057F00EF514A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FA39B3271EE9F7760087058F /* TextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextView.swift; path = Classes/TextView.swift; sourceTree = "<group>"; };
 		FA85FC9E1EE98DC700D2908D /* AddedByMeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddedByMeCell.swift; path = Classes/AddedByMeCell.swift; sourceTree = "<group>"; };
 		FA85FCA01EE98DFB00D2908D /* EventsIJoinCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventsIJoinCell.swift; path = Classes/EventsIJoinCell.swift; sourceTree = "<group>"; };
@@ -145,7 +145,7 @@
 				FA85FC9C1EE98D5900D2908D /* Interface */,
 				FAE2FF911EE6FCCC0030778D /* Assets.xcassets */,
 				FAE2FF961EE6FCCC0030778D /* Info.plist */,
-				FA1E2F361EEEBEEF005C69FD /* GoogleService-Info.plist */,
+				FA2082D31EF3057F00EF514A /* GoogleService-Info.plist */,
 			);
 			path = Project;
 			sourceTree = "<group>";
@@ -233,8 +233,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA2082D41EF3057F00EF514A /* GoogleService-Info.plist in Resources */,
 				FAE2FF951EE6FCCC0030778D /* LaunchScreen.storyboard in Resources */,
-				FA1E2F371EEEBEEF005C69FD /* GoogleService-Info.plist in Resources */,
 				FAE2FF921EE6FCCC0030778D /* Assets.xcassets in Resources */,
 				FAE2FF901EE6FCCC0030778D /* Main.storyboard in Resources */,
 			);

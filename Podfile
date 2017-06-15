@@ -8,12 +8,21 @@ target 'Project' do
   pod 'Firebase/Core'
   pod 'Firebase/Database'
   pod 'Firebase/Auth'
+  pod 'ASIHTTPRequest'
+  
+  pod 'GooglePlaces'
+  pod 'GooglePlacePicker'
+  pod 'GoogleMaps'
   
   use_frameworks!
   pod 'FacebookCore'
   pod 'FacebookLogin'
   pod 'FacebookShare'
-
+  
+  pod 'FBSDKCoreKit'
+  pod 'FBSDKShareKit'
+  pod 'FBSDKLoginKit'
+  
   # Pods for Project
 
 end
