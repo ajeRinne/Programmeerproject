@@ -10,9 +10,9 @@
 		F415A919B20BBA5934180897 /* Pods_Project.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFE8F03ADFF76D1090304D3E /* Pods_Project.framework */; };
 		FA1E2F371EEEBEEF005C69FD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA1E2F361EEEBEEF005C69FD /* GoogleService-Info.plist */; };
 		FA2082BB1EF0256500EF514A /* Facebook.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2082BA1EF0256500EF514A /* Facebook.swift */; };
-		FA2082C41EF163C200EF514A /* UserItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2082C31EF163C100EF514A /* UserItem.swift */; };
-		FA2082C61EF16A0E00EF514A /* PlaceItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2082C51EF16A0E00EF514A /* PlaceItem.swift */; };
 		FA2082CA1EF171A400EF514A /* joiningUserItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2082C91EF171A400EF514A /* joiningUserItem.swift */; };
+		FA2082CE1EF2F63800EF514A /* PlaceItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2082CD1EF2F63800EF514A /* PlaceItem.swift */; };
+		FA2082D21EF2FCD300EF514A /* UserItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2082D11EF2FCD300EF514A /* UserItem.swift */; };
 		FA39B3281EE9F7760087058F /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA39B3271EE9F7760087058F /* TextView.swift */; };
 		FA85FC9F1EE98DC700D2908D /* AddedByMeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA85FC9E1EE98DC700D2908D /* AddedByMeCell.swift */; };
 		FA85FCA11EE98DFB00D2908D /* EventsIJoinCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA85FCA01EE98DFB00D2908D /* EventsIJoinCell.swift */; };
@@ -39,9 +39,9 @@
 		FA1E2F361EEEBEEF005C69FD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FA2082B91EF01C8000EF514A /* Project.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Project.entitlements; sourceTree = "<group>"; };
 		FA2082BA1EF0256500EF514A /* Facebook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Facebook.swift; path = Classes/Facebook.swift; sourceTree = "<group>"; };
-		FA2082C31EF163C100EF514A /* UserItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserItem.swift; path = Classes/UserItem.swift; sourceTree = "<group>"; };
-		FA2082C51EF16A0E00EF514A /* PlaceItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceItem.swift; sourceTree = "<group>"; };
 		FA2082C91EF171A400EF514A /* joiningUserItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = joiningUserItem.swift; path = Classes/joiningUserItem.swift; sourceTree = "<group>"; };
+		FA2082CD1EF2F63800EF514A /* PlaceItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlaceItem.swift; path = ../PlaceItem.swift; sourceTree = "<group>"; };
+		FA2082D11EF2FCD300EF514A /* UserItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserItem.swift; sourceTree = "<group>"; };
 		FA39B3271EE9F7760087058F /* TextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextView.swift; path = Classes/TextView.swift; sourceTree = "<group>"; };
 		FA85FC9E1EE98DC700D2908D /* AddedByMeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddedByMeCell.swift; path = Classes/AddedByMeCell.swift; sourceTree = "<group>"; };
 		FA85FCA01EE98DFB00D2908D /* EventsIJoinCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventsIJoinCell.swift; path = Classes/EventsIJoinCell.swift; sourceTree = "<group>"; };
@@ -158,8 +158,8 @@
 				FA2082BA1EF0256500EF514A /* Facebook.swift */,
 				FAE2FFA11EE951240030778D /* Textfield.swift */,
 				FA9002C81EE96DAB003984BB /* NavigationBar.swift */,
-				FA2082C31EF163C100EF514A /* UserItem.swift */,
-				FA2082C51EF16A0E00EF514A /* PlaceItem.swift */,
+				FA2082D11EF2FCD300EF514A /* UserItem.swift */,
+				FA2082CD1EF2F63800EF514A /* PlaceItem.swift */,
 				FA2082C91EF171A400EF514A /* joiningUserItem.swift */,
 			);
 			name = Classes;
@@ -296,18 +296,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				FAE2FF8D1EE6FCCC0030778D /* LogInViewController.swift in Sources */,
+				FA2082D21EF2FCD300EF514A /* UserItem.swift in Sources */,
 				FA85FCA91EE991A800D2908D /* AddPlaceViewController.swift in Sources */,
 				FA85FCA31EE990D300D2908D /* PlacesTableViewController.swift in Sources */,
 				FA39B3281EE9F7760087058F /* TextView.swift in Sources */,
 				FA85FCAD1EE9D65100D2908D /* JoiningUsersCell.swift in Sources */,
 				FA85FCA51EE9910900D2908D /* MyPlacesViewController.swift in Sources */,
 				FAE2FF9F1EE94ED50030778D /* Button.swift in Sources */,
-				FA2082C41EF163C200EF514A /* UserItem.swift in Sources */,
+				FA2082CE1EF2F63800EF514A /* PlaceItem.swift in Sources */,
 				FA2082BB1EF0256500EF514A /* Facebook.swift in Sources */,
 				FA9002C91EE96DAB003984BB /* NavigationBar.swift in Sources */,
 				FA85FCAB1EE9930000D2908D /* CreatePlaceViewController.swift in Sources */,
 				FA85FCA71EE9915B00D2908D /* PlacesCell.swift in Sources */,
-				FA2082C61EF16A0E00EF514A /* PlaceItem.swift in Sources */,
 				FA85FC9F1EE98DC700D2908D /* AddedByMeCell.swift in Sources */,
 				FA2082CA1EF171A400EF514A /* joiningUserItem.swift in Sources */,
 				FAE2FF8B1EE6FCCC0030778D /* AppDelegate.swift in Sources */,

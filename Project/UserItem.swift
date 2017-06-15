@@ -2,7 +2,7 @@
 //  UserItem.swift
 //  Project
 //
-//  Created by Alexander Rinne on 14-06-17.
+//  Created by Alexander Rinne on 15-06-17.
 //  Copyright © 2017 Alexander Rinne. All rights reserved.
 //
 
@@ -17,7 +17,7 @@ struct UserItem {
     let name: String
     let profilePictureURL: String
     
-    init(facebookID: String, password: String, credential: String, name: String, profilePictureURL: String) {
+    init(facebookID: String, password: String, name: String, profilePictureURL: String) {
         self.facebookID = facebookID
         self.password = password
         self.name = name
@@ -29,9 +29,7 @@ struct UserItem {
         facebookID = snapshotValue["facebookID"] as! String
         password = snapshotValue["password"] as! String
         name = snapshotValue["name"] as! String
-        profilePictureURL = ["profilePictureURL"] as! String
-        
-        
+        profilePictureURL = snapshotValue["profilePictureURL"] as! String
     }
     
     func toAnyObject() -> Any {
@@ -42,5 +40,4 @@ struct UserItem {
             "profilePictureURL": profilePictureURL
         ]
     }
-    
 }

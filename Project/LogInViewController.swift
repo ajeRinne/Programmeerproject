@@ -14,8 +14,8 @@ import FacebookCore
 
 class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     
-//    let usersRef = Database.database().reference(withPath: "usersTable")
-    
+    var usersRef : DatabaseReference!
+
     @IBOutlet var logInWithFacebookButton: Button!
     @IBOutlet var userNameTextField: Textfield!
     @IBOutlet var passwordTextField: Textfield!
@@ -29,6 +29,9 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        usersRef = Database.database().reference(withPath: "usersTable")
+        
         
         let loginButton = FBSDKLoginButton()
         loginButton.delegate = self
@@ -118,12 +121,11 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                 // User is signed in
                 print("user authenticated in to firebase")
                 print(facebookID, type(of: facebookID), password, type(of: password), name, type(of: name), profilePictureURL, type(of: profilePictureURL))
-//                let userItem = UserItem(facebookID: facebookID, password: password, name: name, profilePictureURL: profilePictureURL)
-                let placeItem = PlaceItem(placeID: profilePictureURL, credential: name, placeName: password, placePictureURL: facebookID, placeTime: profilePictureURL, placeDescription: profilePictureURL)
-                print(placeItem)
-//                let userItemRef = self.usersRef.child(name)
-//                userItemRef.setValue(userItem.toAnyObject())
-//                self.performSegue(withIdentifier: "loginToMyPlaces", sender: nil)
+               let userItem = UserItem(facebookID: facebookID, password: password, name: name, profilePictureURL: profilePictureURL)
+
+                let userItemRef = self.usersRef.child(name)
+                userItemRef.setValue(userItem.toAnyObject())
+                self.performSegue(withIdentifier: "loginToMyPlaces", sender: nil)
                 
             }
         }
