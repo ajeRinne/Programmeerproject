@@ -8,10 +8,14 @@
 
 import UIKit
 import Firebase
+import FirebaseDatabase
 import FBSDKLoginKit
 import FacebookCore
 
 class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
+    
+//    let usersRef = Database.database().reference(withPath: "usersTable")
+    
     @IBOutlet var logInWithFacebookButton: Button!
     @IBOutlet var userNameTextField: Textfield!
     @IBOutlet var passwordTextField: Textfield!
@@ -36,7 +40,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         
         
         let horizontalConstraint = NSLayoutConstraint(item: loginButton, attribute: NSLayoutAttribute.centerX, relatedBy: NSLayoutRelation.equal, toItem: passwordTextField, attribute: NSLayoutAttribute.centerX, multiplier: 1, constant: 0)
-        let verticalConstraint = NSLayoutConstraint(item: loginButton, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: passwordTextField, attribute: NSLayoutAttribute.centerY, multiplier: 1, constant: 40)
+        let verticalConstraint = NSLayoutConstraint(item: loginButton, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: passwordTextField, attribute: NSLayoutAttribute.centerY, multiplier: 1, constant: 30)
         let widthConstraint = NSLayoutConstraint(item: loginButton, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: 185)
         let heightConstraint = NSLayoutConstraint(item: loginButton, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: 25)
         
@@ -50,9 +54,12 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     }
     
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
-        var profilePictureURL : String = ""
-        var name : String = ""
+        
+
         var facebookID : String = ""
+        var password: String = "pass"
+        var name : String = ""
+        var profilePictureURL : String = ""
         if let error = error {
             print(error.localizedDescription)
             return
@@ -93,7 +100,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                         
                         dict = responseDictionary["data"] as! NSDictionary
                         print("check8")
-                        print(dict)
                         profilePictureURL = dict["url"]! as! String
                         
                     }
@@ -102,6 +108,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
             }
 
             let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+            print("check9")
             print(credential)
             Auth.auth().signIn(with: credential) { (user, error) in
                 if let error = error {
@@ -110,7 +117,13 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                 }
                 // User is signed in
                 print("user authenticated in to firebase")
-                self.performSegue(withIdentifier: "loginToMyPlaces", sender: nil)
+                print(facebookID, type(of: facebookID), password, type(of: password), name, type(of: name), profilePictureURL, type(of: profilePictureURL))
+//                let userItem = UserItem(facebookID: facebookID, password: password, name: name, profilePictureURL: profilePictureURL)
+                let placeItem = PlaceItem(placeID: profilePictureURL, credential: name, placeName: password, placePictureURL: facebookID, placeTime: profilePictureURL, placeDescription: profilePictureURL)
+                print(placeItem)
+//                let userItemRef = self.usersRef.child(name)
+//                userItemRef.setValue(userItem.toAnyObject())
+//                self.performSegue(withIdentifier: "loginToMyPlaces", sender: nil)
                 
             }
         }

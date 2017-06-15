@@ -13,13 +13,13 @@ import FirebaseDatabase
 struct UserItem {
     
     let facebookID: String
-    let credential: String
+    let password: String
     let name: String
     let profilePictureURL: String
     
-    init(facebookID: String, credential: String, name: String, profilePictureURL: String) {
+    init(facebookID: String, password: String, credential: String, name: String, profilePictureURL: String) {
         self.facebookID = facebookID
-        self.credential = credential
+        self.password = password
         self.name = name
         self.profilePictureURL = profilePictureURL
     }
@@ -27,7 +27,7 @@ struct UserItem {
     init(snapshot: DataSnapshot) {
         let snapshotValue = snapshot.value as! [String: AnyObject]
         facebookID = snapshotValue["facebookID"] as! String
-        credential = snapshotValue["credential"] as! String
+        password = snapshotValue["password"] as! String
         name = snapshotValue["name"] as! String
         profilePictureURL = ["profilePictureURL"] as! String
         
@@ -37,7 +37,7 @@ struct UserItem {
     func toAnyObject() -> Any {
         return [
             "facebookID": facebookID,
-            "credential": credential,
+            "password": password,
             "name": name,
             "profilePictureURL": profilePictureURL
         ]
