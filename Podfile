@@ -8,7 +8,6 @@ target 'Project' do
   pod 'Firebase/Core'
   pod 'Firebase/Database'
   pod 'Firebase/Auth'
-  pod 'ASIHTTPRequest'
   
   pod 'GooglePlaces'
   pod 'GooglePlacePicker'

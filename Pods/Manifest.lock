@@ -1,17 +1,4 @@
 PODS:
-  - ASIHTTPRequest (1.8.2):
-    - ASIHTTPRequest/ASIWebPageRequest (= 1.8.2)
-    - ASIHTTPRequest/CloudFiles (= 1.8.2)
-    - ASIHTTPRequest/Core (= 1.8.2)
-    - ASIHTTPRequest/S3 (= 1.8.2)
-  - ASIHTTPRequest/ASIWebPageRequest (1.8.2):
-    - ASIHTTPRequest/Core
-  - ASIHTTPRequest/CloudFiles (1.8.2):
-    - ASIHTTPRequest/Core
-  - ASIHTTPRequest/Core (1.8.2):
-    - Reachability
-  - ASIHTTPRequest/S3 (1.8.2):
-    - ASIHTTPRequest/Core
   - Bolts (1.8.4):
     - Bolts/AppLinks (= 1.8.4)
     - Bolts/Tasks (= 1.8.4)
@@ -81,10 +68,8 @@ PODS:
     - GoogleToolboxForMac/NSString+URLArguments (= 2.1.1)
   - GoogleToolboxForMac/NSString+URLArguments (2.1.1)
   - GTMSessionFetcher/Core (1.1.10)
-  - Reachability (3.2)
 
 DEPENDENCIES:
-  - ASIHTTPRequest
   - FacebookCore
   - FacebookLogin
   - FacebookShare
@@ -99,7 +84,6 @@ DEPENDENCIES:
   - GooglePlaces
 
 SPEC CHECKSUMS:
-  ASIHTTPRequest: ec013992946676b7978dcbde6396d57312d21db4
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   FacebookCore: 2cb3f0fbff218e9d3119cec84bae983b232412de
   FacebookLogin: c9d606504735780a9e3002465a615512e0a691a5
@@ -118,8 +102,7 @@ SPEC CHECKSUMS:
   GooglePlaces: bca867d5e9da15384c794b945e4226848bc6e9d9
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   GTMSessionFetcher: 30d874b96d0d76028f61fbd122801e3f030d47db
-  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
 
-PODFILE CHECKSUM: b7de2fc0f0061115359c7024db60f13c66510263
+PODFILE CHECKSUM: c64d731b46f21671a9f40f563ed9bef565f3d8dc
 
 COCOAPODS: 1.2.0
