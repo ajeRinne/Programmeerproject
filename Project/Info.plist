@@ -65,6 +65,12 @@
     <array>
         <string>googlechromes</string>
         <string>comgooglemaps</string>
+        <string>fbauth2</string>
     </array>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>Show your location on the map</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>Show your location on the map</string>
+    
 </dict>
 </plist>

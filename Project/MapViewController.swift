@@ -55,10 +55,32 @@ class MapViewController: UIViewController, UISearchBarDelegate, LocateOnTheMap, 
         
     }
     
-    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
-        let marker = GMSMarker()
-        print("Check11: \(marker)")
 
+    
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+//        let marker = GMSMarker()
+        let place = marker.title
+        print("Check11: \(place!)")
+
+        
+//        let placeID = "ChIJV4k8_9UodTERU5KXbkYpSYs"
+//        
+//        placesClient!.lookUpPlaceID(placeID, callback: { (place: GMSPlace?, error: NSError?) -> Void in
+//            if let error = error {
+//                print("lookup place id query error: \(error.localizedDescription)")
+//                return
+//            }
+//            
+//            if let place = place {
+//                print("Place name \(place.name)")
+//                print("Place address \(place.formattedAddress)")
+//                print("Place placeID \(place.placeID)")
+//                print("Place attributions \(place.attributions)")
+//            } else {
+//                print("No place details for \(placeID)")
+//            }
+//        })
+        return true
     }
 
     
@@ -76,6 +98,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, LocateOnTheMap, 
             for result in results! {
                 if let result = result as? GMSAutocompletePrediction {
                     self.resultsArray.append(result.attributedFullText.string)
+                    print("check13\(self.resultsArray)")
                 }
                 
             }

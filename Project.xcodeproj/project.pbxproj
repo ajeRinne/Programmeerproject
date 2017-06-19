@@ -10,6 +10,7 @@
 		F415A919B20BBA5934180897 /* Pods_Project.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFE8F03ADFF76D1090304D3E /* Pods_Project.framework */; };
 		FA0CB3531EF6AAF2004FD9B2 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0CB3521EF6AAF2004FD9B2 /* MapViewController.swift */; };
 		FA0CB3551EF6B8F3004FD9B2 /* SearchResultController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0CB3541EF6B8F3004FD9B2 /* SearchResultController.swift */; };
+		FA1B92B81EF8122E00128E3B /* GoogleMapsImplementatie.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1B92B71EF8122E00128E3B /* GoogleMapsImplementatie.swift */; };
 		FA2082BB1EF0256500EF514A /* Facebook.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2082BA1EF0256500EF514A /* Facebook.swift */; };
 		FA2082CA1EF171A400EF514A /* joiningUserItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2082C91EF171A400EF514A /* joiningUserItem.swift */; };
 		FA2082CE1EF2F63800EF514A /* PlaceItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2082CD1EF2F63800EF514A /* PlaceItem.swift */; };
@@ -40,6 +41,7 @@
 		AFE8F03ADFF76D1090304D3E /* Pods_Project.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Project.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA0CB3521EF6AAF2004FD9B2 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		FA0CB3541EF6B8F3004FD9B2 /* SearchResultController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchResultController.swift; path = ../SearchResultController.swift; sourceTree = "<group>"; };
+		FA1B92B71EF8122E00128E3B /* GoogleMapsImplementatie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GoogleMapsImplementatie.swift; path = Classes/GoogleMapsImplementatie.swift; sourceTree = "<group>"; };
 		FA2082B91EF01C8000EF514A /* Project.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Project.entitlements; sourceTree = "<group>"; };
 		FA2082BA1EF0256500EF514A /* Facebook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Facebook.swift; path = Classes/Facebook.swift; sourceTree = "<group>"; };
 		FA2082C91EF171A400EF514A /* joiningUserItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = joiningUserItem.swift; path = Classes/joiningUserItem.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 				FA2082D11EF2FCD300EF514A /* UserItem.swift */,
 				FA2082CD1EF2F63800EF514A /* PlaceItem.swift */,
 				FA2082C91EF171A400EF514A /* joiningUserItem.swift */,
+				FA1B92B71EF8122E00128E3B /* GoogleMapsImplementatie.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -316,6 +319,7 @@
 				FA9002C91EE96DAB003984BB /* NavigationBar.swift in Sources */,
 				FA85FCAB1EE9930000D2908D /* CreatePlaceViewController.swift in Sources */,
 				FA85FCA71EE9915B00D2908D /* PlacesCell.swift in Sources */,
+				FA1B92B81EF8122E00128E3B /* GoogleMapsImplementatie.swift in Sources */,
 				FA85FC9F1EE98DC700D2908D /* AddedByMeCell.swift in Sources */,
 				FA2082CA1EF171A400EF514A /* joiningUserItem.swift in Sources */,
 				FAE2FF8B1EE6FCCC0030778D /* AppDelegate.swift in Sources */,
