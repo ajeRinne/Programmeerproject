@@ -33,6 +33,8 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBOutlet var signOutButton: UIBarButtonItem!
     
+    @IBOutlet var mapButton: UIBarButtonItem!
+    
     @IBAction func signOutButtonTouched(_ sender: Any) {
         let loginManager = FBSDKLoginManager()
         loginManager.logOut()
@@ -52,22 +54,28 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
     @IBAction func autocompleteClicked(_ sender: UISearchController) {
         print("AutocompleteClicked")
         let autocompleteController = GMSAutocompleteViewController()
-//        autocompleteController.delegate = self as! GMSAutocompleteViewControllerDelegate
+        autocompleteController.delegate = self as! GMSAutocompleteViewControllerDelegate
+//        button.addTarget(self, action: "btn_move2_touchupinside:forEvent:", forControlEvents: .TouchUpInside)
         present(autocompleteController, animated: true, completion: nil)
     }
     
     
+    @IBAction func mapButtonTouched(_ sender: Any) {
+        performSegue(withIdentifier: "myPlacesToMap", sender:nil)
+    }
     
     
     override func viewDidLoad() {
         
 //        MARK: - Maps search bar
-//        resultsViewController?.delegate = self as! GMSAutocompleteResultsViewControllerDelegate
+        resultsViewController?.delegate = self as! GMSAutocompleteResultsViewControllerDelegate
         
         searchController = UISearchController(searchResultsController: resultsViewController)
         searchController?.searchResultsUpdater = resultsViewController
         
         let subView = UIView(frame: CGRect(x: 0, y: 65.0, width: 350.0, height: 45.0))
+        
+
         
         subView.addSubview((searchController?.searchBar)!)
         view.addSubview(subView)

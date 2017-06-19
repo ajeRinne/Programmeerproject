@@ -125,6 +125,47 @@
             </objects>
             <point key="canvasLocation" x="31.884057971014496" y="35.869565217391305"/>
         </scene>
+        <!--Title-->
+        <scene sceneID="GdU-BC-rSq">
+            <objects>
+                <viewController id="IO2-wW-XdV" customClass="MapViewController" customModule="Project" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="mHh-d5-LO1"/>
+                        <viewControllerLayoutGuide type="bottom" id="E2v-0M-6zb"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="VWl-WE-st4">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sjc-op-5kg" customClass="GSMMapView">
+                                <rect key="frame" x="0.0" y="64" width="414" height="672"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Sjc-op-5kg" secondAttribute="trailing" id="Dcs-bh-7cL"/>
+                            <constraint firstItem="E2v-0M-6zb" firstAttribute="top" secondItem="Sjc-op-5kg" secondAttribute="bottom" id="E1a-3s-xgX"/>
+                            <constraint firstItem="Sjc-op-5kg" firstAttribute="leading" secondItem="VWl-WE-st4" secondAttribute="leading" id="bnO-F2-mbp"/>
+                            <constraint firstItem="Sjc-op-5kg" firstAttribute="top" secondItem="mHh-d5-LO1" secondAttribute="bottom" id="gKs-ku-8n7"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Title" id="bZw-k1-MjA">
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="cV3-AB-kD2">
+                            <connections>
+                                <action selector="searchButtonTouched:" destination="IO2-wW-XdV" id="XOg-7p-H8J"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="mapsView" destination="Sjc-op-5kg" id="Wi1-8S-9ap"/>
+                        <outlet property="searchButton" destination="cV3-AB-kD2" id="PFN-0G-iIH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WQc-Fg-tqj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1392.753623188406" y="-673.36956521739137"/>
+        </scene>
         <!--My Places View Controller-->
         <scene sceneID="Idf-Qd-26z">
             <objects>
@@ -161,7 +202,7 @@
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Place added by me" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tbu-Ov-JGb">
-                                                                    <rect key="frame" x="74" y="11" width="278" height="22"/>
+                                                                    <rect key="frame" x="74" y="11" width="324" height="22"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -235,7 +276,7 @@
                                                                     </constraints>
                                                                 </imageView>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="7NJ-Cr-LnS">
-                                                                    <rect key="frame" x="74" y="0.66666666666666785" width="286" height="42.333333333333329"/>
+                                                                    <rect key="frame" x="74" y="0.66666666666666785" width="332" height="42.333333333333329"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Place I join" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wC7-Gh-4mn">
                                                                             <rect key="frame" x="0.0" y="0.0" width="100.66666666666666" height="25.333333333333332"/>
@@ -319,11 +360,18 @@
                                     <action selector="signOutButtonTouched:" destination="EwG-FH-jgU" id="qAA-yA-JWS"/>
                                 </connections>
                             </barButtonItem>
+                            <barButtonItem title="Map" id="d76-86-FoD">
+                                <connections>
+                                    <action selector="mapButtonTouched:" destination="EwG-FH-jgU" id="WbS-WF-shc"/>
+                                    <segue destination="IO2-wW-XdV" kind="show" identifier="myPlacesToMap" id="BUU-qf-pq0"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="addBarbutton" destination="q7j-91-QPA" id="B9f-uq-s8W"/>
                         <outlet property="addedByMeTableView" destination="FVp-80-BPv" id="RAN-aa-QY5"/>
+                        <outlet property="mapButton" destination="d76-86-FoD" id="kJy-GS-vqo"/>
                         <outlet property="placesIJoinTableView" destination="7rU-8H-iro" id="2ES-Ft-MEA"/>
                         <outlet property="searchPlacesButton" destination="9Xp-5D-sxF" id="JiA-8c-dr6"/>
                         <outlet property="signOutButton" destination="GWy-4J-xj3" id="Chg-gA-oPB"/>
@@ -615,7 +663,7 @@
                                                                     </constraints>
                                                                 </imageView>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Person's name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eeu-3w-4sY">
-                                                                    <rect key="frame" x="74" y="11" width="278" height="21.666666666666664"/>
+                                                                    <rect key="frame" x="74" y="11" width="324" height="21.666666666666664"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -701,7 +749,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="KGw-td-PHi" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="YjG-4h-pYG">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="YjG-4h-pYG">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -719,6 +767,6 @@
         <image name="group" width="744" height="496"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="TYy-Wj-1hS"/>
+        <segue reference="fA3-st-7ta"/>
     </inferredMetricsTieBreakers>
 </document>
