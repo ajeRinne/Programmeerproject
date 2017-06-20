@@ -7,12 +7,13 @@
 //
 
 import UIKit
+import Foundation
 import GoogleMaps
 import GooglePlaces
 import GooglePlacePicker
 
-class MapViewController: UIViewController, UISearchBarDelegate, LocateOnTheMap, GMSMapViewDelegate{
-    
+class MapViewController: UIViewController, UISearchBarDelegate, LocateOnTheMap, GMSMapViewDelegate {
+
     var googleMapsView: GMSMapView!
     var searchResultController: SearchResultsController!
     var resultsArray = [String]()
@@ -32,7 +33,31 @@ class MapViewController: UIViewController, UISearchBarDelegate, LocateOnTheMap, 
         print("check13")
         // Do any additional setup after loading the view.
     }
+    @IBAction func autocompleteClicked(_ sender: UIButton) {
+        
+        let placePickerController = GMSAutocompleteViewController()
+        placePickerController.delegate = self as! GMSAutocompleteViewControllerDelegate
+        present(GMSPlacePickerControllercontroller, animated: true, completion: nil)
+    }
     
+ 
+
+    override func placePicker(_ viewController: GMSPlacePickerViewController, didPick place: GMSPlace) {
+        // Dismiss the place picker, as it cannot dismiss itself.
+        viewController.dismiss(animated: true, completion: nil)
+        
+        print("Place name \(place.name)")
+        print("Place address \(place.formattedAddress)")
+        print("Place attributions \(place.attributions)")
+    }
+    
+    override func placePickerDidCancel(_ viewController: GMSPlacePickerViewController) {
+        // Dismiss the place picker, as it cannot dismiss itself.
+        viewController.dismiss(animated: true, completion: nil)
+        
+        print("No place selected")
+    }
+
     func locateWithLongitude(_ lon: Double, andLatitude lat: Double, andTitle title: String) {
         
         DispatchQueue.main.async() { () -> Void in
@@ -132,6 +157,37 @@ class MapViewController: UIViewController, UISearchBarDelegate, LocateOnTheMap, 
         searchResultController = SearchResultsController()
         searchResultController.delegate = self
 //        let mapView.delegate = self
+    }
+    
+}
+
+extension MapViewController: GMSAutocompleteViewControllerDelegate {
+    
+    // Handle the user's selection.
+    func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
+        print("Place name: \(place.name)")
+        print("Place address: \(place.formattedAddress)")
+        print("Place attributions: \(place.attributions)")
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
+        // TODO: handle the error.
+        print("Error: ", error.localizedDescription)
+    }
+    
+    // User canceled the operation.
+    func wasCancelled(_ viewController: GMSAutocompleteViewController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    // Turn the network activity indicator on and off again.
+    func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+    }
+    
+    func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }
     
 }
