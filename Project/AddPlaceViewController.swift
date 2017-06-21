@@ -19,9 +19,16 @@ class AddPlaceViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet var signOutButton: UIBarButtonItem!
     
     @IBAction func signOutButtonTouched(_ sender: Any) {
-        let loginManager = FBSDKLoginManager()
-        loginManager.logOut()
-        dismiss(animated: true, completion: nil)
+        do {
+            //            Authenticate user and log out
+            try Auth.auth().signOut()
+            let loginManager = FBSDKLoginManager()
+            loginManager.logOut()
+            dismiss(animated: true, completion: nil)
+            
+        } catch {
+            print("Could not sign out: \(error)")
+        }
     }
 
     @IBAction func homeButtonTouched(_ sender: Any) {
@@ -34,6 +41,7 @@ class AddPlaceViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let user = Auth.auth().currentUser
 
         // Do any additional setup after loading the view.
     }

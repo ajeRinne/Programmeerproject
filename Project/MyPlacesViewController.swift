@@ -17,13 +17,13 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
 
     
     let cellIdentifier : String = "cell"
+    var facebookID : String = ""
     
 //    MARK: - Maps Search bar
     var resultsViewController: GMSAutocompleteResultsViewController?
     var searchController: UISearchController?
     var resultView: UITextView?
 
-    @IBOutlet var addBarbutton: UIBarButtonItem!
 
     @IBOutlet var addedByMeTableView: UITableView!
     
@@ -36,9 +36,19 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet var mapButton: UIBarButtonItem!
     
     @IBAction func signOutButtonTouched(_ sender: Any) {
-        let loginManager = FBSDKLoginManager()
-        loginManager.logOut()
-        dismiss(animated: true, completion: nil)
+        do {
+            //            Authenticate user and log out
+            try Auth.auth().signOut()
+            let loginManager = FBSDKLoginManager()
+            loginManager.logOut()
+            dismiss(animated: true, completion: nil)
+            
+        } catch {
+            print("Could not sign out: \(error)")
+        }
+//
+
+//        dismiss(animated: true, completion: nil)
     }
 
     
@@ -47,9 +57,6 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
         
     }
     
-    @IBAction func addBarButtonTouched(_ sender: Any) {
-        performSegue(withIdentifier: "myPlacesToCreatePlace", sender:nil)
-    }
     
     @IBAction func autocompleteClicked(_ sender: UISearchController) {
         print("AutocompleteClicked")
@@ -64,44 +71,23 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
         performSegue(withIdentifier: "myPlacesToMap", sender:nil)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "myPlacesToMap") {
+            let viewController = segue.destination as! MapViewController
+            viewController.facebookID = facebookID
+        }
+        
+    }
     
     override func viewDidLoad() {
         
-//        MARK: - Maps search bar
-        resultsViewController?.delegate = self as! GMSAutocompleteResultsViewControllerDelegate
-        
-        searchController = UISearchController(searchResultsController: resultsViewController)
-        searchController?.searchResultsUpdater = resultsViewController
-        
-        let subView = UIView(frame: CGRect(x: 0, y: 65.0, width: 350.0, height: 45.0))
-        
-
-        
-        subView.addSubview((searchController?.searchBar)!)
-        view.addSubview(subView)
-        searchController?.searchBar.sizeToFit()
-        searchController?.hidesNavigationBarDuringPresentation = false
-        
-//        view.addConstraint(NSLayoutConstraint(item: searchController, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: 0))
-//        view.addConstraint(NSLayoutConstraint(item: searchController, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 0))
-
-        
-//        let trailingConstraint = NSLayoutConstraint(item: searchController as Any, attribute: .trailing, relatedBy: NSLayoutRelation.equal, toItem: view, attribute: NSLayoutAttribute.trailing, multiplier: 1, constant: 0)
-//       let leadingConstraint = NSLayoutConstraint(item: searchController as Any, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: view, attribute: NSLayoutAttribute.leading, multiplier: 1, constant: 90)
-//        let trailingConstraint = NSLayoutConstraint(item: searchController, attribute: NSLayoutAttribute.trailing, relatedBy: NSLayoutRelation.equal, toItem: Superview.trailing, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: 0)
-//        searchController.leadingAnchor.constraintEqualToAnchor(view.leadingAnchor).active = true
-//        let leadingConstraint = NSLayoutConstraint(item: searchController, attribute: NSLayoutAttribute.leading, relatedBy: NSLayoutRelation.equal, toItem: Superview.leading, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: 0)
-//        let heightConstraint = NSLayoutConstraint(item: searchController, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: 25)
-        
-        // When UISearchController presents the results view, present it in
-        // this view controller, not one further up the chain.
-        definesPresentationContext = true
-        
+      
         super.viewDidLoad()
 //        addedByMeTableView.dataSource = self
 //        addedByMeTableView.delegate = self
 //        placesIJoinTableView.dataSource = self
 //        placesIJoinTableView.delegate = self
+        let user = Auth.auth().currentUser
         if (FBSDKAccessToken.current() != nil)
         {
             print("check3")
@@ -165,59 +151,3 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
     
 }
 
-extension MyPlacesViewController: GMSAutocompleteViewControllerDelegate {
-    
-    // Handle the user's selection.
-    func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
-        print("Place name: \(place.name)")
-        print("Place address: \(String(describing: place.formattedAddress))")
-        print("Place attributions: \(String(describing: place.attributions))")
-        dismiss(animated: true, completion: nil)
-    }
-    
-    func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
-        // TODO: handle the error.
-        print("Error: ", error.localizedDescription)
-    }
-    
-    // User canceled the operation.
-    func wasCancelled(_ viewController: GMSAutocompleteViewController) {
-        dismiss(animated: true, completion: nil)
-    }
-    
-    // Turn the network activity indicator on and off again.
-    func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
-    }
-    
-    func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = false
-    }
-    
-}
-
-extension MyPlacesViewController: GMSAutocompleteResultsViewControllerDelegate {
-    func resultsController(_ resultsController: GMSAutocompleteResultsViewController,
-                           didAutocompleteWith place: GMSPlace) {
-        searchController?.isActive = false
-        // Do something with the selected place.
-        print("Place name: \(place.name)")
-        print("Place address: \(String(describing: place.formattedAddress))")
-        print("Place attributions: \(String(describing: place.attributions))")
-    }
-    
-    func resultsController(_ resultsController: GMSAutocompleteResultsViewController,
-                           didFailAutocompleteWithError error: Error){
-        // TODO: handle the error.
-        print("Error: ", error.localizedDescription)
-    }
-    
-//    // Turn the network activity indicator on and off again.
-//    func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
-//        UIApplication.shared.isNetworkActivityIndicatorVisible = true
-//    }
-//    
-//    func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
-//        UIApplication.shared.isNetworkActivityIndicatorVisible = false
-//    }
-}

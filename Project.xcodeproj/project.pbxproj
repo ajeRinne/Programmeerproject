@@ -10,9 +10,8 @@
 		F415A919B20BBA5934180897 /* Pods_Project.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFE8F03ADFF76D1090304D3E /* Pods_Project.framework */; };
 		FA0CB3531EF6AAF2004FD9B2 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0CB3521EF6AAF2004FD9B2 /* MapViewController.swift */; };
 		FA0CB3551EF6B8F3004FD9B2 /* SearchResultController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0CB3541EF6B8F3004FD9B2 /* SearchResultController.swift */; };
-		FA1B92B81EF8122E00128E3B /* GoogleMapsImplementatie.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1B92B71EF8122E00128E3B /* GoogleMapsImplementatie.swift */; };
 		FA2082BB1EF0256500EF514A /* Facebook.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2082BA1EF0256500EF514A /* Facebook.swift */; };
-		FA2082CA1EF171A400EF514A /* joiningUserItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2082C91EF171A400EF514A /* joiningUserItem.swift */; };
+		FA2082CA1EF171A400EF514A /* JoiningUserItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2082C91EF171A400EF514A /* JoiningUserItem.swift */; };
 		FA2082CE1EF2F63800EF514A /* PlaceItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2082CD1EF2F63800EF514A /* PlaceItem.swift */; };
 		FA2082D21EF2FCD300EF514A /* UserItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2082D11EF2FCD300EF514A /* UserItem.swift */; };
 		FA2082D41EF3057F00EF514A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA2082D31EF3057F00EF514A /* GoogleService-Info.plist */; };
@@ -41,10 +40,9 @@
 		AFE8F03ADFF76D1090304D3E /* Pods_Project.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Project.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA0CB3521EF6AAF2004FD9B2 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		FA0CB3541EF6B8F3004FD9B2 /* SearchResultController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchResultController.swift; path = ../SearchResultController.swift; sourceTree = "<group>"; };
-		FA1B92B71EF8122E00128E3B /* GoogleMapsImplementatie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GoogleMapsImplementatie.swift; path = Classes/GoogleMapsImplementatie.swift; sourceTree = "<group>"; };
 		FA2082B91EF01C8000EF514A /* Project.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Project.entitlements; sourceTree = "<group>"; };
 		FA2082BA1EF0256500EF514A /* Facebook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Facebook.swift; path = Classes/Facebook.swift; sourceTree = "<group>"; };
-		FA2082C91EF171A400EF514A /* joiningUserItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = joiningUserItem.swift; path = Classes/joiningUserItem.swift; sourceTree = "<group>"; };
+		FA2082C91EF171A400EF514A /* JoiningUserItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JoiningUserItem.swift; path = Classes/JoiningUserItem.swift; sourceTree = "<group>"; };
 		FA2082CD1EF2F63800EF514A /* PlaceItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlaceItem.swift; path = ../PlaceItem.swift; sourceTree = "<group>"; };
 		FA2082D11EF2FCD300EF514A /* UserItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserItem.swift; sourceTree = "<group>"; };
 		FA2082D31EF3057F00EF514A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -139,39 +137,62 @@
 		FAE2FF891EE6FCCC0030778D /* Project */ = {
 			isa = PBXGroup;
 			children = (
-				FA2082B91EF01C8000EF514A /* Project.entitlements */,
 				FAE2FF8A1EE6FCCC0030778D /* AppDelegate.swift */,
-				FAE2FF8C1EE6FCCC0030778D /* LogInViewController.swift */,
-				FA0CB3521EF6AAF2004FD9B2 /* MapViewController.swift */,
-				FA85FCA41EE9910900D2908D /* MyPlacesViewController.swift */,
-				FA85FCA21EE990D300D2908D /* PlacesTableViewController.swift */,
-				FA85FCAA1EE9930000D2908D /* CreatePlaceViewController.swift */,
-				FA85FCA81EE991A800D2908D /* AddPlaceViewController.swift */,
-				FA0CB3541EF6B8F3004FD9B2 /* SearchResultController.swift */,
-				FA85FC9D1EE98D7700D2908D /* TableViewCell */,
-				FAE2FFA01EE950ED0030778D /* Classes */,
 				FA85FC9C1EE98D5900D2908D /* Interface */,
+				FAE3F7E61EFA72D0004829AA /* ViewControllers */,
+				FA85FC9D1EE98D7700D2908D /* TableViewCell */,
+				FAE2FFA01EE950ED0030778D /* UIClasses */,
+				FAE3F7E81EFA7362004829AA /* Structs */,
 				FAE2FF911EE6FCCC0030778D /* Assets.xcassets */,
-				FAE2FF961EE6FCCC0030778D /* Info.plist */,
-				FA2082D31EF3057F00EF514A /* GoogleService-Info.plist */,
+				FAE3F7E71EFA7343004829AA /* InfoDocs */,
 			);
 			path = Project;
 			sourceTree = "<group>";
 		};
-		FAE2FFA01EE950ED0030778D /* Classes */ = {
+		FAE2FFA01EE950ED0030778D /* UIClasses */ = {
 			isa = PBXGroup;
 			children = (
-				FA39B3271EE9F7760087058F /* TextView.swift */,
 				FAE2FF9E1EE94ED50030778D /* Button.swift */,
-				FA2082BA1EF0256500EF514A /* Facebook.swift */,
-				FAE2FFA11EE951240030778D /* Textfield.swift */,
+				FA39B3271EE9F7760087058F /* TextView.swift */,
 				FA9002C81EE96DAB003984BB /* NavigationBar.swift */,
+				FAE2FFA11EE951240030778D /* Textfield.swift */,
+			);
+			name = UIClasses;
+			sourceTree = "<group>";
+		};
+		FAE3F7E61EFA72D0004829AA /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				FAE2FF8C1EE6FCCC0030778D /* LogInViewController.swift */,
+				FA85FCA41EE9910900D2908D /* MyPlacesViewController.swift */,
+				FA0CB3521EF6AAF2004FD9B2 /* MapViewController.swift */,
+				FA85FCA21EE990D300D2908D /* PlacesTableViewController.swift */,
+				FA85FCAA1EE9930000D2908D /* CreatePlaceViewController.swift */,
+				FA85FCA81EE991A800D2908D /* AddPlaceViewController.swift */,
+				FA0CB3541EF6B8F3004FD9B2 /* SearchResultController.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		FAE3F7E71EFA7343004829AA /* InfoDocs */ = {
+			isa = PBXGroup;
+			children = (
+				FA2082D31EF3057F00EF514A /* GoogleService-Info.plist */,
+				FAE2FF961EE6FCCC0030778D /* Info.plist */,
+				FA2082B91EF01C8000EF514A /* Project.entitlements */,
+			);
+			name = InfoDocs;
+			sourceTree = "<group>";
+		};
+		FAE3F7E81EFA7362004829AA /* Structs */ = {
+			isa = PBXGroup;
+			children = (
+				FA2082BA1EF0256500EF514A /* Facebook.swift */,
 				FA2082D11EF2FCD300EF514A /* UserItem.swift */,
 				FA2082CD1EF2F63800EF514A /* PlaceItem.swift */,
-				FA2082C91EF171A400EF514A /* joiningUserItem.swift */,
-				FA1B92B71EF8122E00128E3B /* GoogleMapsImplementatie.swift */,
+				FA2082C91EF171A400EF514A /* JoiningUserItem.swift */,
 			);
-			name = Classes;
+			name = Structs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -319,9 +340,8 @@
 				FA9002C91EE96DAB003984BB /* NavigationBar.swift in Sources */,
 				FA85FCAB1EE9930000D2908D /* CreatePlaceViewController.swift in Sources */,
 				FA85FCA71EE9915B00D2908D /* PlacesCell.swift in Sources */,
-				FA1B92B81EF8122E00128E3B /* GoogleMapsImplementatie.swift in Sources */,
 				FA85FC9F1EE98DC700D2908D /* AddedByMeCell.swift in Sources */,
-				FA2082CA1EF171A400EF514A /* joiningUserItem.swift in Sources */,
+				FA2082CA1EF171A400EF514A /* JoiningUserItem.swift in Sources */,
 				FAE2FF8B1EE6FCCC0030778D /* AppDelegate.swift in Sources */,
 				FAE2FFA21EE951240030778D /* Textfield.swift in Sources */,
 				FA85FCA11EE98DFB00D2908D /* EventsIJoinCell.swift in Sources */,

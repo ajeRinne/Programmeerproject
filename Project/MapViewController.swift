@@ -8,12 +8,20 @@
 
 import UIKit
 import Foundation
+import Firebase
 import GoogleMaps
 import GooglePlaces
 import GooglePlacePicker
 
+
 class MapViewController: UIViewController, UISearchBarDelegate, LocateOnTheMap, GMSMapViewDelegate {
 
+    let lat = 52.370216
+    let lon = 4.895168
+    
+    var placeID: String = ""
+    var placeName: String = ""
+    var facebookID: String = ""
     var googleMapsView: GMSMapView!
     var searchResultController: SearchResultsController!
     var resultsArray = [String]()
@@ -28,34 +36,47 @@ class MapViewController: UIViewController, UISearchBarDelegate, LocateOnTheMap, 
     }
 
     @IBOutlet var mapsView: UIView!
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        print("check13")
-        // Do any additional setup after loading the view.
-    }
-    @IBAction func autocompleteClicked(_ sender: UIButton) {
-        
-        let placePickerController = GMSAutocompleteViewController()
-        placePickerController.delegate = self as! GMSAutocompleteViewControllerDelegate
-        present(GMSPlacePickerControllercontroller, animated: true, completion: nil)
-    }
     
- 
+    
 
-    override func placePicker(_ viewController: GMSPlacePickerViewController, didPick place: GMSPlace) {
-        // Dismiss the place picker, as it cannot dismiss itself.
-        viewController.dismiss(animated: true, completion: nil)
-        
-        print("Place name \(place.name)")
-        print("Place address \(place.formattedAddress)")
-        print("Place attributions \(place.attributions)")
+    func csv(data: String) -> [[String]] {
+        var result: [[String]] = []
+        let rows = data.components(separatedBy: "\n")
+        for row in rows {
+            let columns = row.components(separatedBy: ";")
+            result.append(columns)
+        }
+        return result
     }
     
-    override func placePickerDidCancel(_ viewController: GMSPlacePickerViewController) {
-        // Dismiss the place picker, as it cannot dismiss itself.
-        viewController.dismiss(animated: true, completion: nil)
-        
-        print("No place selected")
+    func pickPlace(lat: Double, lon: Double) {
+        let center = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+        let northEast = CLLocationCoordinate2D(latitude: center.latitude + 0.001, longitude: center.longitude + 0.001)
+        let southWest = CLLocationCoordinate2D(latitude: center.latitude - 0.001, longitude: center.longitude - 0.001)
+        let viewport = GMSCoordinateBounds(coordinate: northEast, coordinate: southWest)
+        let config = GMSPlacePickerConfig(viewport: viewport)
+        let placePicker = GMSPlacePicker(config: config)
+//        print("check14\(place)")
+        placePicker.pickPlace(callback: {(place, error) -> Void in
+            if let error = error {
+                print("Pick Place error: \(error.localizedDescription)")
+                return
+            }
+            
+            if let place = place {
+                
+                print("check15")
+                print(place)
+
+
+                self.placeID = place.placeID
+                print(self.placeID)
+                self.placeName = place.name
+                
+
+                self.performSegue(withIdentifier: "mapToCreatePlace", sender: nil)
+            }
+        })
     }
 
     func locateWithLongitude(_ lon: Double, andLatitude lat: Double, andTitle title: String) {
@@ -86,6 +107,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, LocateOnTheMap, 
 //        let marker = GMSMarker()
         let place = marker.title
         print("Check11: \(place!)")
+
 
         
 //        let placeID = "ChIJV4k8_9UodTERU5KXbkYpSYs"
@@ -133,17 +155,31 @@ class MapViewController: UIViewController, UISearchBarDelegate, LocateOnTheMap, 
         }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "mapToCreatePlace") {
+            let viewController = segue.destination as! CreatePlaceViewController
+            viewController.facebookID = facebookID
+            viewController.placeID = placeID
+            viewController.placeName = placeName
+        }
     }
+
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        let user = Auth.auth().currentUser
+        print("check13")
+        pickPlace(lat: lat, lon: lon)
+
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         print("check12")
         let lat = 52.370216
         let lon = 4.895168
         let position = CLLocationCoordinate2DMake(lat, lon)
-        let marker = GMSMarker(position: position)
+//        let marker = GMSMarker(position: position)
         let camera = GMSCameraPosition.camera(withLatitude: lat, longitude: lon, zoom: 10)
         
 
@@ -156,38 +192,10 @@ class MapViewController: UIViewController, UISearchBarDelegate, LocateOnTheMap, 
 
         searchResultController = SearchResultsController()
         searchResultController.delegate = self
-//        let mapView.delegate = self
+        pickPlace(lat: lat, lon: lon)
+
     }
     
 }
 
-extension MapViewController: GMSAutocompleteViewControllerDelegate {
-    
-    // Handle the user's selection.
-    func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
-        print("Place name: \(place.name)")
-        print("Place address: \(place.formattedAddress)")
-        print("Place attributions: \(place.attributions)")
-        dismiss(animated: true, completion: nil)
-    }
-    
-    func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
-        // TODO: handle the error.
-        print("Error: ", error.localizedDescription)
-    }
-    
-    // User canceled the operation.
-    func wasCancelled(_ viewController: GMSAutocompleteViewController) {
-        dismiss(animated: true, completion: nil)
-    }
-    
-    // Turn the network activity indicator on and off again.
-    func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
-    }
-    
-    func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = false
-    }
-    
-}
+
