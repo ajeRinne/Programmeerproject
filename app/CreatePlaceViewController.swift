@@ -25,7 +25,12 @@ class CreatePlaceViewController: UIViewController {
     
     @IBOutlet var placeNameLabel: UILabel!
     
+    @IBOutlet var addEventNameTextField: Textfield!
 
+    @IBOutlet var addTimeTextField: Textfield!
+    
+    @IBOutlet var addDescriptionTextView: TextView!
+    
     @IBOutlet var createPlaceButton: UIBarButtonItem!
     
     @IBOutlet var signOutButton: UIBarButtonItem!
@@ -33,7 +38,7 @@ class CreatePlaceViewController: UIViewController {
     @IBAction func signOutButtonTouched(_ sender: Any) {
         do {
             //            Authenticate user and log out
-            try Auth.auth().signOut()
+//            try Auth.auth().signOut()
             let loginManager = FBSDKLoginManager()
             loginManager.logOut()
             dismiss(animated: true, completion: nil)
@@ -46,7 +51,9 @@ class CreatePlaceViewController: UIViewController {
     
     @IBAction func createPlaceButtonTouched(_ sender: Any) {
         
-        let placeItem = PlaceItem(placeID: self.placeID, facebookID: self.facebookID, placeName: self.placeName, eventName: "empty", placeTime: "empty", placeDescription: "empty", joiningUsers: facebookID)
+        let placeItem = PlaceItem(placeID: self.placeID, facebookID: self.facebookID, placeName: self.placeName, eventName: addEventNameTextField.text!, placeTime: addTimeTextField.text!, placeDescription: addDescriptionTextView.text!, joiningUsers: facebookID)
+            print("check20")
+            print(placeItem)
         
         //              Create a reference to the database for the place
         let placeItemRef = self.placesRef.child(placeID)
@@ -93,6 +100,9 @@ class CreatePlaceViewController: UIViewController {
         let user = Auth.auth().currentUser
         loadFirstPhotoForPlace(placeID: placeID)
         print(facebookID)
+        addEventNameTextField.text = ""
+        addTimeTextField.text = ""
+        addDescriptionTextView.text = ""
 
         // Do any additional setup after loading the view.
     }

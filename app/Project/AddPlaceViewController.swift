@@ -26,7 +26,7 @@ class AddPlaceViewController: UIViewController, UITableViewDelegate, UITableView
     @IBAction func signOutButtonTouched(_ sender: Any) {
         do {
             //            Authenticate user and log out
-            try Auth.auth().signOut()
+//            try Auth.auth().signOut()
             let loginManager = FBSDKLoginManager()
             loginManager.logOut()
             dismiss(animated: true, completion: nil)

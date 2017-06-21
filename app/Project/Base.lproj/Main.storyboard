@@ -398,13 +398,6 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="group" translatesAutoresizingMaskIntoConstraints="NO" id="g0a-s9-oLB">
-                                            <rect key="frame" x="0.0" y="0.0" width="66" height="43"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="66" id="2Nd-Xa-LNX"/>
-                                                <constraint firstAttribute="width" constant="66" id="auQ-6y-lKD"/>
-                                            </constraints>
-                                        </imageView>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="zs8-nC-na8">
                                             <rect key="frame" x="74" y="0.0" width="332" height="43"/>
                                             <subviews>
@@ -421,7 +414,17 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="43" id="2er-Ht-oUg"/>
+                                            </constraints>
                                         </stackView>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="group" translatesAutoresizingMaskIntoConstraints="NO" id="g0a-s9-oLB">
+                                            <rect key="frame" x="0.0" y="0.0" width="66" height="43"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="66" id="auQ-6y-lKD"/>
+                                                <constraint firstAttribute="height" constant="43" id="rIq-Ra-ViG"/>
+                                            </constraints>
+                                        </imageView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="zs8-nC-na8" secondAttribute="trailing" constant="8" id="4wF-6k-dIT"/>
@@ -449,7 +452,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="65D-KO-HxX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2483" y="34"/>
+            <point key="canvasLocation" x="2482.608695652174" y="33.423913043478265"/>
         </scene>
         <!--Create an event-->
         <scene sceneID="Dix-Rf-QSf">
@@ -589,6 +592,9 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="addDescriptionTextView" destination="DBS-sq-Vcc" id="fQH-ei-GCQ"/>
+                        <outlet property="addEventNameTextField" destination="ATu-My-5mz" id="Wef-xr-4lU"/>
+                        <outlet property="addTimeTextField" destination="VKc-9a-sS6" id="VvT-mp-tef"/>
                         <outlet property="createPlaceButton" destination="3Vo-47-9IN" id="aXu-Ld-6vi"/>
                         <outlet property="placeImageView" destination="EQu-0L-OtJ" id="DpT-dt-9LC"/>
                         <outlet property="placeNameLabel" destination="XfY-3g-Hso" id="FBX-fs-myB"/>
@@ -784,6 +790,6 @@
         <image name="group" width="744" height="496"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="TYy-Wj-1hS"/>
+        <segue reference="NOf-MD-lFc"/>
     </inferredMetricsTieBreakers>
 </document>

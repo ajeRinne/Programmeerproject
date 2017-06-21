@@ -144,14 +144,20 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         
         view.addConstraints([horizontalConstraint, verticalConstraint, widthConstraint, heightConstraint])
         
-        // listen for change in login status
-        Auth.auth().addStateDidChangeListener() { auth, user in
-            // Check if user is loged in
-            if user != nil {
-                // Perform segue to next view
-                self.performSegue(withIdentifier: "loginToMyPlaces", sender: nil)
-            }
+        if (FBSDKAccessToken.current() != nil)
+        {
+            print("check3")
+            self.performSegue(withIdentifier: "loginToMyPlaces", sender: nil)
         }
+
+//        // listen for change in login status
+//        Auth.auth().addStateDidChangeListener() { auth, user in
+//            // Check if user is loged in
+//            if user != nil {
+//                // Perform segue to next view
+//                self.performSegue(withIdentifier: "loginToMyPlaces", sender: nil)
+//            }
+//        }
 
         
 //        if (FBSDKAccessToken.current() != nil)
@@ -162,19 +168,20 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
 
     
     override func viewDidAppear(_ animated: Bool) {
-        Auth.auth().addStateDidChangeListener() { auth, user in
-            // Check if user is loged in
-            if user != nil {
-                // Perform segue to next view
-                self.performSegue(withIdentifier: "loginToMyPlaces", sender: nil)
-            }
-        }
-        
-//        if (FBSDKAccessToken.current() != nil)
-//        {
-//            print("check3")
-//            self.performSegue(withIdentifier: "loginToMyPlaces", sender: nil)
+//        Auth.auth().addStateDidChangeListener() { auth, user in
+//            // Check if user is loged in
+//            if user != nil {
+//                // Perform segue to next view
+//                self.performSegue(withIdentifier: "loginToMyPlaces", sender: nil)
+//            }
+//        
 //        }
+        
+        if (FBSDKAccessToken.current() != nil)
+        {
+            print("check3")
+            self.performSegue(withIdentifier: "loginToMyPlaces", sender: nil)
+        }
     }
 
     override func didReceiveMemoryWarning() {

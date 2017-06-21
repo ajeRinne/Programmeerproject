@@ -38,7 +38,7 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
     @IBAction func signOutButtonTouched(_ sender: Any) {
         do {
             //            Authenticate user and log out
-            try Auth.auth().signOut()
+//            try Auth.auth().signOut()
             let loginManager = FBSDKLoginManager()
             loginManager.logOut()
             dismiss(animated: true, completion: nil)
@@ -87,12 +87,12 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
 //        addedByMeTableView.delegate = self
 //        placesIJoinTableView.dataSource = self
 //        placesIJoinTableView.delegate = self
-        let user = Auth.auth().currentUser
-        if (FBSDKAccessToken.current() != nil)
-        {
-            print("check3")
-            print(FBSDKAccessToken.current().userID)
-        }
+//        let user = Auth.auth().currentUser
+//        if (FBSDKAccessToken.current() != nil)
+//        {
+//            print("check3")
+//            print(FBSDKAccessToken.current().userID)
+//        }
 
     }
 
