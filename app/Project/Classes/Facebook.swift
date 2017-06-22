@@ -8,9 +8,40 @@
 
 import Foundation
 import FacebookCore
+import FBSDKLoginKit
 
-struct Facebook {
+
+class Facebook {
     
+//    func authenticateUser() -> String? {
+//        
+//        if (FBSDKAccessToken.current() != nil) {
+//            let params = ["fields" : "id, name"]
+//            let graphRequest = GraphRequest(graphPath: "me", parameters: params)
+//            graphRequest.start {
+//                (urlResponse, requestResult) in
+//                
+//                switch requestResult {
+//                case .failed(let error):
+//                    print("error in graph request:", error)
+//                    return
+//                case .success(let graphResponse):
+//                    if let responseDictionary = graphResponse.dictionaryValue {
+//                        print(responseDictionary)
+//                        let facebookID = (responseDictionary["id"]!) as! String
+//                        print("check10:facebookID")
+//
+//                        return facebookID
+//                        
+//                    }
+//                }
+//            }
+//        }
+//
+//        
+//    }
+//    static let sharedInstance = Facebook()
+//    
 //    func facebookRequest(facebookID: String) -> Dictionary<Key: Hashable, Any> {
 //        let params = ["fields" : "email, name"]
 //        let graphRequest = GraphRequest(graphPath: "me", parameters: params)

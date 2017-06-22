@@ -104,8 +104,26 @@ class CreatePlaceViewController: UIViewController {
         }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        print("check41")
+        //        _ = sender as! UITableViewCell
+        if (segue.identifier == "createPlaceToMyPlaces") {
+            let viewController = segue.destination as! MyPlacesViewController
+
+            viewController.facebookID = self.facebookID
+            
+        }
+        
+    }
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("check52")
+        print(facebookID)
+        print(placeID)
+        print(placeName)
         
         
         if (FBSDKAccessToken.current() != nil)

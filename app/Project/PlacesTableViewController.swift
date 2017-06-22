@@ -9,42 +9,36 @@
 import UIKit
 import Firebase
 import FBSDKLoginKit
+import FacebookCore
 import GooglePlaces
 
 class PlacesTableViewController: UITableViewController {
     
-    let facebookID: String = ""
-    let placeID: String = ""
+    var facebookID: String = ""
+    var placeID: String = ""
+    var placeName: String = ""
     
     let placeTableRef = Database.database().reference(withPath: "placesTable")
     let userTableRef = Database.database().reference(withPath: "usersTable")
     
     var items: [PlaceItem] = []
     
+
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         print("check31")
-//        _ = sender as! UITableViewCell
+
         if (segue.identifier == "placesToAddplace") {
             let viewController = segue.destination as! AddPlaceViewController
-            print("check32")
-            let indexPath = tableView.indexPathForSelectedRow
+            print("check30")
+            print(facebookID)
+            print(placeID)
+            print(placeName)
+            viewController.facebookID = facebookID
+            viewController.placeID = placeID
+            viewController.placeName = placeName
             
-            //            Get place item at selected row
-            if indexPath != nil {
-                
-                let placeItem = items[indexPath!.row]
-                let placeID = placeItem.placeID
-                let placeName = placeItem.placeName
-            //                send current place to next view
-                print("check30")
-                print(facebookID)
-                print(placeID)
-                print(placeName)
-                viewController.facebookID = facebookID
-                viewController.placeID = placeID
-                viewController.placeName = placeName
-            }
         }
         
     }
@@ -52,7 +46,27 @@ class PlacesTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("check24")
+        if (FBSDKAccessToken.current() != nil) {
+            let params = ["fields" : "id, name"]
+            let graphRequest = GraphRequest(graphPath: "me", parameters: params)
+            graphRequest.start {
+                (urlResponse, requestResult) in
+                
+                switch requestResult {
+                case .failed(let error):
+                    print("error in graph request:", error)
+                    return
+                case .success(let graphResponse):
+                    if let responseDictionary = graphResponse.dictionaryValue {
+                        print(responseDictionary)
+                        self.facebookID = (responseDictionary["id"]!) as! String
+                        print("check10:\(self.facebookID)")
+                    }
+                }
+            }
+        }
+        
+        print("check24: \(self.facebookID)")
         //        Authenticate user and check for changes in login status
         
         if (FBSDKAccessToken.current() != nil)
@@ -177,7 +191,21 @@ class PlacesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.performSegue(withIdentifier: "placesToAddPlace", sender: nil)
+        print("check33")
+        print(indexPath.row)
+        let placeItem = items[indexPath.row]
+        let placeItemID = placeItem.placeID
+        let placeItemName = placeItem.placeName
+        self.placeName = placeItemName
+        self.placeID = placeItemID
+
+        print(placeItemID)
+        print(placeItemName)
+        print(self.facebookID)
+        print(self.placeID)
+        
+        self.performSegue(withIdentifier:
+            "placesToAddPlace", sender: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {

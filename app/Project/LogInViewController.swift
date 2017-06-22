@@ -17,11 +17,11 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
      Sent to the delegate when the button was used to logout.
      - Parameter loginButton: The varton that was clicked.
      */
+    var facebookID : String = ""
     var usersRef : DatabaseReference!
     var password: String = "pass"
     var name : String = ""
     var profilePictureURL : String = ""
-    var facebookID : String = ""
 
 
     @IBOutlet var logInWithFacebookButton: Button!

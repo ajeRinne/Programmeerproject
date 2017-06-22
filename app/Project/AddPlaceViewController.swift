@@ -17,6 +17,10 @@ class AddPlaceViewController: UIViewController, UITableViewDelegate, UITableView
     var placeID : String = ""
     var placeName : String = ""
     
+    let placeTableRef = Database.database().reference(withPath: "placesTable")
+    let userTableRef = Database.database().reference(withPath: "usersTable")
+
+    
 //    let placeTableRef = Database.database().reference(withPath: "placesTable")
 //    let userTableRef = Database.database().reference(withPath: "usersTable").child("users/\(userID)")
 
@@ -35,6 +39,7 @@ class AddPlaceViewController: UIViewController, UITableViewDelegate, UITableView
         do {
             //            Authenticate user and log out
 //            try Auth.auth().signOut()
+
             let loginManager = FBSDKLoginManager()
             loginManager.logOut()
             dismiss(animated: true, completion: nil)
@@ -49,6 +54,13 @@ class AddPlaceViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     @IBAction func addPlaceButtonTouched(_ sender: Any) {
+        
+        print("check51")
+        print(facebookID)
+        print(placeID)
+        userTableRef.child(facebookID).child("joinsEvents").setValue(placeID)
+        placeTableRef.child(placeID).child("joiningUsers").setValue(facebookID)
+        
         _ = navigationController?.popViewController(animated: true)
     }
     

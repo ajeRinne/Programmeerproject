@@ -54,6 +54,7 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBAction func searchPlacesButtonTouched(_ sender: Any) {
         print("IT DOES WORK!!!!!!!!!!!")
+        print("check17: \(facebookID)")
         performSegue(withIdentifier: "myPlacesToPlaces", sender:nil)
         
     }
@@ -73,9 +74,23 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print("check26: \(self.facebookID)")
         if (segue.identifier == "myPlacesToMap") {
+            print("check40")
             let viewController = segue.destination as! MapViewController
-            viewController.facebookID = facebookID
+            viewController.facebookID = self.facebookID
+        }
+        
+        if (segue.identifier == "myPlacestoPlaces") {
+            print("check41")
+            let viewController = segue.destination as! PlacesTableViewController
+            viewController.facebookID = self.facebookID
+        }
+        
+        if (segue.identifier == "myPlacesToAddPlace") {
+            print("check42")
+            let viewController = segue.destination as! AddPlaceViewController
+            viewController.facebookID = self.facebookID
         }
         
     }
@@ -147,7 +162,8 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+        
+        print("check15:\(facebookID)")
         self.performSegue(withIdentifier: "myPlacesToAddPlace", sender: nil)
         
     }
