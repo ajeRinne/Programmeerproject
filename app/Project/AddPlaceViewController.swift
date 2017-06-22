@@ -13,16 +13,24 @@ import GooglePlaces
 
 class AddPlaceViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var placeID : String = ""
     var facebookID : String = ""
+    var placeID : String = ""
     var placeName : String = ""
+    
+//    let placeTableRef = Database.database().reference(withPath: "placesTable")
+//    let userTableRef = Database.database().reference(withPath: "usersTable").child("users/\(userID)")
 
     @IBOutlet var addPlaceButton: UIBarButtonItem!
     @IBOutlet var joiningUsersTableView: UITableView!
     @IBOutlet var homeButton: UIBarButtonItem!
+    @IBOutlet var placeNameLabel: UILabel!
+    @IBOutlet var addedByLabel: UILabel!
+    
+    @IBOutlet var timeLabel: UILabel!
     
     @IBOutlet var signOutButton: UIBarButtonItem!
     
+    @IBOutlet var descriptionTextView: UITextView!
     @IBAction func signOutButtonTouched(_ sender: Any) {
         do {
             //            Authenticate user and log out
@@ -81,9 +89,12 @@ class AddPlaceViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let user = Auth.auth().currentUser
-
-        // Do any additional setup after loading the view.
+        print("check28")
+        print(placeName)
+        print(placeID)
+        print(facebookID)
+        self.placeNameLabel.text = self.placeName
+        loadFirstPhotoForPlace(placeID: placeID)
     }
 
     

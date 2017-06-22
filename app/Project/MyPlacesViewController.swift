@@ -53,6 +53,7 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
 
     
     @IBAction func searchPlacesButtonTouched(_ sender: Any) {
+        print("IT DOES WORK!!!!!!!!!!!")
         performSegue(withIdentifier: "myPlacesToPlaces", sender:nil)
         
     }
@@ -80,9 +81,21 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     override func viewDidLoad() {
-        
-      
         super.viewDidLoad()
+        
+        
+        if (FBSDKAccessToken.current() != nil)
+        {
+            print("user signed in")
+        }else {
+            print("no user signed in")
+        }
+
+        
+        let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+        print("check14: \(credential)")
+        print(facebookID)
+        
 //        addedByMeTableView.dataSource = self
 //        addedByMeTableView.delegate = self
 //        placesIJoinTableView.dataSource = self

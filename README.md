@@ -6,7 +6,7 @@ programmeer project Meet @pp
 
 # Description
 
-‘Meet @pp’ allows users to create an event to go to a place they have always wanted to go or just like to go anytime soon. The app uses the Facebook API to login and register users as well as getting their public profile and friend list. Besides the Facebook login API to get the users info and friend list. (https://developers.facebook.com/docs/facebook-login/ios) the app uses the Google places API (https://developers.google.com/places/) to look up the places and their info. All the user and place info and authentication will be done with firebase in order to allow the use of the app offline as well as online.
+‘Meet @pp’ allows users to create an event to go to a place they have always wanted to go or just like to go anytime soon. The app uses the Facebook API to login and register users as well as getting their public profile. Besides the Facebook login API to get the users info and friend list. (https://developers.facebook.com/docs/facebook-login/ios) the app uses the Google places API (https://developers.google.com/places/) to look up the places and their info. All the user and place info and authentication will be done with firebase in order to allow the use of the app offline as well as online. Once the user has created an event, other people can join him to go to the particular place meet new people. 
 
 # Storage
 
@@ -36,16 +36,65 @@ App Visualisation
 ![App overview](https://github.com/ajeRinne/Project/issues/1)
 
 
-# Dag 1: Inventing the app
+# June 6: Inventing the app
 
 Spended most of the time thinking different ideas over and thinking this one trough. Descided which features were reasonable and which ones would take to much work. Started to work on the interface.
 
-# Dag 2: Setting up the frame
+# June 7: Setting up the frame
 
 Spended some thime thinking the app over. Descided which screens i would implement and how and where the data would be saved. 
 
-# Dag 3: Fixing the prototype
+# June 8: Fixing the prototype
 
 Fixed some bugs in the interface. Finished the prototype. Thought the backend trough.
+
+# June 13: Researching API's
+
+Looked into the functionality of the API's required for the ap and started to work with the facebook API. Fixed some missing functionality in the prototype.
+
+# June 14: Implementing Facebook login
+
+Used the FBSDK API to let users login throuw facebook. Spended a lot of time to fix a but that stopped segue's from being triggered after the facebook login screen popped up. Made the structs that create the instances for uploading data into firebase.
+
+# June 15: Implementing firebase
+
+Firebase configuration works. Users can log in using facebook, their personal profile is loaded, they log into firebase with a credential received from facebook. Started on the maps API.
+
+# June 18: Retreiving all the data from Google Map
+
+Plan:
+
+Showing the map
+Retreiving the mapsdata when you click on a marker
+Adding the maps data to firebase
+Adding the data from google maps in hte createPlace view and addPlace view
+
+fixed: 
+
+map shows on screen
+
+# June 19: Getting the facebook data
+Plan:
+
+Showing the facebook data in the fields
+Adding the maps data to the fields
+
+fixt:
+
+Placepicker installed and working
+Place create controller shows data on screen
+
+# June 20: Completing the maps view
+
+Plan:
+
+Adding the markers of other place events to the view.
+Letting other users select your places and adding them to the myPlaces view
+Showing your places in the myPlaces view.
+Attatching the app to phone
+
+fixed:
+
+firebase upload place item
 
 ![Overview views](https://user-images.githubusercontent.com/27211421/26952884-a5f7e018-4ca7-11e7-976a-0b643b42c0a9.png)

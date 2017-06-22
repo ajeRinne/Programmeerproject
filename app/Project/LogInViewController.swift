@@ -37,11 +37,11 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
 
     
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
-        
-
+    
                 if let error = error {
             print(error.localizedDescription)
             return
+                    
         } else {
             print("user logged in")
             
@@ -60,6 +60,10 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                         print("check7")
                         self.name = (responseDictionary["name"]!) as! String
                         self.facebookID = (responseDictionary["id"]!) as! String
+                        print("check10")
+                        print(self.facebookID)
+                        self.performSegue(withIdentifier: "loginToMyPlaces", sender: nil)
+                        
                     }
                 }
             }
@@ -98,8 +102,8 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                 print("user authenticated in to firebase")
                 print(self.facebookID, type(of: self.facebookID), self.password, type(of: self.password), self.name, type(of: self.name), self.profilePictureURL, type(of: self.profilePictureURL))
                let userItem = UserItem(facebookID: self.facebookID, password: self.password, name: self.name, profilePictureURL: self.profilePictureURL)
-
-                let userItemRef = self.usersRef.child(self.name)
+//                let userCredential = credential as! String
+                let userItemRef = self.usersRef.child(self.facebookID)
                 userItemRef.setValue(userItem.toAnyObject())
                 self.performSegue(withIdentifier: "loginToMyPlaces", sender: nil)
                 
@@ -124,10 +128,9 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         usersRef = Database.database().reference(withPath: "usersTable")
-        
-        
+//        let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+//        print("check13: \(credential)")
         let loginButton = FBSDKLoginButton()
         loginButton.delegate = self
         
@@ -144,26 +147,49 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         
         view.addConstraints([horizontalConstraint, verticalConstraint, widthConstraint, heightConstraint])
         
-        if (FBSDKAccessToken.current() != nil)
-        {
-            print("check3")
-            self.performSegue(withIdentifier: "loginToMyPlaces", sender: nil)
-        }
+//        if (FBSDKAccessToken.current() != nil)
+//        {
+//            
+//            self.performSegue(withIdentifier: "loginToMyPlaces", sender: nil)
+//        }
 
 //        // listen for change in login status
 //        Auth.auth().addStateDidChangeListener() { auth, user in
 //            // Check if user is loged in
-//            if user != nil {
+//            if user != nil && FBSDKAccessToken.current() != nil {
 //                // Perform segue to next view
+//                print("check3")
+//                print(self.facebookID)
 //                self.performSegue(withIdentifier: "loginToMyPlaces", sender: nil)
 //            }
 //        }
+        
+        if FBSDKAccessToken.current() != nil {
+            print("user: \(FBSDKAccessToken.current()!) signed in")
+            let params = ["fields" : "id, name"]
+            let graphRequest = GraphRequest(graphPath: "me", parameters: params)
+            graphRequest.start {
+                (urlResponse, requestResult) in
+                
+                switch requestResult {
+                case .failed(let error):
+                    print("error in graph request:", error)
+                    break
+                case .success(let graphResponse):
+                    if let responseDictionary = graphResponse.dictionaryValue {
+                        print(responseDictionary)
+                        print("check7")
+                        self.name = (responseDictionary["name"]!) as! String
+                        self.facebookID = (responseDictionary["id"]!) as! String
+                        print("check14")
+                        print(self.facebookID)
+                        self.performSegue(withIdentifier: "loginToMyPlaces", sender: nil)
+                    }
+                }
+            }
+        }
 
         
-//        if (FBSDKAccessToken.current() != nil)
-//        {
-//            performSegue(withIdentifier: "loginToMyPlaces", sender: nil)
-//        }
     }
 
     
@@ -176,12 +202,13 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
 //            }
 //        
 //        }
-        
-        if (FBSDKAccessToken.current() != nil)
-        {
-            print("check3")
-            self.performSegue(withIdentifier: "loginToMyPlaces", sender: nil)
-        }
+//        
+//        if (FBSDKAccessToken.current() != nil)
+//        {
+//            print("check3")
+//            print(facebookID)
+//            self.performSegue(withIdentifier: "loginToMyPlaces", sender: nil)
+//        }
     }
 
     override func didReceiveMemoryWarning() {

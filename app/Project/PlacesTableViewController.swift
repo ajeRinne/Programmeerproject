@@ -8,32 +8,160 @@
 
 import UIKit
 import Firebase
+import FBSDKLoginKit
+import GooglePlaces
 
 class PlacesTableViewController: UITableViewController {
+    
+    let facebookID: String = ""
+    let placeID: String = ""
+    
+    let placeTableRef = Database.database().reference(withPath: "placesTable")
+    let userTableRef = Database.database().reference(withPath: "usersTable")
+    
+    var items: [PlaceItem] = []
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        print("check31")
+//        _ = sender as! UITableViewCell
+        if (segue.identifier == "placesToAddplace") {
+            let viewController = segue.destination as! AddPlaceViewController
+            print("check32")
+            let indexPath = tableView.indexPathForSelectedRow
+            
+            //            Get place item at selected row
+            if indexPath != nil {
+                
+                let placeItem = items[indexPath!.row]
+                let placeID = placeItem.placeID
+                let placeName = placeItem.placeName
+            //                send current place to next view
+                print("check30")
+                print(facebookID)
+                print(placeID)
+                print(placeName)
+                viewController.facebookID = facebookID
+                viewController.placeID = placeID
+                viewController.placeName = placeName
+            }
+        }
+        
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let user = Auth.auth().currentUser
+        
+        print("check24")
+        //        Authenticate user and check for changes in login status
+        
+        if (FBSDKAccessToken.current() != nil)
+        {
+            print("user signed in")
+        }else {
+            print("no user signed in")
+        }
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+        
+        //        Get places table
+        placeTableRef.observe(.value, with: { snapshot in
+            print(snapshot.value!)
+        })
+        
+        //          Guery database by places
+        placeTableRef.queryOrdered(byChild: "placeName").observe(.value, with: { snapshot in
+            
+            //            Create temporary array to store data
+            var newItems: [PlaceItem] = []
+            print("check25:\(newItems)")
+            
+            //            Iterate over items in snapshot
+            for item in snapshot.children {
+                
+                //                Create database instance to get data per place
+                let placeItem = PlaceItem(snapshot: item as! DataSnapshot)
+                
+                //                Append data of single place to array
+                newItems.append(placeItem)
+                print("check26: \(placeItem.placeName)")
+            }
+            
+            //            Copy temporary array in array
+            self.items = newItems
+            
+            //            Reload data in order se up to date view
+            self.tableView.reloadData()
+        })
+      }
 
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
+    
     // MARK: - Table view data source
     
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+//        self.tableView.registerClass.reuseIdentifier: "placesCell"
+//        
+//        :(UITableViewCell class) forCellReuseIdentifier:@"PlacesCell"
         //        Create cell reference
-        let cell = tableView.dequeueReusableCell(withIdentifier: "placesCell", for: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "placesCell", for: indexPath) as! PlacesCell
+        
+        
+        //        Get place data from array
+        let placeItem = self.items[indexPath.row]
+        
+        func loadImageForMetadata(photoMetadata: GMSPlacePhotoMetadata) {
+            GMSPlacesClient.shared().loadPlacePhoto(photoMetadata, callback: {
+                (photo, error) -> Void in
+                if let error = error {
+                    // TODO: handle the error.
+                    print("Error: \(error.localizedDescription)")
+                } else {
+                    print("check17")
+                    print(photo)
+                    cell.placePictureView.image = photo;
+                    
+                }
+            })
+        }
+        
+        func loadFirstPhotoForPlace(placeID: String) {
+            GMSPlacesClient.shared().lookUpPhotos(forPlaceID: placeID) { (photos, error) -> Void in
+                if let error = error {
+                    // TODO: handle the error.
+                    print("Error: \(error.localizedDescription)")
+                } else {
+                    print("check18")
+                    print(placeID)
+                    if let firstPhoto = photos?.results.first {
+                        print("check19")
+                        loadImageForMetadata(photoMetadata: firstPhoto)
+                    }
+                }
+            }
+        }
+
+        
+        //        Show place data in cell labels
+        cell.placeTextField.text = placeItem.placeName
+        
+        loadFirstPhotoForPlace(placeID: placeItem.placeID)
+        
+        let facebookID = placeItem.facebookID
+        
+        userTableRef.queryOrdered(byChild: "facebookID").queryEqual(toValue: facebookID).observe(.value, with: { snapshot in
+
+              print(snapshot.value!)
+            print("check27")
+            for item in snapshot.children {
+                
+                //                Create database instance to get data per place
+                let userItem = UserItem(snapshot: item as! DataSnapshot)
+                print("check28: \(userItem)")
+                let name = userItem.name
+                cell.addedByTextField.text = name
+                
+            }
+        })
         
         return cell
     }
@@ -45,7 +173,7 @@ class PlacesTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 1
+        return items.count
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -57,59 +185,5 @@ class PlacesTableViewController: UITableViewController {
     }
 
 
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+    
 }

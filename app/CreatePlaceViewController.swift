@@ -13,7 +13,8 @@ import GooglePlaces
 
 class CreatePlaceViewController: UIViewController {
     
-    let placesRef = Database.database().reference(withPath: "placesTable")
+    let placeTableRef = Database.database().reference(withPath: "placesTable")
+    let userTableRef = Database.database().reference(withPath: "usersTable")
     
     var placeID : String = ""
     var facebookID : String = ""
@@ -35,10 +36,13 @@ class CreatePlaceViewController: UIViewController {
     
     @IBOutlet var signOutButton: UIBarButtonItem!
     
+    @IBOutlet var addButton: UIView!
+    
     @IBAction func signOutButtonTouched(_ sender: Any) {
         do {
             //            Authenticate user and log out
 //            try Auth.auth().signOut()
+
             let loginManager = FBSDKLoginManager()
             loginManager.logOut()
             dismiss(animated: true, completion: nil)
@@ -47,19 +51,26 @@ class CreatePlaceViewController: UIViewController {
             print("Could not sign out: \(error)")
         }
     }
-    
-    
-    @IBAction func createPlaceButtonTouched(_ sender: Any) {
+
+    @IBAction func addButtonTouched(_ sender: Any) {
         
+        print("check22")
         let placeItem = PlaceItem(placeID: self.placeID, facebookID: self.facebookID, placeName: self.placeName, eventName: addEventNameTextField.text!, placeTime: addTimeTextField.text!, placeDescription: addDescriptionTextView.text!, joiningUsers: facebookID)
-            print("check20")
-            print(placeItem)
+        print("check23")
+        print(placeItem)
         
         //              Create a reference to the database for the place
-        let placeItemRef = self.placesRef.child(placeID)
-
-        performSegue(withIdentifier: "createEventToAddEvent", sender: nil)
+        let placeItemRef = placeTableRef.child(placeID)
+        placeItemRef.setValue(placeItem.toAnyObject())
+        self.performSegue(withIdentifier: "createPlaceToMyPlaces", sender: nil)
+        
+        print("check24")
+//        print(placeItemRef)
+    
+        
     }
+    
+   
     
     func loadImageForMetadata(photoMetadata: GMSPlacePhotoMetadata) {
         GMSPlacesClient.shared().loadPlacePhoto(photoMetadata, callback: {
@@ -71,9 +82,7 @@ class CreatePlaceViewController: UIViewController {
                 print("check17")
                 print(photo)
                 self.placeImageView.image = photo;
-                print(self.placeName)
-                print(self.placeID)
-                self.placeNameLabel.text = self.placeName
+                
             }
         })
     }
@@ -97,6 +106,15 @@ class CreatePlaceViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        if (FBSDKAccessToken.current() != nil)
+        {
+            print("user signed in")
+        }else {
+            print("no user signed in")
+        }
+
         let user = Auth.auth().currentUser
         loadFirstPhotoForPlace(placeID: placeID)
         print(facebookID)
@@ -105,6 +123,7 @@ class CreatePlaceViewController: UIViewController {
         addDescriptionTextView.text = ""
 
         // Do any additional setup after loading the view.
+        self.placeNameLabel.text = self.placeName
     }
 
     override func didReceiveMemoryWarning() {

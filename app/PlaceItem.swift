@@ -28,7 +28,7 @@ struct PlaceItem {
         self.eventName = eventName
         self.placeTime = placeTime
         self.placeDescription = placeDescription
-        self.joiningUsers = joiningUsers
+        self.joiningUsers = ""
     }
     
     init(snapshot: DataSnapshot) {
@@ -40,7 +40,7 @@ struct PlaceItem {
         eventName = snapshotValue["eventName"] as! String
         placeTime = snapshotValue["placeTime"] as! String
         placeDescription = snapshotValue["placeDescription"] as! String
-        joiningUsers = snapshotValue["placeDescription"] as! String
+        joiningUsers = snapshotValue["joiningUsers"] as! String
     }
     
     func toAnyObject() -> Any {
@@ -51,7 +51,7 @@ struct PlaceItem {
             "placeName": placeName,
             "eventName": eventName,
             "placeTime": placeTime,
-            "placeTime": placeDescription,
+            "placeDescription": placeDescription,
             "joiningUsers": joiningUsers
         ]
     }

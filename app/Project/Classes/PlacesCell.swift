@@ -10,6 +10,12 @@ import UIKit
 
 class PlacesCell: UITableViewCell {
 
+    @IBOutlet var placeTextField: UILabel!
+    
+    @IBOutlet var addedByTextField: UILabel!
+    
+    @IBOutlet var placePictureView: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
