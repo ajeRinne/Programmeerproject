@@ -20,40 +20,22 @@ import FirebaseDatabase
 
 struct JoiningUserItem {
     
-    let placeID: String
     let facebookID: String
-    let credential: String
-    let name: String
-    let profilePictureURL: String
-    
-    
-    init(placeID: String, facebookID: String, credential: String, name: String, profilePicureURL: String) {
-        self.placeID = placeID
+
+    init(facebookID: String) {
+
         self.facebookID = facebookID
-        self.credential = credential
-        self.name = name
-        self.profilePictureURL = profilePicureURL
-        
+
     }
     
     init(snapshot: DataSnapshot) {
         let snapshotValue = snapshot.value as! [String: AnyObject]
-        placeID = snapshotValue["placeID"] as! String
         facebookID = snapshotValue["facebookID"] as! String
-        credential = snapshotValue["credential"] as! String
-        name = snapshotValue["name"] as! String
-        profilePictureURL = ["profilePictureURL"] as! String
-        
-        
     }
 
     func toAnyObject() -> Any {
         return [
-            "placeID": placeID,
             "facebookID": facebookID,
-            "credential": credential,
-            "name": name,
-            "profilePictureURL": profilePictureURL
         ]
     }
     

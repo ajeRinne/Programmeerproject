@@ -18,9 +18,8 @@ struct PlaceItem {
     let eventName: String
     let placeTime: String
     let placeDescription: String
-    let joiningUsers: String
     
-    init(placeID: String, facebookID: String, placeName: String, eventName: String, placeTime: String, placeDescription: String, joiningUsers: String) {
+    init(placeID: String, facebookID: String, placeName: String, eventName: String, placeTime: String, placeDescription: String) {
         
         self.placeID = placeID
         self.facebookID = facebookID
@@ -28,7 +27,6 @@ struct PlaceItem {
         self.eventName = eventName
         self.placeTime = placeTime
         self.placeDescription = placeDescription
-        self.joiningUsers = ""
     }
     
     init(snapshot: DataSnapshot) {
@@ -40,7 +38,6 @@ struct PlaceItem {
         eventName = snapshotValue["eventName"] as! String
         placeTime = snapshotValue["placeTime"] as! String
         placeDescription = snapshotValue["placeDescription"] as! String
-        joiningUsers = snapshotValue["joiningUsers"] as! String
     }
     
     func toAnyObject() -> Any {
@@ -52,7 +49,6 @@ struct PlaceItem {
             "eventName": eventName,
             "placeTime": placeTime,
             "placeDescription": placeDescription,
-            "joiningUsers": joiningUsers
         ]
     }
     

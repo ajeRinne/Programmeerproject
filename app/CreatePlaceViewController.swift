@@ -55,7 +55,7 @@ class CreatePlaceViewController: UIViewController {
     @IBAction func addButtonTouched(_ sender: Any) {
         
         print("check22")
-        let placeItem = PlaceItem(placeID: self.placeID, facebookID: self.facebookID, placeName: self.placeName, eventName: addEventNameTextField.text!, placeTime: addTimeTextField.text!, placeDescription: addDescriptionTextView.text!, joiningUsers: facebookID)
+        let placeItem = PlaceItem(placeID: self.placeID, facebookID: self.facebookID, placeName: self.placeName, eventName: addEventNameTextField.text!, placeTime: addTimeTextField.text!, placeDescription: addDescriptionTextView.text!)
         print("check23")
         print(placeItem)
         

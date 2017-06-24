@@ -10,6 +10,11 @@ import UIKit
 
 class JoiningUsersCell: UITableViewCell {
 
+    @IBOutlet var userImageView: UIImageView!
+    
+    @IBOutlet var userNameLabel: UILabel!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

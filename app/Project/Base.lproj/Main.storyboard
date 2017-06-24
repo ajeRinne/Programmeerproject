@@ -374,8 +374,8 @@
                         <outlet property="placesIJoinTableView" destination="7rU-8H-iro" id="2ES-Ft-MEA"/>
                         <outlet property="searchPlacesButton" destination="9Xp-5D-sxF" id="JiA-8c-dr6"/>
                         <outlet property="signOutButton" destination="GWy-4J-xj3" id="Chg-gA-oPB"/>
-                        <segue destination="81r-bb-2J2" kind="show" identifier="myPlacesToPlaces" id="cPu-66-70J"/>
                         <segue destination="GrQ-YP-aJs" kind="show" identifier="myPlacesToAddPlace" id="fA3-st-7ta"/>
+                        <segue destination="81r-bb-2J2" kind="show" identifier="myPlacesToPlaces" id="TH4-t5-LfD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Sh-ht-8FN" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -487,14 +487,14 @@
                                                 <rect key="frame" x="0.0" y="299.66666666666669" width="414" height="57"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XfY-3g-Hso">
-                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="57"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="36.666666666666629"/>
                                                         <color key="backgroundColor" white="1" alpha="0.60000002379999995" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="New Event" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4LR-Ju-7OW">
-                                                        <rect key="frame" x="0.0" y="57" width="414" height="0.0"/>
+                                                        <rect key="frame" x="0.0" y="36.666666666666629" width="414" height="20.333333333333371"/>
                                                         <color key="backgroundColor" white="1" alpha="0.60000002379999995" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
@@ -624,7 +624,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RMP-uJ-EH3">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="332"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="group" translatesAutoresizingMaskIntoConstraints="NO" id="n5s-rh-peh">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="n5s-rh-peh">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="332"/>
                                                 <color key="backgroundColor" white="1" alpha="0.50368617957746464" colorSpace="calibratedWhite"/>
                                             </imageView>
@@ -706,6 +706,10 @@
                                                         <accessibility key="accessibilityConfiguration">
                                                             <accessibilityTraits key="traits" button="YES"/>
                                                         </accessibility>
+                                                        <connections>
+                                                            <outlet property="userImageView" destination="Vzn-mr-NEv" id="ekg-7a-khY"/>
+                                                            <outlet property="userNameLabel" destination="Eeu-3w-4sY" id="2oM-Pg-dDL"/>
+                                                        </connections>
                                                     </tableViewCell>
                                                 </prototypes>
                                                 <connections>
@@ -773,6 +777,7 @@
                         <outlet property="descriptionTextView" destination="EtI-PX-Uhm" id="cvy-ef-xqg"/>
                         <outlet property="homeButton" destination="YOW-Jj-3Oa" id="Cka-8d-ubQ"/>
                         <outlet property="joiningUsersTableView" destination="kbj-oi-zsj" id="0Ew-ok-xrR"/>
+                        <outlet property="placeImageView" destination="n5s-rh-peh" id="Pcx-DF-QNO"/>
                         <outlet property="placeNameLabel" destination="0vy-rf-tmk" id="FBx-EG-g9j"/>
                         <outlet property="signOutButton" destination="zpt-71-auO" id="yMB-w7-TGw"/>
                         <outlet property="timeLabel" destination="xB5-GF-iTH" id="BrB-1R-ZWN"/>
@@ -787,7 +792,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="KGw-td-PHi" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="YjG-4h-pYG">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="YjG-4h-pYG">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -806,6 +811,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="DIA-af-HZD"/>
-        <segue reference="NOf-MD-lFc"/>
+        <segue reference="fA3-st-7ta"/>
     </inferredMetricsTieBreakers>
 </document>

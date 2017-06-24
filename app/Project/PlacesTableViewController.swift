@@ -28,19 +28,17 @@ class PlacesTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         print("check31")
-
-        if (segue.identifier == "placesToAddplace") {
+        if (segue.identifier == "placesToAddPlace") {
             let viewController = segue.destination as! AddPlaceViewController
-            print("check30")
+            print("check32")
             print(facebookID)
             print(placeID)
-            print(placeName)
-            viewController.facebookID = facebookID
-            viewController.placeID = placeID
-            viewController.placeName = placeName
-            
-        }
+            print(self.placeName)
         
+            viewController.facebookID = facebookID
+            viewController.placeID =  placeID
+            viewController.placeName = placeName
+        }
     }
 
     override func viewDidLoad() {
@@ -113,9 +111,7 @@ class PlacesTableViewController: UITableViewController {
     
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        self.tableView.registerClass.reuseIdentifier: "placesCell"
-//        
-//        :(UITableViewCell class) forCellReuseIdentifier:@"PlacesCell"
+
         //        Create cell reference
         let cell = tableView.dequeueReusableCell(withIdentifier: "placesCell", for: indexPath) as! PlacesCell
         

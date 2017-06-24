@@ -17,6 +17,8 @@ class AddPlaceViewController: UIViewController, UITableViewDelegate, UITableView
     var placeID : String = ""
     var placeName : String = ""
     
+    var items: [PlaceItem] = []
+    
     let placeTableRef = Database.database().reference(withPath: "placesTable")
     let userTableRef = Database.database().reference(withPath: "usersTable")
 
@@ -27,6 +29,7 @@ class AddPlaceViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet var addPlaceButton: UIBarButtonItem!
     @IBOutlet var joiningUsersTableView: UITableView!
     @IBOutlet var homeButton: UIBarButtonItem!
+    @IBOutlet var placeImageView: UIImageView!
     @IBOutlet var placeNameLabel: UILabel!
     @IBOutlet var addedByLabel: UILabel!
     
@@ -37,8 +40,6 @@ class AddPlaceViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet var descriptionTextView: UITextView!
     @IBAction func signOutButtonTouched(_ sender: Any) {
         do {
-            //            Authenticate user and log out
-//            try Auth.auth().signOut()
 
             let loginManager = FBSDKLoginManager()
             loginManager.logOut()
@@ -58,8 +59,9 @@ class AddPlaceViewController: UIViewController, UITableViewDelegate, UITableView
         print("check51")
         print(facebookID)
         print(placeID)
-        userTableRef.child(facebookID).child("joinsEvents").setValue(placeID)
-        placeTableRef.child(placeID).child("joiningUsers").setValue(facebookID)
+        userTableRef.child("\(facebookID)/joinsEvents/\(placeID)").setValue(["placeID": placeID])
+        
+        placeTableRef.child("\(placeID)/joiningUsers/\(facebookID)").setValue(["facebookID": facebookID])
         
         _ = navigationController?.popViewController(animated: true)
     }
@@ -73,7 +75,7 @@ class AddPlaceViewController: UIViewController, UITableViewDelegate, UITableView
             } else {
                 print("check17")
                 print(photo)
-//                self.placeImageView.image = photo;
+                self.placeImageView.image = photo;
 //                print(self.placeName)
 //                print(self.placeID)
 //                self.placeNameLabel.text = self.placeName
@@ -107,6 +109,26 @@ class AddPlaceViewController: UIViewController, UITableViewDelegate, UITableView
         print(facebookID)
         self.placeNameLabel.text = self.placeName
         loadFirstPhotoForPlace(placeID: placeID)
+        placeTableRef.queryOrdered(byChild: "placeName").observe(.value, with: { snapshot in
+            
+            //            Create temporary array to store data
+            var newItems: [PlaceItem] = []
+            print("check25:\(newItems)")
+            
+            //            Iterate over items in snapshot
+            for item in snapshot.children {
+                
+                //                Create database instance to get data per place
+                let placeItem = PlaceItem(snapshot: item as! DataSnapshot)
+                let placeTime = placeItem.placeTime
+                let placeDescription = placeItem.placeDescription
+
+                self.descriptionTextView.text = placeDescription
+                self.timeLabel.text = placeTime
+            }
+            
+        })
+        
     }
 
     
@@ -116,10 +138,10 @@ class AddPlaceViewController: UIViewController, UITableViewDelegate, UITableView
         return 1
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+//    override func didReceiveMemoryWarning() {
+//        super.didReceiveMemoryWarning()
+//        // Dispose of any resources that can be recreated.
+//    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! UITableViewCell
