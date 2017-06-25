@@ -14,31 +14,23 @@ import GooglePlaces
 
 class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-
-    
     let cellIdentifier : String = "cell"
-    var facebookID : String = ""
+    let placeTableRef = Database.database().reference(withPath: "placesTable")
+    let userTableRef = Database.database().reference(withPath: "usersTable")
     
-//    MARK: - Maps Search bar
-    var resultsViewController: GMSAutocompleteResultsViewController?
-    var searchController: UISearchController?
-    var resultView: UITextView?
-
+    var facebookID : String = ""
+    var addedByMeItems: [PlaceItem] = []
+    var joiningEventsItems: [JoiningEventsItem] = []
 
     @IBOutlet var addedByMeTableView: UITableView!
-    
     @IBOutlet var placesIJoinTableView: UITableView!
-    
     @IBOutlet var searchPlacesButton: UIBarButtonItem!
-    
     @IBOutlet var signOutButton: UIBarButtonItem!
-    
     @IBOutlet var mapButton: UIBarButtonItem!
     
     @IBAction func signOutButtonTouched(_ sender: Any) {
         do {
-            //            Authenticate user and log out
-//            try Auth.auth().signOut()
+            performSegue(withIdentifier: "loginToMyPlaces", sender: nil)
             let loginManager = FBSDKLoginManager()
             loginManager.logOut()
             dismiss(animated: true, completion: nil)
@@ -46,25 +38,13 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
         } catch {
             print("Could not sign out: \(error)")
         }
-//
-
-//        dismiss(animated: true, completion: nil)
     }
 
     
     @IBAction func searchPlacesButtonTouched(_ sender: Any) {
-        print("IT DOES WORK!!!!!!!!!!!")
-        print("check17: \(facebookID)")
+
+        print("check21: \(facebookID)")
         performSegue(withIdentifier: "myPlacesToPlaces", sender:nil)
-    }
-    
-    
-    @IBAction func autocompleteClicked(_ sender: UISearchController) {
-        print("AutocompleteClicked")
-        let autocompleteController = GMSAutocompleteViewController()
-        autocompleteController.delegate = self as! GMSAutocompleteViewControllerDelegate
-//        button.addTarget(self, action: "btn_move2_touchupinside:forEvent:", forControlEvents: .TouchUpInside)
-        present(autocompleteController, animated: true, completion: nil)
     }
     
     
@@ -73,25 +53,25 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        print("check26: \(self.facebookID)")
+        print("check22: \(self.facebookID)")
         
 
         
         if (segue.identifier == "myPlacesToMap") {
-            print("check40")
+            print("check23")
             let viewController = segue.destination as! MapViewController
             viewController.facebookID = self.facebookID
         }
         
         
         if (segue.identifier == "myPlacesToAddPlace") {
-            print("check42")
+            print("check24")
             let viewController = segue.destination as! AddPlaceViewController
             viewController.facebookID = self.facebookID
         }
         
         if (segue.identifier == "myPlacesToPlaces") {
-            print("check41")
+            print("check25")
             let viewController = segue.destination as! PlacesTableViewController
             viewController.facebookID = self.facebookID
         }
@@ -100,7 +80,11 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        addedByMeTableView.delegate = self
+        placesIJoinTableView.delegate = self
+        addedByMeTableView.dataSource = self
+        placesIJoinTableView.dataSource = self
+
         
         if (FBSDKAccessToken.current() != nil)
         {
@@ -108,23 +92,36 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
         }else {
             print("no user signed in")
         }
-
         
-        let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
-        print("check14: \(credential)")
-        print(facebookID)
+        let userItemRef = userTableRef.child(facebookID)
+        let joiningEventsRef = userItemRef.child("joinsEvents")
+        joiningEventsRef.queryOrdered(byChild: "joinsEvents").observe(.value, with: { snapshot in
+            
+            var joiningEventsItemsNew: [JoiningEventsItem] = []
+            for item in snapshot.children {
+                print("check204: \(item)")
+                let joiningEventsItem = JoiningEventsItem(snapshot: item as! DataSnapshot)
+                joiningEventsItemsNew.append(joiningEventsItem)
+            }
+            
+            self.joiningEventsItems = joiningEventsItemsNew
+            print("check206: \(joiningEventsItemsNew)")
+            print("check205: \(self.joiningEventsItems)")
+            print(self.joiningEventsItems.count)
+            self.placesIJoinTableView.reloadData()
+        })
+        placeTableRef.queryOrdered(byChild: facebookID).queryEqual(toValue: facebookID).observe(.value, with:{
+            snapshot in
+            
+            var addedByMeItemsNew: [PlaceItem] = []
+            for item in snapshot.children {
+                let addedByMeItem = PlaceItem(snapshot: item as! DataSnapshot)
+                addedByMeItemsNew.append(addedByMeItem)
+            }
+            self.addedByMeItems = addedByMeItemsNew
+            self.addedByMeTableView.reloadData()
+        })
         
-//        addedByMeTableView.dataSource = self
-//        addedByMeTableView.delegate = self
-//        placesIJoinTableView.dataSource = self
-//        placesIJoinTableView.delegate = self
-//        let user = Auth.auth().currentUser
-//        if (FBSDKAccessToken.current() != nil)
-//        {
-//            print("check3")
-//            print(FBSDKAccessToken.current().userID)
-//        }
-
     }
 
     override func didReceiveMemoryWarning() {
@@ -134,30 +131,140 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
     
     // MARK: - Table view data source
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableView.tag == 1 || tableView.tag == 2 {
-            return 1
-        } else {
-            return 1
+        if tableView.tag == 1 {
+            print("check207: \(addedByMeItems.count)")
+            return addedByMeItems.count
+        } else if tableView.tag == 2  {
+            print("check208: \(joiningEventsItems.count)")
+            return joiningEventsItems.count
         }
+        return 0
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
+//    func numberOfSections(in tableView: UITableView) -> Int {
+//        return 1
+//    }
+    
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier) as! UITableViewCell
+        print("check209")
+        
+//        var cell = tableView.dequeueReusableCell(withIdentifier: "joiningUsersCell") as! JoiningUsersCell
+        var cell: UITableViewCell
         if tableView.tag == 1 {
-            print("check1")
-//            cell.placeLabel?.text = "place works"
-        } else if tableView.tag == 2 {
-            print("check2")
-//            cell.placeLabel?.text = "place works"
-//            cell.addedByLabel?.text = "addedBy works"
+            print("check28")
+
+            cell = tableView.dequeueReusableCell(withIdentifier: "addedByMeCell") as! AddedByMeCell
+            let addedByMeItem = self.addedByMeItems[indexPath.row]
+            let placeID = addedByMeItem.placeID
+            let placeName = addedByMeItem.placeName
+//            cell.placeLabel.text = placeName
             
+            func loadImageForMetadata(photoMetadata: GMSPlacePhotoMetadata) {
+                GMSPlacesClient.shared().loadPlacePhoto(photoMetadata, callback: {
+                    (photo, error) -> Void in
+                    if let error = error {
+                        // TODO: handle the error.
+                        print("Error: \(error.localizedDescription)")
+                    } else {
+                        print("check47")
+                        print(photo)
+//                        cell.placeImageView.image = photo;
+                        
+                    }
+                })
+            }
+            
+            func loadFirstPhotoForPlace(placeID: String) {
+                GMSPlacesClient.shared().lookUpPhotos(forPlaceID: placeID) { (photos, error) -> Void in
+                    if let error = error {
+                        // TODO: handle the error.
+                        print("Error: \(error.localizedDescription)")
+                    } else {
+                        print("check48")
+                        print(placeID)
+                        if let firstPhoto = photos?.results.first {
+                            print("check49")
+                            loadImageForMetadata(photoMetadata: firstPhoto)
+                        }
+                    }
+                }
+            }
+            
+            loadFirstPhotoForPlace(placeID: placeID)
+
+            return cell
+            
+            
+        } else if tableView.tag == 2 {
+            
+            print("check29")
+            
+            cell = tableView.dequeueReusableCell(withIdentifier: "eventsIJoinCell") as! UITableViewCell
+            print("check213")
+            let joiningEventsItem = self.joiningEventsItems[indexPath.row]
+            let placeID = joiningEventsItem.placeID
+            print("check212: \(placeID)")
+            placeTableRef.queryOrdered(byChild: "placeID").queryEqual(toValue: placeID).observe(.value, with: { snapshot in
+                
+                //            Iterate over items in snapshot
+                self.placeTableRef.queryOrdered(byChild: "placeID").queryEqual(toValue: placeID).observe(.value, with: { snapshot in
+                    
+                    for item in snapshot.children {
+                        
+                        print("check203: \(item)")
+                        
+                        //                Create database instance to get data per place
+                        let placeItem = PlaceItem(snapshot: item as! DataSnapshot)
+                        let placeName = placeItem.placeName
+                        let placeID = placeItem.placeID
+                        let addedByUser = placeItem.facebookID
+//                        cell.placeLabel = placeName
+//                        cell.addedByLabel = addedByUser
+
+                        func loadImageForMetadata(photoMetadata: GMSPlacePhotoMetadata) {
+                            GMSPlacesClient.shared().loadPlacePhoto(photoMetadata, callback: {
+                                (photo, error) -> Void in
+                                if let error = error {
+                                    // TODO: handle the error.
+                                    print("Error: \(error.localizedDescription)")
+                                } else {
+                                    print("check47")
+                                    print(photo)
+//                                    cell.placeImageView.image = photo;
+                                    
+                                }
+                            })
+                        }
+                        
+                        func loadFirstPhotoForPlace(placeID: String) {
+                            GMSPlacesClient.shared().lookUpPhotos(forPlaceID: placeID) { (photos, error) -> Void in
+                                if let error = error {
+                                    // TODO: handle the error.
+                                    print("Error: \(error.localizedDescription)")
+                                } else {
+                                    print("check48")
+                                    print(placeID)
+                                    if let firstPhoto = photos?.results.first {
+                                        print("check49")
+                                        loadImageForMetadata(photoMetadata: firstPhoto)
+                                    }
+                                }
+                            }
+                        }
+                        
+                        loadFirstPhotoForPlace(placeID: placeItem.placeID)
+
+                    }
+                })
+            })
+            return cell
+        } else {
+            print("Doesn't enter a tagged cell")
+            cell = tableView.dequeueReusableCell(withIdentifier: "joiningEventsCell") as! JoiningEventsCell
+            return cell
         }
         
-        return cell
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -166,7 +273,7 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        print("check15:\(facebookID)")
+        print("check20:\(facebookID)")
         self.performSegue(withIdentifier: "myPlacesToAddPlace", sender: nil)
         
     }

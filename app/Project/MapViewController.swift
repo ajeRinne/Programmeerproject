@@ -65,7 +65,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, LocateOnTheMap, 
             
             if let place = place {
                 
-                print("check15")
+                print("check34")
                 print(place)
 
 
@@ -89,13 +89,13 @@ class MapViewController: UIViewController, UISearchBarDelegate, LocateOnTheMap, 
             let camera = GMSCameraPosition.camera(withLatitude: lat, longitude: lon, zoom: 10)
             
             if camera != nil {
-                print("check8")
+                print("check35")
             }
             self.googleMapsView.camera = camera
             
             marker.title = "Address: \(title)"
             marker.map = self.googleMapsView
-            print("check9: \(marker)")
+            print("check36: \(marker)")
             print("calculated lat lon")
         }
         
@@ -106,7 +106,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, LocateOnTheMap, 
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
 //        let marker = GMSMarker()
         let place = marker.title
-        print("Check11: \(place!)")
+        print("Check37: \(place!)")
 
 
         
@@ -145,7 +145,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, LocateOnTheMap, 
             for result in results! {
                 if let result = result as? GMSAutocompletePrediction {
                     self.resultsArray.append(result.attributedFullText.string)
-                    print("check13\(self.resultsArray)")
+                    print("check38\(self.resultsArray)")
                 }
                 
             }
@@ -168,14 +168,14 @@ class MapViewController: UIViewController, UISearchBarDelegate, LocateOnTheMap, 
     override func viewDidLoad() {
         super.viewDidLoad()
         let user = Auth.auth().currentUser
-        print("check13")
+        print("check39")
         pickPlace(lat: lat, lon: lon)
 
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        print("check12")
+        print("check30")
         let lat = 52.370216
         let lon = 4.895168
         let position = CLLocationCoordinate2DMake(lat, lon)

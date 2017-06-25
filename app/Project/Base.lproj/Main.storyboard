@@ -196,7 +196,7 @@
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="sectionIndexBackgroundColor" red="0.72929244270677818" green="0.77776545663183627" blue="0.85503251903553301" alpha="0.20248287671232876" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <prototypes>
-                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="bA0-qB-SSQ" customClass="AddedByMeCell" customModule="Project" customModuleProvider="target">
+                                                    <tableViewCell clipsSubviews="YES" tag="1" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="addedByMeCell" id="bA0-qB-SSQ" customClass="AddedByMeCell" customModule="Project" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bA0-qB-SSQ" id="ATs-pV-NXx" customClass="AddedByMeCell" customModule="Project" customModuleProvider="target">
@@ -231,6 +231,7 @@
                                                             <accessibilityTraits key="traits" button="YES"/>
                                                         </accessibility>
                                                         <connections>
+                                                            <outlet property="placeImageView" destination="nNB-fu-fgq" id="1LE-ne-h0X"/>
                                                             <outlet property="placeLabel" destination="tbu-Ov-JGb" id="lTI-gh-Qv9"/>
                                                         </connections>
                                                     </tableViewCell>
@@ -266,7 +267,7 @@
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="sectionIndexBackgroundColor" red="0.016653390601277351" green="0.0012010012287646532" blue="0.00056467531248927116" alpha="0.2496974032" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <prototypes>
-                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="eQK-QL-58d" customClass="EventsIJoinCell" customModule="Project" customModuleProvider="target">
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="eventsIJoinCell" id="eQK-QL-58d" customClass="EventsIJoinCell" customModule="Project" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eQK-QL-58d" id="g2e-Jz-6hf">
@@ -311,8 +312,9 @@
                                                             <accessibilityTraits key="traits" button="YES"/>
                                                         </accessibility>
                                                         <connections>
-                                                            <outlet property="addedByLabel" destination="Glr-71-40t" id="8kW-mS-M8R"/>
-                                                            <outlet property="placeLabel" destination="wC7-Gh-4mn" id="acW-0g-Ram"/>
+                                                            <outlet property="addedByLabel" destination="Glr-71-40t" id="85F-LE-xNH"/>
+                                                            <outlet property="placeImageView" destination="Ib0-EA-UG9" id="Jvs-ta-KHL"/>
+                                                            <outlet property="placeLabel" destination="wC7-Gh-4mn" id="lj1-tu-B8a"/>
                                                         </connections>
                                                     </tableViewCell>
                                                 </prototypes>
@@ -487,14 +489,14 @@
                                                 <rect key="frame" x="0.0" y="299.66666666666669" width="414" height="57"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XfY-3g-Hso">
-                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="36.666666666666629"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="57"/>
                                                         <color key="backgroundColor" white="1" alpha="0.60000002379999995" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="New Event" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4LR-Ju-7OW">
-                                                        <rect key="frame" x="0.0" y="36.666666666666629" width="414" height="20.333333333333371"/>
+                                                        <rect key="frame" x="0.0" y="57" width="414" height="0.0"/>
                                                         <color key="backgroundColor" white="1" alpha="0.60000002379999995" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
@@ -673,14 +675,14 @@
                                                 <rect key="frame" x="0.0" y="148.33333333333331" width="414" height="183.66666666666669"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <prototypes>
-                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="dpk-Ra-0LT" customClass="JoiningUsersCell" customModule="Project" customModuleProvider="target">
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="joiningUsersCell" id="dpk-Ra-0LT" customClass="JoiningUsersCell" customModule="Project" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dpk-Ra-0LT" id="e9t-oA-2gT">
                                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
-                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="group" translatesAutoresizingMaskIntoConstraints="NO" id="Vzn-mr-NEv">
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="group" translatesAutoresizingMaskIntoConstraints="NO" id="Vzn-mr-NEv">
                                                                     <rect key="frame" x="0.0" y="0.0" width="66" height="43"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="66" id="tpD-kV-vLj"/>
@@ -776,7 +778,7 @@
                         <outlet property="addedByLabel" destination="lfE-GF-hA9" id="sC9-gn-5fG"/>
                         <outlet property="descriptionTextView" destination="EtI-PX-Uhm" id="cvy-ef-xqg"/>
                         <outlet property="homeButton" destination="YOW-Jj-3Oa" id="Cka-8d-ubQ"/>
-                        <outlet property="joiningUsersTableView" destination="kbj-oi-zsj" id="0Ew-ok-xrR"/>
+                        <outlet property="joiningUsersTableView" destination="kbj-oi-zsj" id="wlT-0b-ps4"/>
                         <outlet property="placeImageView" destination="n5s-rh-peh" id="Pcx-DF-QNO"/>
                         <outlet property="placeNameLabel" destination="0vy-rf-tmk" id="FBx-EG-g9j"/>
                         <outlet property="signOutButton" destination="zpt-71-auO" id="yMB-w7-TGw"/>
@@ -810,7 +812,7 @@
         <image name="group" width="744" height="496"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="DIA-af-HZD"/>
         <segue reference="fA3-st-7ta"/>
+        <segue reference="DIA-af-HZD"/>
     </inferredMetricsTieBreakers>
 </document>

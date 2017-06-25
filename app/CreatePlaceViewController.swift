@@ -23,21 +23,13 @@ class CreatePlaceViewController: UIViewController {
     
     
     @IBOutlet var placeImageView: UIImageView!
-    
     @IBOutlet var placeNameLabel: UILabel!
-    
     @IBOutlet var addEventNameTextField: Textfield!
-
     @IBOutlet var addTimeTextField: Textfield!
-    
     @IBOutlet var addDescriptionTextView: TextView!
-    
     @IBOutlet var createPlaceButton: UIBarButtonItem!
-    
     @IBOutlet var signOutButton: UIBarButtonItem!
-    
     @IBOutlet var addButton: UIView!
-    
     @IBAction func signOutButtonTouched(_ sender: Any) {
         do {
             //            Authenticate user and log out
@@ -54,17 +46,23 @@ class CreatePlaceViewController: UIViewController {
 
     @IBAction func addButtonTouched(_ sender: Any) {
         
-        print("check22")
+        print("check50")
         let placeItem = PlaceItem(placeID: self.placeID, facebookID: self.facebookID, placeName: self.placeName, eventName: addEventNameTextField.text!, placeTime: addTimeTextField.text!, placeDescription: addDescriptionTextView.text!)
-        print("check23")
+        print("check501")
         print(placeItem)
         
         //              Create a reference to the database for the place
         let placeItemRef = placeTableRef.child(placeID)
         placeItemRef.setValue(placeItem.toAnyObject())
+        
+        userTableRef.child("\(facebookID)/joinsEvents/\(placeID)").setValue(["placeID": placeID])
+        
+        placeTableRef.child("\(placeID)/joiningUsers/\(facebookID)").setValue(["facebookID": facebookID])
+        
         self.performSegue(withIdentifier: "createPlaceToMyPlaces", sender: nil)
         
-        print("check24")
+
+        print("check503")
 //        print(placeItemRef)
     
         
@@ -79,7 +77,7 @@ class CreatePlaceViewController: UIViewController {
                 // TODO: handle the error.
                 print("Error: \(error.localizedDescription)")
             } else {
-                print("check17")
+                print("check503")
                 print(photo)
                 self.placeImageView.image = photo;
                 
@@ -93,11 +91,11 @@ class CreatePlaceViewController: UIViewController {
                 // TODO: handle the error.
                 print("Error: \(error.localizedDescription)")
             } else {
-                print("check18")
+                print("check56")
                 print(placeID)
                 print(self.placeName)
                 if let firstPhoto = photos?.results.first {
-                    print("check19")
+                    print("check57")
                     self.loadImageForMetadata(photoMetadata: firstPhoto)
                 }
             }
@@ -106,7 +104,7 @@ class CreatePlaceViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        print("check41")
+        print("check68")
         //        _ = sender as! UITableViewCell
         if (segue.identifier == "createPlaceToMyPlaces") {
             let viewController = segue.destination as! MyPlacesViewController
@@ -120,7 +118,7 @@ class CreatePlaceViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("check52")
+        print("check59")
         print(facebookID)
         print(placeID)
         print(placeName)

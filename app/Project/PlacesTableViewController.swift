@@ -14,23 +14,21 @@ import GooglePlaces
 
 class PlacesTableViewController: UITableViewController {
     
-    var facebookID: String = ""
-    var placeID: String = ""
-    var placeName: String = ""
     
     let placeTableRef = Database.database().reference(withPath: "placesTable")
     let userTableRef = Database.database().reference(withPath: "usersTable")
     
+    var facebookID: String = ""
+    var placeID: String = ""
+    var placeName: String = ""
     var items: [PlaceItem] = []
-    
-
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        print("check31")
+        print("check41")
         if (segue.identifier == "placesToAddPlace") {
             let viewController = segue.destination as! AddPlaceViewController
-            print("check32")
+            print("check42")
             print(facebookID)
             print(placeID)
             print(self.placeName)
@@ -58,17 +56,10 @@ class PlacesTableViewController: UITableViewController {
                     if let responseDictionary = graphResponse.dictionaryValue {
                         print(responseDictionary)
                         self.facebookID = (responseDictionary["id"]!) as! String
-                        print("check10:\(self.facebookID)")
+                        print("check43:\(self.facebookID)")
                     }
                 }
             }
-        }
-        
-        print("check24: \(self.facebookID)")
-        //        Authenticate user and check for changes in login status
-        
-        if (FBSDKAccessToken.current() != nil)
-        {
             print("user signed in")
         }else {
             print("no user signed in")
@@ -76,16 +67,16 @@ class PlacesTableViewController: UITableViewController {
 
         
         //        Get places table
-        placeTableRef.observe(.value, with: { snapshot in
-            print(snapshot.value!)
-        })
+//        placeTableRef.observe(.value, with: { snapshot in
+//            print(snapshot.value!)
+//        })
         
         //          Guery database by places
         placeTableRef.queryOrdered(byChild: "placeName").observe(.value, with: { snapshot in
             
             //            Create temporary array to store data
             var newItems: [PlaceItem] = []
-            print("check25:\(newItems)")
+            print("check45:\(newItems)")
             
             //            Iterate over items in snapshot
             for item in snapshot.children {
@@ -95,7 +86,7 @@ class PlacesTableViewController: UITableViewController {
                 
                 //                Append data of single place to array
                 newItems.append(placeItem)
-                print("check26: \(placeItem.placeName)")
+                print("check46: \(placeItem.placeName)")
             }
             
             //            Copy temporary array in array
@@ -126,7 +117,7 @@ class PlacesTableViewController: UITableViewController {
                     // TODO: handle the error.
                     print("Error: \(error.localizedDescription)")
                 } else {
-                    print("check17")
+                    print("check47")
                     print(photo)
                     cell.placePictureView.image = photo;
                     
@@ -140,10 +131,10 @@ class PlacesTableViewController: UITableViewController {
                     // TODO: handle the error.
                     print("Error: \(error.localizedDescription)")
                 } else {
-                    print("check18")
+                    print("check48")
                     print(placeID)
                     if let firstPhoto = photos?.results.first {
-                        print("check19")
+                        print("check49")
                         loadImageForMetadata(photoMetadata: firstPhoto)
                     }
                 }
@@ -161,12 +152,12 @@ class PlacesTableViewController: UITableViewController {
         userTableRef.queryOrdered(byChild: "facebookID").queryEqual(toValue: facebookID).observe(.value, with: { snapshot in
 
               print(snapshot.value!)
-            print("check27")
+            print("check40")
             for item in snapshot.children {
                 
                 //                Create database instance to get data per place
                 let userItem = UserItem(snapshot: item as! DataSnapshot)
-                print("check28: \(userItem)")
+                print("check401: \(userItem)")
                 let name = userItem.name
                 cell.addedByTextField.text = name
                 
@@ -187,7 +178,7 @@ class PlacesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("check33")
+        print("check402")
         print(indexPath.row)
         let placeItem = items[indexPath.row]
         let placeItemID = placeItem.placeID

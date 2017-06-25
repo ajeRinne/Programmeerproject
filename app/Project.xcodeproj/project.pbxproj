@@ -11,12 +11,14 @@
 		FA0CB3531EF6AAF2004FD9B2 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0CB3521EF6AAF2004FD9B2 /* MapViewController.swift */; };
 		FA0CB3551EF6B8F3004FD9B2 /* SearchResultController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0CB3541EF6B8F3004FD9B2 /* SearchResultController.swift */; };
 		FA2082BB1EF0256500EF514A /* Facebook.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2082BA1EF0256500EF514A /* Facebook.swift */; };
-		FA2082CA1EF171A400EF514A /* JoiningUserItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2082C91EF171A400EF514A /* JoiningUserItem.swift */; };
 		FA2082CE1EF2F63800EF514A /* PlaceItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2082CD1EF2F63800EF514A /* PlaceItem.swift */; };
 		FA2082D21EF2FCD300EF514A /* UserItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2082D11EF2FCD300EF514A /* UserItem.swift */; };
+		FA33709B1EFFC83F00AAA970 /* EventsIJoinCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA33709A1EFFC83F00AAA970 /* EventsIJoinCell.swift */; };
+		FA37AACC1EFED29200605BE4 /* JoiningEventsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA37AACB1EFED29200605BE4 /* JoiningEventsCell.swift */; };
+		FA37AACE1EFED34800605BE4 /* JoiningUsersItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA37AACD1EFED34800605BE4 /* JoiningUsersItem.swift */; };
+		FA37AAD01EFED36E00605BE4 /* JoiningEventsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA37AACF1EFED36E00605BE4 /* JoiningEventsItem.swift */; };
 		FA39B3281EE9F7760087058F /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA39B3271EE9F7760087058F /* TextView.swift */; };
 		FA85FC9F1EE98DC700D2908D /* AddedByMeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA85FC9E1EE98DC700D2908D /* AddedByMeCell.swift */; };
-		FA85FCA11EE98DFB00D2908D /* EventsIJoinCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA85FCA01EE98DFB00D2908D /* EventsIJoinCell.swift */; };
 		FA85FCA31EE990D300D2908D /* PlacesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA85FCA21EE990D300D2908D /* PlacesTableViewController.swift */; };
 		FA85FCA51EE9910900D2908D /* MyPlacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA85FCA41EE9910900D2908D /* MyPlacesViewController.swift */; };
 		FA85FCA71EE9915B00D2908D /* PlacesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA85FCA61EE9915B00D2908D /* PlacesCell.swift */; };
@@ -42,12 +44,14 @@
 		FA0CB3541EF6B8F3004FD9B2 /* SearchResultController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchResultController.swift; path = ../SearchResultController.swift; sourceTree = "<group>"; };
 		FA2082B91EF01C8000EF514A /* Project.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Project.entitlements; path = Project/Project.entitlements; sourceTree = "<group>"; };
 		FA2082BA1EF0256500EF514A /* Facebook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Facebook.swift; path = Classes/Facebook.swift; sourceTree = "<group>"; };
-		FA2082C91EF171A400EF514A /* JoiningUserItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JoiningUserItem.swift; path = Classes/JoiningUserItem.swift; sourceTree = "<group>"; };
 		FA2082CD1EF2F63800EF514A /* PlaceItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlaceItem.swift; path = ../PlaceItem.swift; sourceTree = "<group>"; };
 		FA2082D11EF2FCD300EF514A /* UserItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserItem.swift; sourceTree = "<group>"; };
+		FA33709A1EFFC83F00AAA970 /* EventsIJoinCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventsIJoinCell.swift; path = Classes/EventsIJoinCell.swift; sourceTree = "<group>"; };
+		FA37AACB1EFED29200605BE4 /* JoiningEventsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JoiningEventsCell.swift; path = Classes/JoiningEventsCell.swift; sourceTree = "<group>"; };
+		FA37AACD1EFED34800605BE4 /* JoiningUsersItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JoiningUsersItem.swift; path = Classes/JoiningUsersItem.swift; sourceTree = "<group>"; };
+		FA37AACF1EFED36E00605BE4 /* JoiningEventsItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoiningEventsItem.swift; sourceTree = "<group>"; };
 		FA39B3271EE9F7760087058F /* TextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextView.swift; path = Classes/TextView.swift; sourceTree = "<group>"; };
 		FA85FC9E1EE98DC700D2908D /* AddedByMeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddedByMeCell.swift; path = Classes/AddedByMeCell.swift; sourceTree = "<group>"; };
-		FA85FCA01EE98DFB00D2908D /* EventsIJoinCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventsIJoinCell.swift; path = Classes/EventsIJoinCell.swift; sourceTree = "<group>"; };
 		FA85FCA21EE990D300D2908D /* PlacesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacesTableViewController.swift; sourceTree = "<group>"; };
 		FA85FCA41EE9910900D2908D /* MyPlacesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPlacesViewController.swift; sourceTree = "<group>"; };
 		FA85FCA61EE9915B00D2908D /* PlacesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlacesCell.swift; path = Classes/PlacesCell.swift; sourceTree = "<group>"; };
@@ -109,9 +113,10 @@
 			isa = PBXGroup;
 			children = (
 				FA85FC9E1EE98DC700D2908D /* AddedByMeCell.swift */,
-				FA85FCA01EE98DFB00D2908D /* EventsIJoinCell.swift */,
+				FA37AACB1EFED29200605BE4 /* JoiningEventsCell.swift */,
 				FA85FCA61EE9915B00D2908D /* PlacesCell.swift */,
 				FA85FCAC1EE9D65100D2908D /* JoiningUsersCell.swift */,
+				FA33709A1EFFC83F00AAA970 /* EventsIJoinCell.swift */,
 			);
 			name = TableViewCell;
 			sourceTree = "<group>";
@@ -190,7 +195,8 @@
 				FA2082BA1EF0256500EF514A /* Facebook.swift */,
 				FA2082D11EF2FCD300EF514A /* UserItem.swift */,
 				FA2082CD1EF2F63800EF514A /* PlaceItem.swift */,
-				FA2082C91EF171A400EF514A /* JoiningUserItem.swift */,
+				FA37AACD1EFED34800605BE4 /* JoiningUsersItem.swift */,
+				FA37AACF1EFED36E00605BE4 /* JoiningEventsItem.swift */,
 			);
 			name = Structs;
 			sourceTree = "<group>";
@@ -328,23 +334,25 @@
 				FAE2FF8D1EE6FCCC0030778D /* LogInViewController.swift in Sources */,
 				FA2082D21EF2FCD300EF514A /* UserItem.swift in Sources */,
 				FA85FCA91EE991A800D2908D /* AddPlaceViewController.swift in Sources */,
+				FA37AACC1EFED29200605BE4 /* JoiningEventsCell.swift in Sources */,
 				FA85FCA31EE990D300D2908D /* PlacesTableViewController.swift in Sources */,
 				FA0CB3551EF6B8F3004FD9B2 /* SearchResultController.swift in Sources */,
 				FA39B3281EE9F7760087058F /* TextView.swift in Sources */,
 				FA85FCAD1EE9D65100D2908D /* JoiningUsersCell.swift in Sources */,
 				FA85FCA51EE9910900D2908D /* MyPlacesViewController.swift in Sources */,
 				FA0CB3531EF6AAF2004FD9B2 /* MapViewController.swift in Sources */,
+				FA33709B1EFFC83F00AAA970 /* EventsIJoinCell.swift in Sources */,
 				FAE2FF9F1EE94ED50030778D /* Button.swift in Sources */,
 				FA2082CE1EF2F63800EF514A /* PlaceItem.swift in Sources */,
 				FA2082BB1EF0256500EF514A /* Facebook.swift in Sources */,
 				FA9002C91EE96DAB003984BB /* NavigationBar.swift in Sources */,
 				FA85FCAB1EE9930000D2908D /* CreatePlaceViewController.swift in Sources */,
+				FA37AACE1EFED34800605BE4 /* JoiningUsersItem.swift in Sources */,
 				FA85FCA71EE9915B00D2908D /* PlacesCell.swift in Sources */,
+				FA37AAD01EFED36E00605BE4 /* JoiningEventsItem.swift in Sources */,
 				FA85FC9F1EE98DC700D2908D /* AddedByMeCell.swift in Sources */,
-				FA2082CA1EF171A400EF514A /* JoiningUserItem.swift in Sources */,
 				FAE2FF8B1EE6FCCC0030778D /* AppDelegate.swift in Sources */,
 				FAE2FFA21EE951240030778D /* Textfield.swift in Sources */,
-				FA85FCA11EE98DFB00D2908D /* EventsIJoinCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
