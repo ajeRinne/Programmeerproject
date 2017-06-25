@@ -9,6 +9,8 @@
 import UIKit
 import Firebase
 import FBSDKLoginKit
+import FacebookLogin
+import FacebookCore
 import GooglePlaces
 
 class CreatePlaceViewController: UIViewController {

@@ -71,6 +71,7 @@ class AddPlaceViewController: UIViewController, UITableViewDelegate, UITableView
                 print("check66")
                 print(photo)
                 self.placeImageView.image = photo;
+//                print("check602: \(photo.type)")
 //                print(self.placeName)
 //                print(self.placeID)
 //                self.placeNameLabel.text = self.placeName
@@ -224,6 +225,8 @@ class AddPlaceViewController: UIViewController, UITableViewDelegate, UITableView
                         print("Download Finished")
                         DispatchQueue.main.async() { () -> Void in
                             cell.userImageView.image = UIImage(data: data)
+                            var image = UIImage(data: data)
+//                            print("check601: \(image.type)")
                         }
                     }
                 }
