@@ -18,6 +18,7 @@
 		FA37AACE1EFED34800605BE4 /* JoiningUsersItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA37AACD1EFED34800605BE4 /* JoiningUsersItem.swift */; };
 		FA37AAD01EFED36E00605BE4 /* JoiningEventsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA37AACF1EFED36E00605BE4 /* JoiningEventsItem.swift */; };
 		FA39B3281EE9F7760087058F /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA39B3271EE9F7760087058F /* TextView.swift */; };
+		FA6FC7F61F001CD1008B4474 /* DownloadPicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6FC7F51F001CD1008B4474 /* DownloadPicture.swift */; };
 		FA85FC9F1EE98DC700D2908D /* AddedByMeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA85FC9E1EE98DC700D2908D /* AddedByMeCell.swift */; };
 		FA85FCA31EE990D300D2908D /* PlacesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA85FCA21EE990D300D2908D /* PlacesTableViewController.swift */; };
 		FA85FCA51EE9910900D2908D /* MyPlacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA85FCA41EE9910900D2908D /* MyPlacesViewController.swift */; };
@@ -51,6 +52,7 @@
 		FA37AACD1EFED34800605BE4 /* JoiningUsersItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JoiningUsersItem.swift; path = Classes/JoiningUsersItem.swift; sourceTree = "<group>"; };
 		FA37AACF1EFED36E00605BE4 /* JoiningEventsItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoiningEventsItem.swift; sourceTree = "<group>"; };
 		FA39B3271EE9F7760087058F /* TextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextView.swift; path = Classes/TextView.swift; sourceTree = "<group>"; };
+		FA6FC7F51F001CD1008B4474 /* DownloadPicture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadPicture.swift; sourceTree = "<group>"; };
 		FA85FC9E1EE98DC700D2908D /* AddedByMeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddedByMeCell.swift; path = Classes/AddedByMeCell.swift; sourceTree = "<group>"; };
 		FA85FCA21EE990D300D2908D /* PlacesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacesTableViewController.swift; sourceTree = "<group>"; };
 		FA85FCA41EE9910900D2908D /* MyPlacesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPlacesViewController.swift; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				FA2082BA1EF0256500EF514A /* Facebook.swift */,
+				FA6FC7F51F001CD1008B4474 /* DownloadPicture.swift */,
 				FA2082D11EF2FCD300EF514A /* UserItem.swift */,
 				FA2082CD1EF2F63800EF514A /* PlaceItem.swift */,
 				FA37AACD1EFED34800605BE4 /* JoiningUsersItem.swift */,
@@ -332,6 +335,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FAE2FF8D1EE6FCCC0030778D /* LogInViewController.swift in Sources */,
+				FA6FC7F61F001CD1008B4474 /* DownloadPicture.swift in Sources */,
 				FA2082D21EF2FCD300EF514A /* UserItem.swift in Sources */,
 				FA85FCA91EE991A800D2908D /* AddPlaceViewController.swift in Sources */,
 				FA37AACC1EFED29200605BE4 /* JoiningEventsCell.swift in Sources */,

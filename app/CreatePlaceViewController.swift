@@ -123,13 +123,30 @@ class CreatePlaceViewController: UIViewController {
         print(placeID)
         print(placeName)
         
-        
-        if (FBSDKAccessToken.current() != nil)
-        {
-            print("user signed in")
-        }else {
-            print("no user signed in")
-        }
+//        if FBSDKAccessToken.current() != nil {
+//            print("user: \(FBSDKAccessToken.current()!) signed in")
+//            let params = ["fields" : "id, name"]
+//            let graphRequest = FBSDKGraphRequest(graphPath: "me", parameters: params)
+//            graphRequest.start {
+//                (urlResponse, requestResult) in
+//                
+//                switch requestResult {
+//                case .failed(let error):
+//                    print("error in graph request:", error)
+//                    break
+//                case .success(let graphResponse):
+//                    if let responseDictionary = graphResponse.dictionaryValue {
+//                        print(responseDictionary)
+//                        print("check16")
+//                        self.name = (responseDictionary["name"]!) as! String
+//                        self.facebookID = (responseDictionary["id"]!) as! String
+//                        print("check17")
+//                        print(self.facebookID)
+//                        self.performSegue(withIdentifier: "loginToMyPlaces", sender: nil)
+//                    }
+//                }
+//            }
+//        }
 
         let user = Auth.auth().currentUser
         loadFirstPhotoForPlace(placeID: placeID)
@@ -146,17 +163,5 @@ class CreatePlaceViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

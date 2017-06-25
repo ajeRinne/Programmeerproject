@@ -9,8 +9,10 @@
 import UIKit
 import Firebase
 import FBSDKLoginKit
+import FacebookLogin
+import FacebookCore
 import GooglePlaces
-// api key: AIzaSyDCedmeFG_2z2W3u2sohX13judBZ90Y_xI
+
 
 class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -30,7 +32,6 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBAction func signOutButtonTouched(_ sender: Any) {
         do {
-            performSegue(withIdentifier: "loginToMyPlaces", sender: nil)
             let loginManager = FBSDKLoginManager()
             loginManager.logOut()
             dismiss(animated: true, completion: nil)
@@ -68,6 +69,7 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
             print("check24")
             let viewController = segue.destination as! AddPlaceViewController
             viewController.facebookID = self.facebookID
+            viewController.alreadyJoined = true
         }
         
         if (segue.identifier == "myPlacesToPlaces") {
@@ -86,17 +88,35 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
         placesIJoinTableView.dataSource = self
 
         
-        if (FBSDKAccessToken.current() != nil)
-        {
+        if (FBSDKAccessToken.current() != nil) {
+            let params = ["fields" : "id, name"]
+            let graphRequest = GraphRequest(graphPath: "me", parameters: params)
+            graphRequest.start {
+                (urlResponse, requestResult) in
+                
+                switch requestResult {
+                case .failed(let error):
+                    print("error in graph request:", error)
+                    return
+                case .success(let graphResponse):
+                    if let responseDictionary = graphResponse.dictionaryValue {
+                        print(responseDictionary)
+                        self.facebookID = (responseDictionary["id"]!) as! String
+                        print("check223:\(self.facebookID)")
+                    }
+                }
+            }
             print("user signed in")
-        }else {
+        } else {
             print("no user signed in")
         }
         
+        
+        print("check205: \(facebookID)")
         let userItemRef = userTableRef.child(facebookID)
         let joiningEventsRef = userItemRef.child("joinsEvents")
         joiningEventsRef.queryOrdered(byChild: "joinsEvents").observe(.value, with: { snapshot in
-            
+            print("check215: \(snapshot)")
             var joiningEventsItemsNew: [JoiningEventsItem] = []
             for item in snapshot.children {
                 print("check204: \(item)")
@@ -110,16 +130,19 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
             print(self.joiningEventsItems.count)
             self.placesIJoinTableView.reloadData()
         })
+        
         placeTableRef.queryOrdered(byChild: facebookID).queryEqual(toValue: facebookID).observe(.value, with:{
             snapshot in
-            
+            print("check214: \(snapshot)")
             var addedByMeItemsNew: [PlaceItem] = []
             for item in snapshot.children {
+                
+                print("check211: \(item)")
                 let addedByMeItem = PlaceItem(snapshot: item as! DataSnapshot)
                 addedByMeItemsNew.append(addedByMeItem)
             }
             self.addedByMeItems = addedByMeItemsNew
-            self.addedByMeTableView.reloadData()
+           self.addedByMeTableView.reloadData()
         })
         
     }
@@ -141,9 +164,9 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
         return 0
     }
     
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        return 1
-//    }
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
     
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -281,12 +304,17 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
-//            Add delete option for items
-//            items.remove(at: indexPath.row)
-            tableView.reloadData()
+            if tableView.tag == 1 {
+                print("check207")
+                let addedByMeItem = addedByMeItems[indexPath.row]
+//                addedByMeItem.ref?.removeValue()
+
+            } else if tableView.tag == 2  {
+                print("check208")
+
+            }
         }
     }
-        
     
 }
 

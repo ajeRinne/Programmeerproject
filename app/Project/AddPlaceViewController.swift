@@ -21,6 +21,7 @@ class AddPlaceViewController: UIViewController, UITableViewDelegate, UITableView
     var placeID: String = ""
     var placeName: String = ""
     var items: [JoiningUserItem] = []
+    var alreadyJoined: Bool = false
     
     @IBOutlet var addPlaceButton: UIBarButtonItem!
     @IBOutlet var joiningUsersTableView: UITableView!
@@ -113,15 +114,18 @@ class AddPlaceViewController: UIViewController, UITableViewDelegate, UITableView
                     if let responseDictionary = graphResponse.dictionaryValue {
                         print(responseDictionary)
                         self.facebookID = (responseDictionary["id"]!) as! String
-                        print("check61:\(self.facebookID)")
+                        print("check555:\(self.facebookID)")
                     }
                 }
             }
             print("user signed in")
-        }else {
+        } else {
             print("no user signed in")
         }
-
+        
+        if alreadyJoined == true {
+            self.navigationItem.rightBarButtonItem = nil
+        }
 
         self.placeNameLabel.text = self.placeName
         

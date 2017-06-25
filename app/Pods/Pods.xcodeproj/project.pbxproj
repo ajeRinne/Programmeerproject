@@ -457,6 +457,7 @@
 		F9880D07B670B9B26DC4B451E16CEF96 /* FBSDKAccessTokenCacheV3.h in Headers */ = {isa = PBXBuildFile; fileRef = 937012EFD5DE53086B770205658150BB /* FBSDKAccessTokenCacheV3.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		F9BB229C7DE7F2E615DE757CDD869235 /* _FBSDKTemporaryErrorRecoveryAttempter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FA02B9940853CB03E98C53662B1B9 /* _FBSDKTemporaryErrorRecoveryAttempter.m */; };
 		FA214BA14B96A14136273DA313C77E73 /* FBSDKErrorRecoveryConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 1643B1A97F9F32C0D6241B9D39FB1F77 /* FBSDKErrorRecoveryConfiguration.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		FA6FC7F41F001951008B4474 /* DownloadPicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6FC7F31F001950008B4474 /* DownloadPicture.swift */; };
 		FA76475EE5F044D6AAB7FE7B925268DF /* BFURL.h in Headers */ = {isa = PBXBuildFile; fileRef = 06F2194089F18FF846D07C415BE5C86F /* BFURL.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FB932F830649CA0641B17A9CEA9FBA9C /* FBSDKGraphRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = B9ADED48DF379D2C9067B90A7FF3DDD3 /* FBSDKGraphRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FB9CF2E378714596DF08FD5AB29BB6F1 /* FBSDKBridgeAPIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 269552B9E9E79CDB09C6AA6E427D6DF0 /* FBSDKBridgeAPIRequest.m */; };
@@ -1147,6 +1148,7 @@
 		F8DA5A4D9D4C3D29D90E57689D98EBA8 /* FBSDKShareOpenGraphValueContainer+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "FBSDKShareOpenGraphValueContainer+Internal.h"; path = "FBSDKShareKit/FBSDKShareKit/Internal/FBSDKShareOpenGraphValueContainer+Internal.h"; sourceTree = "<group>"; };
 		F931C63E2B5FF5CCE50EF56BC1BB6D4C /* GTMNSString+URLArguments.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "GTMNSString+URLArguments.m"; path = "Foundation/GTMNSString+URLArguments.m"; sourceTree = "<group>"; };
 		FA2C04BE9BE52F10F09524DC0D7EEB93 /* FBSDKGameRequestFrictionlessRecipientCache.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSDKGameRequestFrictionlessRecipientCache.m; path = FBSDKShareKit/FBSDKShareKit/Internal/FBSDKGameRequestFrictionlessRecipientCache.m; sourceTree = "<group>"; };
+		FA6FC7F31F001950008B4474 /* DownloadPicture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadPicture.swift; sourceTree = "<group>"; };
 		FAAAB4B4E75D224333E004C42F76F651 /* UserProfile.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UserProfile.swift; path = Sources/Core/UserProfile/UserProfile.swift; sourceTree = "<group>"; };
 		FADDE98F3E1A5F9B016C3AA5113D3BB8 /* FBSDKError.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSDKError.m; path = FBSDKCoreKit/FBSDKCoreKit/Internal/FBSDKError.m; sourceTree = "<group>"; };
 		FB813ED16CEFE653FDA8CAE3CCE0226C /* FBSDKCoreKit.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = FBSDKCoreKit.modulemap; sourceTree = "<group>"; };
@@ -1734,6 +1736,7 @@
 		7DB346D0F39D3F0E887471402A8071AB = {
 			isa = PBXGroup;
 			children = (
+				FA6FC7F31F001950008B4474 /* DownloadPicture.swift */,
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
 				FBBC1F454CC6743B105AB26193BB63D3 /* Frameworks */,
 				32C586E060C58C732F5F3A10E33BBA18 /* Pods */,
@@ -2995,6 +2998,7 @@
 				A5098DA5D31C4C0C42F3AA75C49219F1 /* BFAppLinkReturnToRefererView.m in Sources */,
 				B6CF73E710F5A135F4FBED41AA5B5ADD /* BFAppLinkTarget.m in Sources */,
 				E01CA22744FB7F69CF328791EC8E795F /* BFCancellationToken.m in Sources */,
+				FA6FC7F41F001951008B4474 /* DownloadPicture.swift in Sources */,
 				03674AF1F02ABBDF3871B6D5116CC362 /* BFCancellationTokenRegistration.m in Sources */,
 				4ECECEB5C372BB91D3A66BFD432AD598 /* BFCancellationTokenSource.m in Sources */,
 				AF574F9900C07227D36AF4129E31953F /* BFExecutor.m in Sources */,
