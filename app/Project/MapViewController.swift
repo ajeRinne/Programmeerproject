@@ -58,7 +58,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, LocateOnTheMap, 
         let viewport = GMSCoordinateBounds(coordinate: northEast, coordinate: southWest)
         let config = GMSPlacePickerConfig(viewport: viewport)
         let placePicker = GMSPlacePicker(config: config)
-//        print("check14\(place)")
+
         placePicker.pickPlace(callback: {(place, error) -> Void in
             if let error = error {
                 print("Pick Place error: \(error.localizedDescription)")
@@ -111,24 +111,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, LocateOnTheMap, 
         print("Check37: \(place!)")
 
 
-        
-//        let placeID = "ChIJV4k8_9UodTERU5KXbkYpSYs"
-//        
-//        placesClient!.lookUpPlaceID(placeID, callback: { (place: GMSPlace?, error: NSError?) -> Void in
-//            if let error = error {
-//                print("lookup place id query error: \(error.localizedDescription)")
-//                return
-//            }
-//            
-//            if let place = place {
-//                print("Place name \(place.name)")
-//                print("Place address \(place.formattedAddress)")
-//                print("Place placeID \(place.placeID)")
-//                print("Place attributions \(place.attributions)")
-//            } else {
-//                print("No place details for \(placeID)")
-//            }
-//        })
+
         return true
     }
 

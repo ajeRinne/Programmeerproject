@@ -65,54 +65,17 @@ class CreatePlaceViewController: UIViewController {
         
 
         print("check503")
-//        print(placeItemRef)
-    
         
-    }
-    
-   
-    
-    func loadImageForMetadata(photoMetadata: GMSPlacePhotoMetadata) {
-        GMSPlacesClient.shared().loadPlacePhoto(photoMetadata, callback: {
-            (photo, error) -> Void in
-            if let error = error {
-                // TODO: handle the error.
-                print("Error: \(error.localizedDescription)")
-            } else {
-                print("check503")
-                print(photo)
-                self.placeImageView.image = photo;
-                
-            }
-        })
-    }
-    
-    func loadFirstPhotoForPlace(placeID: String) {
-        GMSPlacesClient.shared().lookUpPhotos(forPlaceID: placeID) { (photos, error) -> Void in
-            if let error = error {
-                // TODO: handle the error.
-                print("Error: \(error.localizedDescription)")
-            } else {
-                print("check56")
-                print(placeID)
-                print(self.placeName)
-                if let firstPhoto = photos?.results.first {
-                    print("check57")
-                    self.loadImageForMetadata(photoMetadata: firstPhoto)
-                }
-            }
-        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         print("check68")
-        //        _ = sender as! UITableViewCell
+
         if (segue.identifier == "createPlaceToMyPlaces") {
             let viewController = segue.destination as! MyPlacesViewController
 
             viewController.facebookID = self.facebookID
-            
         }
         
     }
@@ -125,33 +88,8 @@ class CreatePlaceViewController: UIViewController {
         print(placeID)
         print(placeName)
         
-//        if FBSDKAccessToken.current() != nil {
-//            print("user: \(FBSDKAccessToken.current()!) signed in")
-//            let params = ["fields" : "id, name"]
-//            let graphRequest = FBSDKGraphRequest(graphPath: "me", parameters: params)
-//            graphRequest.start {
-//                (urlResponse, requestResult) in
-//                
-//                switch requestResult {
-//                case .failed(let error):
-//                    print("error in graph request:", error)
-//                    break
-//                case .success(let graphResponse):
-//                    if let responseDictionary = graphResponse.dictionaryValue {
-//                        print(responseDictionary)
-//                        print("check16")
-//                        self.name = (responseDictionary["name"]!) as! String
-//                        self.facebookID = (responseDictionary["id"]!) as! String
-//                        print("check17")
-//                        print(self.facebookID)
-//                        self.performSegue(withIdentifier: "loginToMyPlaces", sender: nil)
-//                    }
-//                }
-//            }
-//        }
+        DownloadPicture.sharedInstance.loadFirstPhotoForPlace(placeID: placeID, imageView: self.placeImageView)
 
-        let user = Auth.auth().currentUser
-        loadFirstPhotoForPlace(placeID: placeID)
         print(facebookID)
         addEventNameTextField.text = ""
         addTimeTextField.text = ""

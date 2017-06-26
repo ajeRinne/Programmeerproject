@@ -110,42 +110,13 @@ class PlacesTableViewController: UITableViewController {
         //        Get place data from array
         let placeItem = self.items[indexPath.row]
         
-        func loadImageForMetadata(photoMetadata: GMSPlacePhotoMetadata) {
-            GMSPlacesClient.shared().loadPlacePhoto(photoMetadata, callback: {
-                (photo, error) -> Void in
-                if let error = error {
-                    // TODO: handle the error.
-                    print("Error: \(error.localizedDescription)")
-                } else {
-                    print("check47")
-                    print(photo)
-                    cell.placePictureView.image = photo;
-                    
-                }
-            })
-        }
-        
-        func loadFirstPhotoForPlace(placeID: String) {
-            GMSPlacesClient.shared().lookUpPhotos(forPlaceID: placeID) { (photos, error) -> Void in
-                if let error = error {
-                    // TODO: handle the error.
-                    print("Error: \(error.localizedDescription)")
-                } else {
-                    print("check48")
-                    print(placeID)
-                    if let firstPhoto = photos?.results.first {
-                        print("check49")
-                        loadImageForMetadata(photoMetadata: firstPhoto)
-                    }
-                }
-            }
-        }
-
         
         //        Show place data in cell labels
         cell.placeTextField.text = placeItem.placeName
         
-        loadFirstPhotoForPlace(placeID: placeItem.placeID)
+//        loadFirstPhotoForPlace(placeID: placeItem.placeID)
+        DownloadPicture.sharedInstance.loadFirstPhotoForPlace(placeID: placeItem.placeID, imageView: cell.placePictureView)
+
         
         let facebookID = placeItem.facebookID
         

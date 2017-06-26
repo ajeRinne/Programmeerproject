@@ -44,7 +44,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                     
         } else {
             print("user logged in")
-            
             let params = ["fields" : "id, name"]
             let graphRequest = GraphRequest(graphPath: "me", parameters: params)
             graphRequest.start {

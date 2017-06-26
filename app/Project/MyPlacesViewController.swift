@@ -69,6 +69,32 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
             print("check24")
             let viewController = segue.destination as! AddPlaceViewController
             viewController.facebookID = self.facebookID
+//            addedByMeTableView
+//            placesIJoinTableView
+            if tableView.tag == 1 {
+
+                let indexPath = tableView.indexPathForSelectedRow
+                
+                //            Get place item at selected row
+                if indexPath != nil {
+                    let placeItem = items[indexPath!.row]
+                    let place = placeItem.name
+                    
+                    //                send current place to next view
+                    viewController.currentPlace = place
+                }
+            } else if tableView.tag == 2 {
+                let indexPath = tableView.indexPathForSelectedRow
+                
+                //            Get place item at selected row
+                if indexPath != nil {
+                    let placeItem = items[indexPath!.row]
+                    let place = placeItem.name
+                    
+                    //                send current place to next view
+                    viewController.currentPlace = place
+                }
+            }
             viewController.alreadyJoined = true
         }
         
@@ -79,7 +105,6 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
         }
         
     }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         addedByMeTableView.delegate = self
@@ -131,7 +156,7 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
             self.placesIJoinTableView.reloadData()
         })
         
-        placeTableRef.queryOrdered(byChild: facebookID).queryEqual(toValue: facebookID).observe(.value, with:{
+        placeTableRef.queryOrdered(byChild: "facebookID").queryEqual(toValue: facebookID).observe(.value, with:{
             snapshot in
             print("check214: \(snapshot)")
             var addedByMeItemsNew: [PlaceItem] = []
@@ -171,50 +196,18 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         print("check209")
-        
-//        var cell = tableView.dequeueReusableCell(withIdentifier: "joiningUsersCell") as! JoiningUsersCell
-        var cell: UITableViewCell
+
         if tableView.tag == 1 {
             print("check28")
 
-            cell = tableView.dequeueReusableCell(withIdentifier: "addedByMeCell") as! AddedByMeCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "addedByMeCell") as! AddedByMeCell
             let addedByMeItem = self.addedByMeItems[indexPath.row]
             let placeID = addedByMeItem.placeID
             let placeName = addedByMeItem.placeName
-//            cell.placeLabel.text = placeName
+            cell.placeLabel.text = placeName
             
-            func loadImageForMetadata(photoMetadata: GMSPlacePhotoMetadata) {
-                GMSPlacesClient.shared().loadPlacePhoto(photoMetadata, callback: {
-                    (photo, error) -> Void in
-                    if let error = error {
-                        // TODO: handle the error.
-                        print("Error: \(error.localizedDescription)")
-                    } else {
-                        print("check47")
-                        print(photo)
-//                        cell.placeImageView.image = photo;
-                        
-                    }
-                })
-            }
-            
-            func loadFirstPhotoForPlace(placeID: String) {
-                GMSPlacesClient.shared().lookUpPhotos(forPlaceID: placeID) { (photos, error) -> Void in
-                    if let error = error {
-                        // TODO: handle the error.
-                        print("Error: \(error.localizedDescription)")
-                    } else {
-                        print("check48")
-                        print(placeID)
-                        if let firstPhoto = photos?.results.first {
-                            print("check49")
-                            loadImageForMetadata(photoMetadata: firstPhoto)
-                        }
-                    }
-                }
-            }
-            
-            loadFirstPhotoForPlace(placeID: placeID)
+            DownloadPicture.sharedInstance.loadFirstPhotoForPlace(placeID: placeID, imageView: cell.placeImageView)
+
 
             return cell
             
@@ -223,7 +216,7 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
             
             print("check29")
             
-            cell = tableView.dequeueReusableCell(withIdentifier: "eventsIJoinCell") as! UITableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "eventsIJoinCell") as! EventsIJoinCell
             print("check213")
             let joiningEventsItem = self.joiningEventsItems[indexPath.row]
             let placeID = joiningEventsItem.placeID
@@ -232,59 +225,32 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
                 
                 //            Iterate over items in snapshot
                 self.placeTableRef.queryOrdered(byChild: "placeID").queryEqual(toValue: placeID).observe(.value, with: { snapshot in
-                    
+                    print("check202: \(snapshot)")
                     for item in snapshot.children {
                         
                         print("check203: \(item)")
                         
                         //                Create database instance to get data per place
                         let placeItem = PlaceItem(snapshot: item as! DataSnapshot)
+                        print("check204: \(placeItem)")
                         let placeName = placeItem.placeName
                         let placeID = placeItem.placeID
+                        print("check205: \(placeID)")
                         let addedByUser = placeItem.facebookID
-//                        cell.placeLabel = placeName
-//                        cell.addedByLabel = addedByUser
+                        cell.placeLabel.text = placeName
+                        cell.addedByLabel.text = addedByUser
 
-                        func loadImageForMetadata(photoMetadata: GMSPlacePhotoMetadata) {
-                            GMSPlacesClient.shared().loadPlacePhoto(photoMetadata, callback: {
-                                (photo, error) -> Void in
-                                if let error = error {
-                                    // TODO: handle the error.
-                                    print("Error: \(error.localizedDescription)")
-                                } else {
-                                    print("check47")
-                                    print(photo)
-//                                    cell.placeImageView.image = photo;
-                                    
-                                }
-                            })
-                        }
-                        
-                        func loadFirstPhotoForPlace(placeID: String) {
-                            GMSPlacesClient.shared().lookUpPhotos(forPlaceID: placeID) { (photos, error) -> Void in
-                                if let error = error {
-                                    // TODO: handle the error.
-                                    print("Error: \(error.localizedDescription)")
-                                } else {
-                                    print("check48")
-                                    print(placeID)
-                                    if let firstPhoto = photos?.results.first {
-                                        print("check49")
-                                        loadImageForMetadata(photoMetadata: firstPhoto)
-                                    }
-                                }
-                            }
-                        }
-                        
-                        loadFirstPhotoForPlace(placeID: placeItem.placeID)
+
+                        DownloadPicture.sharedInstance.loadFirstPhotoForPlace(placeID: placeItem.placeID, imageView: cell.placeImageView)
 
                     }
                 })
             })
             return cell
+            
         } else {
             print("Doesn't enter a tagged cell")
-            cell = tableView.dequeueReusableCell(withIdentifier: "joiningEventsCell") as! JoiningEventsCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "joiningEventsCell") as! JoiningEventsCell
             return cell
         }
         
@@ -305,12 +271,12 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
         if editingStyle == .delete {
             
             if tableView.tag == 1 {
-                print("check207")
+                print("check217")
                 let addedByMeItem = addedByMeItems[indexPath.row]
 //                addedByMeItem.ref?.removeValue()
 
             } else if tableView.tag == 2  {
-                print("check208")
+                print("check218")
 
             }
         }
