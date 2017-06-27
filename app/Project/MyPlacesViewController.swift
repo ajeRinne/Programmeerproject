@@ -300,15 +300,9 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
                     }
                     print("check277: \(addedByMeItem.placeID)")
                     let placeItem = self.placeTableRef.child(addedByMeItem.placeID)
-                    placeItem.queryOrdered(byChild: "placeID").observe(.value, with: { snapshot in
-                        
-                        for place in snapshot.children {
-                            let placeItem = PlaceItem(snapshot: place as! DataSnapshot)
-                            print("check266: \(placeItem)")
-
-                        }
-                    })
-                    //                placeItem.ref.removeValue()
+                    print("check271: \(placeItem)")
+                    let placeItemID =  placeItem.queryOrdered(byChild: "placeID").queryEqual(toValue: addedByMeItem.placeID)
+                    placeItemID.ref.removeValue()
                 self.addedByMeTableView.reloadData()
                 
                 })

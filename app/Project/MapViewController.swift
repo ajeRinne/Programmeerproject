@@ -105,15 +105,15 @@ class MapViewController: UIViewController, UISearchBarDelegate, LocateOnTheMap, 
     
 
     
-    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-//        let marker = GMSMarker()
-        let place = marker.title
-        print("Check37: \(place!)")
-
-
-
-        return true
-    }
+//    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+////        let marker = GMSMarker()
+//        let place = marker.title
+//        print("Check37: \(place!)")
+//
+//
+//
+//        return true
+//    }
 
     
 

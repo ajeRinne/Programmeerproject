@@ -159,46 +159,59 @@ class AddPlaceViewController: UIViewController, UITableViewDelegate, UITableView
         let joiningUserItem = self.items[indexPath.row]
         let joiningUserFacebookID = joiningUserItem.facebookID
         
-        userTableRef.queryOrdered(byChild: "facebookID").queryEqual(toValue: facebookID).observe(.value, with: { snapshot in
-
-            //            Iterate over items in snapshot
-            self.userTableRef.queryOrdered(byChild: "facebookID").queryEqual(toValue: joiningUserFacebookID).observe(.value, with: { snapshot in
-                
-            })
-
-            for item in snapshot.children {
-                
-                print("check63: \(item)")
-                
-                //                Create database instance to get data per place
-                let userItem = UserItem(snapshot: item as! DataSnapshot)
-                
-                let name = userItem.name
-                let URL = userItem.profilePictureURL
-                let profilePictureURL = NSURL(string: URL)
-                
-                DownloadPicture.sharedInstance.downloadFacebookImage(url: profilePictureURL! as URL, imageView: cell.userImageView)
-                cell.userNameLabel.text = name
-                
-                //                Append data of single place to array
-
-                print("check64: \(joiningUserItem.facebookID)")
-            }
-
-
-
-            //            Reload data in order se up to date view
-//            self.tableView.reloadData()
+        
+        print("check621: \(joiningUserFacebookID)")
+        var userItemRef = userTableRef.child(joiningUserFacebookID).observe(.value, with: { snapshot in
+            var user = UserItem(snapshot: snapshot as! DataSnapshot)
+            
+                print("check622: \(user)")
+//            cell.user
+//            cell.userLabel.text = user.name
+//            DownloadPicture.sharedInstance.downloadFacebookImage(url: user.profilePictureURL as URL, imageView: cell.userImageView)
         })
-        
-        
         return cell
+    }
+//        let userItem = UserItem(snapshot: userItemRef as! DataSnapshot)
+//        print("check631: \(userItem)")
+    
+//        (.value, with: { snapshot in
+//
+//            //            Iterate over items in snapshot
+//            self.userTableRef.queryOrdered(byChild: "facebookID").queryEqual(toValue: joiningUserFacebookID).observe(.value, with: { snapshot in
+//|            })
+//
+//            for item in snapshot.children {
+//                
+
+//                
+//                //                Create database instance to get data per place
+//                let userItem = UserItem(snapshot: item as! DataSnapshot)
+//                
+//                let name = userItem.name
+//                let URL = userItem.profilePictureURL
+//                let profilePictureURL = NSURL(string: URL)
+//                
+//                DownloadPicture.sharedInstance.downloadFacebookImage(url: profilePictureURL! as URL, imageView: cell.userImageView)
+//                cell.userNameLabel.text = name
+//                
+//                //                Append data of single place to array
+//
+//                print("check64: \(joiningUserItem.facebookID)")
+//            }
+//
+//
+//
+//            //            Reload data in order se up to date view
+////            self.tableView.reloadData()
+//        })
+        
         
 
-    }
-
-
+        
 }
+
+
+
     
 
 
