@@ -105,6 +105,7 @@ class AddPlaceViewController: UIViewController, UITableViewDelegate, UITableView
                 
                 //                Create database instance to get data per place
                 let placeItem = PlaceItem(snapshot: item as! DataSnapshot)
+                self.placeName = placeItem.placeName
                 let placeTime = placeItem.placeTime
                 let placeDescription = placeItem.placeDescription
 

@@ -57,8 +57,6 @@ class CreatePlaceViewController: UIViewController {
         let placeItemRef = placeTableRef.child(placeID)
         placeItemRef.setValue(placeItem.toAnyObject())
         
-        userTableRef.child("\(facebookID)/joinsEvents/\(placeID)").setValue(["placeID": placeID])
-        
         placeTableRef.child("\(placeID)/joiningUsers/\(facebookID)").setValue(["facebookID": facebookID])
         
         self.performSegue(withIdentifier: "createPlaceToMyPlaces", sender: nil)

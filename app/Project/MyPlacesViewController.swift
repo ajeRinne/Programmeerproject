@@ -16,11 +16,12 @@ import GooglePlaces
 
 class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    let cellIdentifier : String = "cell"
+    let cellIdentifier: String = "cell"
     let placeTableRef = Database.database().reference(withPath: "placesTable")
     let userTableRef = Database.database().reference(withPath: "usersTable")
     
-    var facebookID : String = ""
+    var facebookID: String = ""
+    var tableTag: Int = 0
     var addedByMeItems: [PlaceItem] = []
     var joiningEventsItems: [JoiningEventsItem] = []
 
@@ -69,31 +70,33 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
             print("check24")
             let viewController = segue.destination as! AddPlaceViewController
             viewController.facebookID = self.facebookID
-//            addedByMeTableView
-//            placesIJoinTableView
-            if tableView.tag == 1 {
+            if (self.tableTag == 1) {
+                print("check231")
+                let indexPath = addedByMeTableView.indexPathForSelectedRow
+                print(indexPath)
+                //            Get place item at selected row
+                if indexPath != nil {
+                    let placeItem = addedByMeItems[indexPath!.row]
+                    print("check232: \(placeItem)")
+                    let placeID = placeItem.placeID
+                    
+                    //                send current place to next view
+                    viewController.placeID = placeID
+                }
+            } else if (self.tableTag == 2) {
+                print("check241")
+                let indexPath = placesIJoinTableView.indexPathForSelectedRow
+                print(indexPath)
+                //            Get place item at selected row
+                if indexPath != nil {
+                    let placeItem = joiningEventsItems[indexPath!.row]
+                    print("check242: \(placeItem)")
+                    let placeID = placeItem.placeID
 
-                let indexPath = tableView.indexPathForSelectedRow
-                
-                //            Get place item at selected row
-                if indexPath != nil {
-                    let placeItem = items[indexPath!.row]
-                    let place = placeItem.name
-                    
-                    //                send current place to next view
-                    viewController.currentPlace = place
+                    viewController.placeID = placeID
                 }
-            } else if tableView.tag == 2 {
-                let indexPath = tableView.indexPathForSelectedRow
-                
-                //            Get place item at selected row
-                if indexPath != nil {
-                    let placeItem = items[indexPath!.row]
-                    let place = placeItem.name
-                    
-                    //                send current place to next view
-                    viewController.currentPlace = place
-                }
+            } else if (self.tableTag == 0) {
+                print("async probs")
             }
             viewController.alreadyJoined = true
         }
@@ -262,8 +265,15 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        print("check20:\(facebookID)")
-        self.performSegue(withIdentifier: "myPlacesToAddPlace", sender: nil)
+        if (tableView.tag == 1) {
+            print("check244:\(facebookID)")
+            self.tableTag = 1
+            self.performSegue(withIdentifier: "myPlacesToAddPlace", sender: nil)
+        } else if (tableView.tag == 2) {
+            print("check245:\(facebookID)")
+            self.tableTag = 2
+            self.performSegue(withIdentifier: "myPlacesToAddPlace", sender: nil)
+        }
         
     }
     
@@ -273,11 +283,51 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
             if tableView.tag == 1 {
                 print("check217")
                 let addedByMeItem = addedByMeItems[indexPath.row]
-//                addedByMeItem.ref?.removeValue()
+                userTableRef.observe(.value, with: { (snapshot) in
+                    for item in snapshot.children {
+                        print("check219: \(item)")
+                        let addedByMeItem = self.addedByMeItems[indexPath.row]
+//                        let placeID = addedByMeItem.placeID
+                        print("check233")
+                        let userItem = UserItem(snapshot: item as! DataSnapshot)
+                        print("check244")
+                        let facebookID = userItem.facebookID
+                        let userItemRef = self.userTableRef.child(facebookID)
+                        let joiningEventsRef = userItemRef.child("joinsEvents").child(addedByMeItem.placeID)
+                        print("check255: \(joiningEventsRef)")
+                        let placeID = joiningEventsRef.queryOrdered(byChild: "joinsEvents").queryEqual(toValue: addedByMeItem.placeID)
+                        placeID.ref.removeValue()
+                    }
+                    print("check277: \(addedByMeItem.placeID)")
+                    let placeItem = self.placeTableRef.child(addedByMeItem.placeID)
+                    placeItem.queryOrdered(byChild: "placeID").observe(.value, with: { snapshot in
+                        
+                        for place in snapshot.children {
+                            let placeItem = PlaceItem(snapshot: place as! DataSnapshot)
+                            print("check266: \(placeItem)")
 
+                        }
+                    })
+                    //                placeItem.ref.removeValue()
+                self.addedByMeTableView.reloadData()
+                
+                })
+                
+                addedByMeTableView.reloadData()
+//                addedByMeItem.ref?.remove(at: indexPath.row)
+                
+
+        
             } else if tableView.tag == 2  {
                 print("check218")
-
+                let joiningEventsItem = joiningEventsItems[indexPath.row]
+                let userItemRef = userTableRef.child(facebookID)
+                let joiningEventRef = userItemRef.child("joinsEvents").child(joiningEventsItem.placeID)
+                print(joiningEventRef)
+                let placeID = joiningEventRef.queryOrdered(byChild: "joinsEvents").queryEqual(toValue: joiningEventsItem.placeID)
+                placeID.ref.removeValue()
+//                joiningEventsItem.ref?.remove(at: indexPath.row)
+                self.placesIJoinTableView.reloadData()
             }
         }
     }
