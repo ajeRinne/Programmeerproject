@@ -16,21 +16,25 @@ import GooglePlaces
 
 class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+//    MARK: Constants
     let cellIdentifier: String = "cell"
     let placeTableRef = Database.database().reference(withPath: "placesTable")
     let userTableRef = Database.database().reference(withPath: "usersTable")
     
+//    MARK: Variables
     var facebookID: String = ""
     var tableTag: Int = 0
     var addedByMeItems: [PlaceItem] = []
     var joiningEventsItems: [JoiningEventsItem] = []
 
+//    MARK: Outlets
     @IBOutlet var addedByMeTableView: UITableView!
     @IBOutlet var placesIJoinTableView: UITableView!
     @IBOutlet var searchPlacesButton: UIBarButtonItem!
     @IBOutlet var signOutButton: UIBarButtonItem!
     @IBOutlet var mapButton: UIBarButtonItem!
     
+//    MARK: Actions
     @IBAction func signOutButtonTouched(_ sender: Any) {
         do {
             let loginManager = FBSDKLoginManager()
@@ -45,7 +49,6 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBAction func searchPlacesButtonTouched(_ sender: Any) {
 
-        print("check21: \(facebookID)")
         performSegue(withIdentifier: "myPlacesToPlaces", sender:nil)
     }
     
@@ -54,111 +57,29 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
         performSegue(withIdentifier: "myPlacesToMap", sender:nil)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        print("check22: \(self.facebookID)")
-        
-
-        
-        if (segue.identifier == "myPlacesToMap") {
-            print("check23")
-            let viewController = segue.destination as! MapViewController
-            viewController.facebookID = self.facebookID
-        }
-        
-        
-        if (segue.identifier == "myPlacesToAddPlace") {
-            print("check24")
-            let viewController = segue.destination as! AddPlaceViewController
-            viewController.facebookID = self.facebookID
-            if (self.tableTag == 1) {
-                print("check231")
-                let indexPath = addedByMeTableView.indexPathForSelectedRow
-                print(indexPath)
-                //            Get place item at selected row
-                if indexPath != nil {
-                    let placeItem = addedByMeItems[indexPath!.row]
-                    print("check232: \(placeItem)")
-                    let placeID = placeItem.placeID
-                    
-                    //                send current place to next view
-                    viewController.placeID = placeID
-                }
-            } else if (self.tableTag == 2) {
-                print("check241")
-                let indexPath = placesIJoinTableView.indexPathForSelectedRow
-                print(indexPath)
-                //            Get place item at selected row
-                if indexPath != nil {
-                    let placeItem = joiningEventsItems[indexPath!.row]
-                    print("check242: \(placeItem)")
-                    let placeID = placeItem.placeID
-
-                    viewController.placeID = placeID
-                }
-            } else if (self.tableTag == 0) {
-                print("async probs")
-            }
-            viewController.alreadyJoined = true
-        }
-        
-        if (segue.identifier == "myPlacesToPlaces") {
-            print("check25")
-            let viewController = segue.destination as! PlacesTableViewController
-            viewController.facebookID = self.facebookID
-        }
-        
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        addedByMeTableView.delegate = self
-        placesIJoinTableView.delegate = self
-        addedByMeTableView.dataSource = self
-        placesIJoinTableView.dataSource = self
-    
+        
         self.facebookID = Facebook.sharedInstance.facebookID
         
-//        if (FBSDKAccessToken.current() != nil) {
-//            let params = ["fields" : "id, name"]
-//            let graphRequest = GraphRequest(graphPath: "me", parameters: params)
-//            graphRequest.start {
-//                (urlResponse, requestResult) in
-//                
-//                switch requestResult {
-//                case .failed(let error):
-//                    print("error in graph request:", error)
-//                    return
-//                case .success(let graphResponse):
-//                    if let responseDictionary = graphResponse.dictionaryValue {
-//                        print(responseDictionary)
-//                        self.facebookID = (responseDictionary["id"]!) as! String
-//                        print("check223:\(self.facebookID)")
-//                    }
-//                }
-//            }
-//            print("user signed in")
-//        } else {
-//            print("no user signed in")
-//        }
-//        
-        
-        print("check205: \(facebookID)")
-        let userItemRef = userTableRef.child(facebookID)
+
+        let userItemRef = userTableRef.child(self.facebookID)
         let joiningEventsRef = userItemRef.child("joinsEvents")
         joiningEventsRef.queryOrdered(byChild: "joinsEvents").observe(.value, with: { snapshot in
-            print("check215: \(snapshot)")
+
             var joiningEventsItemsNew: [JoiningEventsItem] = []
             for item in snapshot.children {
-                print("check204: \(item)")
+
                 let joiningEventsItem = JoiningEventsItem(snapshot: item as! DataSnapshot)
                 joiningEventsItemsNew.append(joiningEventsItem)
             }
             
             self.joiningEventsItems = joiningEventsItemsNew
-            print("check206: \(joiningEventsItemsNew)")
-            print("check205: \(self.joiningEventsItems)")
-            print(self.joiningEventsItems.count)
             self.placesIJoinTableView.reloadData()
         })
+        
+        
+//            .loadJoiningEventsTable(joiningEventsItem: joiningEventsItems)
         
         placeTableRef.queryOrdered(byChild: "facebookID").queryEqual(toValue: facebookID).observe(.value, with:{
             snapshot in
@@ -309,22 +230,79 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
                 })
                 
                 addedByMeTableView.reloadData()
-//                addedByMeItem.ref?.remove(at: indexPath.row)
-                
 
         
             } else if tableView.tag == 2  {
                 print("check218")
                 let joiningEventsItem = joiningEventsItems[indexPath.row]
+                let currentPlaceID = joiningEventsItem.placeID
+                print("check219: \(joiningEventsItem)")
                 let userItemRef = userTableRef.child(facebookID)
-                let joiningEventRef = userItemRef.child("joinsEvents").child(joiningEventsItem.placeID)
+                let joiningEventRef = userItemRef.child("joinsEvents").child(currentPlaceID)
                 print(joiningEventRef)
-                let placeID = joiningEventRef.queryOrdered(byChild: "joinsEvents").queryEqual(toValue: joiningEventsItem.placeID)
-                placeID.ref.removeValue()
+                let place = joiningEventRef.queryOrdered(byChild: "joinsEvents").queryEqual(toValue: currentPlaceID)
+                place.ref.removeValue()
+                
+                let joiningUserItem = placeTableRef.child(joiningEventsItem.placeID).child("joiningUsers").child(facebookID)
+                print("check220: \(joiningUserItem)")
 //                joiningEventsItem.ref?.remove(at: indexPath.row)
+                joiningUserItem.ref.removeValue()
                 self.placesIJoinTableView.reloadData()
             }
         }
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print("check22: \(self.facebookID)")
+        
+        
+        
+        if (segue.identifier == "myPlacesToMap") {
+            print("check23")
+            let viewController = segue.destination as! MapViewController
+            viewController.facebookID = self.facebookID
+        } else if (segue.identifier == "myPlacesToAddPlace") {
+            print("check24")
+            let viewController = segue.destination as! AddPlaceViewController
+            viewController.facebookID = self.facebookID
+            
+            if (self.tableTag == 1) {
+                print("check231")
+                let indexPath = addedByMeTableView.indexPathForSelectedRow
+                print(indexPath)
+                //            Get place item at selected row
+                if indexPath != nil {
+                    let placeItem = addedByMeItems[indexPath!.row]
+                    print("check232: \(placeItem)")
+                    let placeID = placeItem.placeID
+                    
+                    //                send current place to next view
+                    viewController.placeID = placeID
+                }
+                
+            } else if (self.tableTag == 2) {
+                print("check241")
+                let indexPath = placesIJoinTableView.indexPathForSelectedRow
+                print(indexPath)
+                //            Get place item at selected row
+                if indexPath != nil {
+                    let placeItem = joiningEventsItems[indexPath!.row]
+                    print("check242: \(placeItem)")
+                    let placeID = placeItem.placeID
+                    
+                    viewController.placeID = placeID
+                }
+                
+            } else if (self.tableTag == 0) {
+                print("async probs")
+            }
+            viewController.alreadyJoined = true
+            
+        } else if(segue.identifier == "myPlacesToPlaces") {
+            print("check25")
+            let viewController = segue.destination as! PlacesTableViewController
+            viewController.facebookID = self.facebookID
+        }
+        
     }
     
 }

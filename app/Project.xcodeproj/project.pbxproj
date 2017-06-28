@@ -27,6 +27,8 @@
 		FA85FCAB1EE9930000D2908D /* CreatePlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA85FCAA1EE9930000D2908D /* CreatePlaceViewController.swift */; };
 		FA85FCAD1EE9D65100D2908D /* JoiningUsersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA85FCAC1EE9D65100D2908D /* JoiningUsersCell.swift */; };
 		FA9002C91EE96DAB003984BB /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9002C81EE96DAB003984BB /* NavigationBar.swift */; };
+		FACC64781F045F11006CD6CC /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACC64771F045F11006CD6CC /* Firebase.swift */; };
+		FACC647A1F045F19006CD6CC /* Maps.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACC64791F045F19006CD6CC /* Maps.swift */; };
 		FAE2FF8B1EE6FCCC0030778D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE2FF8A1EE6FCCC0030778D /* AppDelegate.swift */; };
 		FAE2FF8D1EE6FCCC0030778D /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE2FF8C1EE6FCCC0030778D /* LogInViewController.swift */; };
 		FAE2FF901EE6FCCC0030778D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAE2FF8E1EE6FCCC0030778D /* Main.storyboard */; };
@@ -44,7 +46,7 @@
 		FA0CB3521EF6AAF2004FD9B2 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		FA0CB3541EF6B8F3004FD9B2 /* SearchResultController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchResultController.swift; path = ../SearchResultController.swift; sourceTree = "<group>"; };
 		FA2082B91EF01C8000EF514A /* Project.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Project.entitlements; path = Project/Project.entitlements; sourceTree = "<group>"; };
-		FA2082BA1EF0256500EF514A /* Facebook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Facebook.swift; path = Classes/Facebook.swift; sourceTree = "<group>"; };
+		FA2082BA1EF0256500EF514A /* Facebook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Facebook.swift; path = Project/Classes/Facebook.swift; sourceTree = "<group>"; };
 		FA2082CD1EF2F63800EF514A /* PlaceItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlaceItem.swift; path = ../PlaceItem.swift; sourceTree = "<group>"; };
 		FA2082D11EF2FCD300EF514A /* UserItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserItem.swift; sourceTree = "<group>"; };
 		FA33709A1EFFC83F00AAA970 /* EventsIJoinCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventsIJoinCell.swift; path = Classes/EventsIJoinCell.swift; sourceTree = "<group>"; };
@@ -52,7 +54,7 @@
 		FA37AACD1EFED34800605BE4 /* JoiningUsersItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JoiningUsersItem.swift; path = Classes/JoiningUsersItem.swift; sourceTree = "<group>"; };
 		FA37AACF1EFED36E00605BE4 /* JoiningEventsItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoiningEventsItem.swift; sourceTree = "<group>"; };
 		FA39B3271EE9F7760087058F /* TextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextView.swift; path = Classes/TextView.swift; sourceTree = "<group>"; };
-		FA6FC7F51F001CD1008B4474 /* DownloadPicture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadPicture.swift; sourceTree = "<group>"; };
+		FA6FC7F51F001CD1008B4474 /* DownloadPicture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DownloadPicture.swift; path = Project/DownloadPicture.swift; sourceTree = "<group>"; };
 		FA85FC9E1EE98DC700D2908D /* AddedByMeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddedByMeCell.swift; path = Classes/AddedByMeCell.swift; sourceTree = "<group>"; };
 		FA85FCA21EE990D300D2908D /* PlacesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacesTableViewController.swift; sourceTree = "<group>"; };
 		FA85FCA41EE9910900D2908D /* MyPlacesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPlacesViewController.swift; sourceTree = "<group>"; };
@@ -61,6 +63,8 @@
 		FA85FCAA1EE9930000D2908D /* CreatePlaceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CreatePlaceViewController.swift; path = ../CreatePlaceViewController.swift; sourceTree = "<group>"; };
 		FA85FCAC1EE9D65100D2908D /* JoiningUsersCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JoiningUsersCell.swift; path = Classes/JoiningUsersCell.swift; sourceTree = "<group>"; };
 		FA9002C81EE96DAB003984BB /* NavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NavigationBar.swift; path = Classes/NavigationBar.swift; sourceTree = "<group>"; };
+		FACC64771F045F11006CD6CC /* Firebase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Firebase.swift; path = Project/Classes/Firebase.swift; sourceTree = "<group>"; };
+		FACC64791F045F19006CD6CC /* Maps.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Maps.swift; sourceTree = "<group>"; };
 		FAE2FF871EE6FCCC0030778D /* Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Project.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAE2FF8A1EE6FCCC0030778D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FAE2FF8C1EE6FCCC0030778D /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
@@ -100,6 +104,18 @@
 				AFE8F03ADFF76D1090304D3E /* Pods_Project.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FA4C4F4E1F03CAD40001761E /* FunctionalClasses */ = {
+			isa = PBXGroup;
+			children = (
+				FA2082BA1EF0256500EF514A /* Facebook.swift */,
+				FACC64791F045F19006CD6CC /* Maps.swift */,
+				FA6FC7F51F001CD1008B4474 /* DownloadPicture.swift */,
+				FACC64771F045F11006CD6CC /* Firebase.swift */,
+			);
+			name = FunctionalClasses;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		FA85FC9C1EE98D5900D2908D /* Interface */ = {
@@ -151,6 +167,7 @@
 				FA85FC9C1EE98D5900D2908D /* Interface */,
 				FAE3F7E61EFA72D0004829AA /* ViewControllers */,
 				FA85FC9D1EE98D7700D2908D /* TableViewCell */,
+				FA4C4F4E1F03CAD40001761E /* FunctionalClasses */,
 				FAE2FFA01EE950ED0030778D /* UIClasses */,
 				FAE3F7E81EFA7362004829AA /* Structs */,
 				FAE2FF911EE6FCCC0030778D /* Assets.xcassets */,
@@ -194,8 +211,6 @@
 		FAE3F7E81EFA7362004829AA /* Structs */ = {
 			isa = PBXGroup;
 			children = (
-				FA2082BA1EF0256500EF514A /* Facebook.swift */,
-				FA6FC7F51F001CD1008B4474 /* DownloadPicture.swift */,
 				FA2082D11EF2FCD300EF514A /* UserItem.swift */,
 				FA2082CD1EF2F63800EF514A /* PlaceItem.swift */,
 				FA37AACD1EFED34800605BE4 /* JoiningUsersItem.swift */,
@@ -338,6 +353,7 @@
 				FA6FC7F61F001CD1008B4474 /* DownloadPicture.swift in Sources */,
 				FA2082D21EF2FCD300EF514A /* UserItem.swift in Sources */,
 				FA85FCA91EE991A800D2908D /* AddPlaceViewController.swift in Sources */,
+				FACC647A1F045F19006CD6CC /* Maps.swift in Sources */,
 				FA37AACC1EFED29200605BE4 /* JoiningEventsCell.swift in Sources */,
 				FA85FCA31EE990D300D2908D /* PlacesTableViewController.swift in Sources */,
 				FA0CB3551EF6B8F3004FD9B2 /* SearchResultController.swift in Sources */,
@@ -352,6 +368,7 @@
 				FA9002C91EE96DAB003984BB /* NavigationBar.swift in Sources */,
 				FA85FCAB1EE9930000D2908D /* CreatePlaceViewController.swift in Sources */,
 				FA37AACE1EFED34800605BE4 /* JoiningUsersItem.swift in Sources */,
+				FACC64781F045F11006CD6CC /* Firebase.swift in Sources */,
 				FA85FCA71EE9915B00D2908D /* PlacesCell.swift in Sources */,
 				FA37AAD01EFED36E00605BE4 /* JoiningEventsItem.swift in Sources */,
 				FA85FC9F1EE98DC700D2908D /* AddedByMeCell.swift in Sources */,

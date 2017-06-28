@@ -13,131 +13,46 @@ import FBSDKLoginKit
 import FacebookCore
 
 class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
-    /**
-     Sent to the delegate when the button was used to logout.
-     - Parameter loginButton: The varton that was clicked.
-     */
+
+//    MARK: Variables
     var facebookID : String = ""
-    var usersRef : DatabaseReference!
+    var userTableRef : DatabaseReference!
     var password: String = "pass"
     var name : String = ""
     var profilePictureURL : String = ""
-
-
+    
+//    MARK: Outlets
     @IBOutlet var logInWithFacebookButton: Button!
     @IBOutlet var userNameTextField: Textfield!
     @IBOutlet var passwordTextField: Textfield!
     
+//    MARK: Actions
     @IBAction func logInWithFacebookButtonTouched(_ sender: Any) {
         print("check11")
         self.performSegue(withIdentifier: "loginToMyPlaces", sender: nil)
-        
     }
     
-
     
-    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
-    
-                if let error = error {
-            print(error.localizedDescription)
-            return
-                    
-        } else {
-//            print("check111: \(FBSDKAccessToken.current())")
-            print("user logged in")
-            let params = ["fields" : "id, name"]
-            let graphRequest = GraphRequest(graphPath: "me", parameters: params)
-            graphRequest.start {
-                (urlResponse, requestResult) in
-                
-                switch requestResult {
-                case .failed(let error):
-                    print("error in graph request:", error)
-                    break
-                case .success(let graphResponse):
-                    if let responseDictionary = graphResponse.dictionaryValue {
-                        print(responseDictionary)
-                        print("check12")
-                        self.name = (responseDictionary["name"]!) as! String
-                        self.facebookID = (responseDictionary["id"]!) as! String
-                        print("check13")
-                        print(self.facebookID)
-                        self.performSegue(withIdentifier: "loginToMyPlaces", sender: nil)
-                        
-                    }
-                }
-            }
-            let pictureRequest = GraphRequest(graphPath: "me/picture?type=large&redirect=false", parameters: [:])
-            pictureRequest.start{
-                (urlResponse, requestResult) in
-                
-                switch requestResult {
-                case .failed(let error):
-                    print("error in graph request:", error)
-                    break
-                case .success(let graphResponse):
-                    if let responseDictionary = graphResponse.dictionaryValue {
-                        print(responseDictionary)
-                        
-                        var dict: NSDictionary!
-                        
-                        dict = responseDictionary["data"] as! NSDictionary
-                        print("check14")
-                        self.profilePictureURL = dict["url"]! as! String
-                        
-                    }
-                }
-                
-            }
-
-//            let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
-//            print("check15")
-//            print(credential)
-//            Auth.auth().signIn(with: credential) { (user, error) in
-//                if let error = error {
-//                    print("could not authenticate user error: \(error)")
-//                    return
-//                }
-//                // User is signed in
-//                print("user authenticated in to firebase")
-//                print(self.facebookID, type(of: self.facebookID), self.password, type(of: self.password), self.name, type(of: self.name), self.profilePictureURL, type(of: self.profilePictureURL))
-               let userItem = UserItem(facebookID: self.facebookID, password: self.password, name: self.name, profilePictureURL: self.profilePictureURL)
-//                let userCredential = credential as! String
-                let userItemRef = self.usersRef.child(self.facebookID)
-                userItemRef.setValue(userItem.toAnyObject())
-                self.performSegue(withIdentifier: "loginToMyPlaces", sender: nil)
-                
-//            }
-        }
-
-        
-    }
-    
-    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
-        
-    }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (segue.identifier == "loginToMyPlaces") {
-            let navigationController = segue.destination as! UINavigationController
-            let viewController = navigationController.topViewController as! MyPlacesViewController
-//            let viewController = segue.destination as! MyPlacesViewController
-            viewController.facebookID = facebookID
-        }
-
-    }
+    // MARK: viewController
     override func viewDidLoad() {
         super.viewDidLoad()
-        usersRef = Database.database().reference(withPath: "usersTable")
+        
+//        constants
         let loginButton = FBSDKLoginButton()
+        
+//        setup loginButton
         loginButton.delegate = self
-        
         loginButton.translatesAutoresizingMaskIntoConstraints = false
-        
         view.addSubview(loginButton)
         
+//        declare database
+        userTableRef = Database.database().reference(withPath: "usersTable")
         
+//        add listeners
+        NotificationCenter.default.addObserver(self, selector: #selector(facebookLoaded), name: NSNotification.Name("facebookIDLoaded"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(performSegueToMyPlaces), name: NSNotification.Name("userInstanceCreated"), object: nil)
         
+//        set constraints
         let horizontalConstraint = NSLayoutConstraint(item: loginButton, attribute: NSLayoutAttribute.centerX, relatedBy: NSLayoutRelation.equal, toItem: passwordTextField, attribute: NSLayoutAttribute.centerX, multiplier: 1, constant: 0)
         let verticalConstraint = NSLayoutConstraint(item: loginButton, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: passwordTextField, attribute: NSLayoutAttribute.centerY, multiplier: 1, constant: 90)
         let widthConstraint = NSLayoutConstraint(item: loginButton, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: 185)
@@ -145,51 +60,146 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         
         view.addConstraints([horizontalConstraint, verticalConstraint, widthConstraint, heightConstraint])
         
-        Facebook.sharedInstance.facebookAuth(accessToken:  FBSDKAccessToken.current())
-        facebookID = Facebook.sharedInstance.facebookID
-        print("check111: \(facebookID)")
-//        if FBSDKAccessToken.current() != nil {
-//            print("user: \(FBSDKAccessToken.current()!) signed in")
-//            let params = ["fields" : "id, name"]
-//            let graphRequest = GraphRequest(graphPath: "me", parameters: params)
-//            graphRequest.start {
-//                (urlResponse, requestResult) in
-//                
-//                switch requestResult {
-//                case .failed(let error):
-//                    print("error in graph request:", error)
-//                    break
-//                case .success(let graphResponse):
-//                    if let responseDictionary = graphResponse.dictionaryValue {
-//                        print(responseDictionary)
-//                        print("check16")
-//                        self.name = (responseDictionary["name"]!) as! String
-//                        self.facebookID = (responseDictionary["id"]!) as! String
-//                        print("check17")
-//                        print(self.facebookID)
-//                        self.performSegue(withIdentifier: "loginToMyPlaces", sender: nil)
-//                    }
-//                }
-//            }
-//        }
-        if facebookID != "" {
-            self.performSegue(withIdentifier: "loginToMyPlaces", sender: nil)
-            
-        }
+//        authenticate user
+        if FBSDKAccessToken.current() != nil {
 
-        
+            Facebook.sharedInstance.facebookAuth(accessToken:  FBSDKAccessToken.current())
+            self.facebookID = Facebook.sharedInstance.facebookID
+
+        }
     }
 
     
-    override func viewDidAppear(_ animated: Bool) {
-
+// MARK: Facebook login
+    
+//    log user in with FBSDKLoginButton
+    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
+        
+//            error handling
+            if let error = error {
+            print(error.localizedDescription)
+            return
+                    
+        } else {
+                
+//                authenticate user
+                if FBSDKAccessToken.current() != nil {
+                Facebook.sharedInstance.facebookAuth(accessToken: FBSDKAccessToken.current())
+                self.facebookID = Facebook.sharedInstance.facebookID
+                print("user logged in")
+            }
+        }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+//    permitted logout option
+    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
     }
+    
 
+//    check if user exists
+    func facebookLoaded() {
+        self.facebookID = Facebook.sharedInstance.facebookID
+        
+//        check if current facebookId matches one in database
+        userTableRef.observeSingleEvent(of: .value, with: { (snapshot) in
+            for item in snapshot.children {
+                print("check113: \(self.facebookID)")
+                print("check112: \(item)")
+            }
+            if snapshot.hasChild(self.facebookID){
+                
+                print("user exists")
+                self.performSegue(withIdentifier: "loginToMyPlaces", sender: nil)
+                
+            } else {
+                
+                self.downloadUserInfo()
+            }
+        })
+    }
+    
+//    download user details
+    func downloadUserInfo() {
+        
+//        Facebook Graph API request
+        let params = ["fields" : "id, name"]
+        let graphRequest = GraphRequest(graphPath: "me", parameters: params)
+            graphRequest.start {
+            (urlResponse, requestResult) in
+            
+            switch requestResult {
+                
+            case .failed(let error):
+                print("error in graph request:", error)
+                break
+                
+            case .success(let graphResponse):
+                
+                if let responseDictionary = graphResponse.dictionaryValue {
+                    
+//                    save items from database locally
+                    self.name = (responseDictionary["name"]!) as! String
+                    self.facebookID = (responseDictionary["id"]!) as! String
+                    
+//                    initiate dowloadProfilePictureURL function
+                    self.downloadProfilePictureURL()
+                }
+            }
+        }
+    }
+    
+//    download profile picture
+    func downloadProfilePictureURL() {
+        
+//        Facebook Graph API request
+        let pictureRequest = GraphRequest(graphPath: "me/picture?type=large&redirect=false", parameters: [:])
+        pictureRequest.start{
+            (urlResponse, requestResult) in
+            
+            switch requestResult {
+            case .failed(let error):
+                print("error in graph request:", error)
+                break
+            case .success(let graphResponse):
+                if let responseDictionary = graphResponse.dictionaryValue {
+                    print(responseDictionary)
+                    
+                    var dict: NSDictionary!
+                    
+                    dict = responseDictionary["data"] as! NSDictionary
 
+                    
+//                    cast profilePictureURL as String
+                    self.profilePictureURL = dict["url"]! as! String
+                    
+//                    initiate createUserInstanceFunction
+                    self.createUserInstance()
+                }
+            }
+        }
+    }
+    
+//    create instance to save variables
+    func createUserInstance() {
+        
+//        save local variables in instance
+            let userItem = UserItem(facebookID: self.facebookID, password: self.password, name: self.name, profilePictureURL: self.profilePictureURL)
+        
+//            upload instance to database
+            let userItemRef = self.userTableRef.child(self.facebookID)
+            userItemRef.setValue(userItem.toAnyObject())
+        
+//                notificate listener that data has been uploaded
+            NotificationCenter.default.post(name: Notification.Name("UserInstanceCreated"), object: nil)
+    }
+    
+    
+// MARK: Segue
+    
+//    perform segue to MyPlacesViewController
+    func performSegueToMyPlaces(){
+        self.performSegue(withIdentifier: "loginToMyPlaces", sender: nil)
+        
+    }
 }
 

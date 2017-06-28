@@ -153,29 +153,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, LocateOnTheMap, 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if (FBSDKAccessToken.current() != nil) {
-            let params = ["fields" : "id, name"]
-            let graphRequest = GraphRequest(graphPath: "me", parameters: params)
-            graphRequest.start {
-                (urlResponse, requestResult) in
-                
-                switch requestResult {
-                case .failed(let error):
-                    print("error in graph request:", error)
-                    return
-                case .success(let graphResponse):
-                    if let responseDictionary = graphResponse.dictionaryValue {
-                        print(responseDictionary)
-                        self.facebookID = (responseDictionary["id"]!) as! String
-                        print("check223:\(self.facebookID)")
-                    }
-                }
-            }
-            print("user signed in")
-        } else {
-            print("no user signed in")
-        }
-
+        self.facebookID = Facebook.sharedInstance.facebookID 
         print("check39")
         pickPlace(lat: lat, lon: lon)
 

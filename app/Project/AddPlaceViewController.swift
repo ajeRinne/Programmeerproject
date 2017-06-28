@@ -54,9 +54,11 @@ class AddPlaceViewController: UIViewController, UITableViewDelegate, UITableView
         print("check65")
         print(facebookID)
         print(placeID)
+        
         userTableRef.child("\(facebookID)/joinsEvents/\(placeID)").setValue(["placeID": placeID])
         
         placeTableRef.child("\(placeID)/joiningUsers/\(facebookID)").setValue(["facebookID": facebookID])
+        
         
         _ = navigationController?.popViewController(animated: true)
     }
@@ -66,28 +68,7 @@ class AddPlaceViewController: UIViewController, UITableViewDelegate, UITableView
         super.viewDidLoad()
         print("check69")
         
-        if (FBSDKAccessToken.current() != nil) {
-            let params = ["fields" : "id, name"]
-            let graphRequest = GraphRequest(graphPath: "me", parameters: params)
-            graphRequest.start {
-                (urlResponse, requestResult) in
-                
-                switch requestResult {
-                case .failed(let error):
-                    print("error in graph request:", error)
-                    return
-                case .success(let graphResponse):
-                    if let responseDictionary = graphResponse.dictionaryValue {
-                        print(responseDictionary)
-                        self.facebookID = (responseDictionary["id"]!) as! String
-                        print("check555:\(self.facebookID)")
-                    }
-                }
-            }
-            print("user signed in")
-        } else {
-            print("no user signed in")
-        }
+        self.facebookID = Facebook.sharedInstance.facebookID
         
         if alreadyJoined == true {
             self.navigationItem.rightBarButtonItem = nil
@@ -162,7 +143,7 @@ class AddPlaceViewController: UIViewController, UITableViewDelegate, UITableView
         
         print("check621: \(joiningUserFacebookID)")
         var userItemRef = userTableRef.child(joiningUserFacebookID).observe(.value, with: { snapshot in
-            var user = UserItem(snapshot: snapshot as! DataSnapshot)
+            var user = UserItem(snapshot: snapshot)
             
                 print("check622: \(user)")
 //            cell.user

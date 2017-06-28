@@ -32,10 +32,12 @@ class Facebook{
                         print(responseDictionary)
                         self.facebookID = (responseDictionary["id"]!) as! String
                         print("check555:\(self.facebookID)")
+                        NotificationCenter.default.post(name: Notification.Name("facebookIDLoaded"), object: nil)
 
                     }
                 }
             }
         }
     }
+    
 }

@@ -42,36 +42,8 @@ class PlacesTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if (FBSDKAccessToken.current() != nil) {
-            let params = ["fields" : "id, name"]
-            let graphRequest = GraphRequest(graphPath: "me", parameters: params)
-            graphRequest.start {
-                (urlResponse, requestResult) in
-                
-                switch requestResult {
-                case .failed(let error):
-                    print("error in graph request:", error)
-                    return
-                case .success(let graphResponse):
-                    if let responseDictionary = graphResponse.dictionaryValue {
-                        print(responseDictionary)
-                        self.facebookID = (responseDictionary["id"]!) as! String
-                        print("check43:\(self.facebookID)")
-                    }
-                }
-            }
-            print("user signed in")
-        }else {
-            print("no user signed in")
-        }
-
-        
-        //        Get places table
-//        placeTableRef.observe(.value, with: { snapshot in
-//            print(snapshot.value!)
-//        })
-        
-        //          Guery database by places
+    self.facebookID = Facebook.sharedInstance.facebookID
+       
         placeTableRef.queryOrdered(byChild: "placeName").observe(.value, with: { snapshot in
             
             //            Create temporary array to store data

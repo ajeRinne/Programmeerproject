@@ -34,8 +34,6 @@ class CreatePlaceViewController: UIViewController {
     @IBOutlet var addButton: UIView!
     @IBAction func signOutButtonTouched(_ sender: Any) {
         do {
-            //            Authenticate user and log out
-//            try Auth.auth().signOut()
 
             let loginManager = FBSDKLoginManager()
             loginManager.logOut()
@@ -81,6 +79,8 @@ class CreatePlaceViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.facebookID = Facebook.sharedInstance.facebookID
         print("check59")
         print(facebookID)
         print(placeID)
