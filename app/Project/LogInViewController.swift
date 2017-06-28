@@ -43,6 +43,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
             return
                     
         } else {
+//            print("check111: \(FBSDKAccessToken.current())")
             print("user logged in")
             let params = ["fields" : "id, name"]
             let graphRequest = GraphRequest(graphPath: "me", parameters: params)
@@ -89,24 +90,24 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                 
             }
 
-            let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
-            print("check15")
-            print(credential)
-            Auth.auth().signIn(with: credential) { (user, error) in
-                if let error = error {
-                    print("could not authenticate user error: \(error)")
-                    return
-                }
-                // User is signed in
-                print("user authenticated in to firebase")
-                print(self.facebookID, type(of: self.facebookID), self.password, type(of: self.password), self.name, type(of: self.name), self.profilePictureURL, type(of: self.profilePictureURL))
+//            let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+//            print("check15")
+//            print(credential)
+//            Auth.auth().signIn(with: credential) { (user, error) in
+//                if let error = error {
+//                    print("could not authenticate user error: \(error)")
+//                    return
+//                }
+//                // User is signed in
+//                print("user authenticated in to firebase")
+//                print(self.facebookID, type(of: self.facebookID), self.password, type(of: self.password), self.name, type(of: self.name), self.profilePictureURL, type(of: self.profilePictureURL))
                let userItem = UserItem(facebookID: self.facebookID, password: self.password, name: self.name, profilePictureURL: self.profilePictureURL)
 //                let userCredential = credential as! String
                 let userItemRef = self.usersRef.child(self.facebookID)
                 userItemRef.setValue(userItem.toAnyObject())
                 self.performSegue(withIdentifier: "loginToMyPlaces", sender: nil)
                 
-            }
+//            }
         }
 
         
@@ -128,8 +129,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         usersRef = Database.database().reference(withPath: "usersTable")
-//        let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
-//        print("check13: \(credential)")
         let loginButton = FBSDKLoginButton()
         loginButton.delegate = self
         
@@ -145,31 +144,37 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         let heightConstraint = NSLayoutConstraint(item: loginButton, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: 25)
         
         view.addConstraints([horizontalConstraint, verticalConstraint, widthConstraint, heightConstraint])
-
         
-        if FBSDKAccessToken.current() != nil {
-            print("user: \(FBSDKAccessToken.current()!) signed in")
-            let params = ["fields" : "id, name"]
-            let graphRequest = GraphRequest(graphPath: "me", parameters: params)
-            graphRequest.start {
-                (urlResponse, requestResult) in
-                
-                switch requestResult {
-                case .failed(let error):
-                    print("error in graph request:", error)
-                    break
-                case .success(let graphResponse):
-                    if let responseDictionary = graphResponse.dictionaryValue {
-                        print(responseDictionary)
-                        print("check16")
-                        self.name = (responseDictionary["name"]!) as! String
-                        self.facebookID = (responseDictionary["id"]!) as! String
-                        print("check17")
-                        print(self.facebookID)
-                        self.performSegue(withIdentifier: "loginToMyPlaces", sender: nil)
-                    }
-                }
-            }
+        Facebook.sharedInstance.facebookAuth(accessToken:  FBSDKAccessToken.current())
+        facebookID = Facebook.sharedInstance.facebookID
+        print("check111: \(facebookID)")
+//        if FBSDKAccessToken.current() != nil {
+//            print("user: \(FBSDKAccessToken.current()!) signed in")
+//            let params = ["fields" : "id, name"]
+//            let graphRequest = GraphRequest(graphPath: "me", parameters: params)
+//            graphRequest.start {
+//                (urlResponse, requestResult) in
+//                
+//                switch requestResult {
+//                case .failed(let error):
+//                    print("error in graph request:", error)
+//                    break
+//                case .success(let graphResponse):
+//                    if let responseDictionary = graphResponse.dictionaryValue {
+//                        print(responseDictionary)
+//                        print("check16")
+//                        self.name = (responseDictionary["name"]!) as! String
+//                        self.facebookID = (responseDictionary["id"]!) as! String
+//                        print("check17")
+//                        print(self.facebookID)
+//                        self.performSegue(withIdentifier: "loginToMyPlaces", sender: nil)
+//                    }
+//                }
+//            }
+//        }
+        if facebookID != "" {
+            self.performSegue(withIdentifier: "loginToMyPlaces", sender: nil)
+            
         }
 
         

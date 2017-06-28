@@ -33,25 +33,7 @@ class DownloadPicture {
 
         }
     }
-    
-//    func loadImageForMetadata(photoMetadata: GMSPlacePhotoMetadata) {
-//        GMSPlacesClient.shared().loadPlacePhoto(photoMetadata, callback: {
-//            (photo, error) -> Void in
-//            if let error = error {
-//                // TODO: handle the error.
-//                print("Error: \(error.localizedDescription)")
-//            } else {
-//                print("check66")
-//                print(photo)
-//                self.placeImageView.image = photo;
-//                //                print("check602: \(photo.type)")
-//                //                print(self.placeName)
-//                //                print(self.placeID)
-//                //                self.placeNameLabel.text = self.placeName
-//            }
-//        })
-//    }
-    
+
     func loadFirstPhotoForPlace(placeID: String, imageView: UIImageView) {
         GMSPlacesClient.shared().lookUpPhotos(forPlaceID: placeID) { (photos, error) -> Void in
             if let error = error {
@@ -60,10 +42,10 @@ class DownloadPicture {
             } else {
                 print("check67")
                 print(placeID)
-//                print(self.placeName)
+
                 if let firstPhoto = photos?.results.first {
                     print("check68")
-//                    self.loadImageForMetadata(photoMetadata: firstPhoto)
+
                     GMSPlacesClient.shared().loadPlacePhoto(firstPhoto, callback: {
                         (photo, error) -> Void in
                         if let error = error {
@@ -73,10 +55,7 @@ class DownloadPicture {
                             print("check66")
                             print(photo)
                             imageView.image = photo;
-                            //                print("check602: \(photo.type)")
-                            //                print(self.placeName)
-                            //                print(self.placeID)
-                            //                self.placeNameLabel.text = self.placeName
+
                         }
                     })
 

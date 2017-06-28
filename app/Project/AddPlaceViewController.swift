@@ -166,46 +166,14 @@ class AddPlaceViewController: UIViewController, UITableViewDelegate, UITableView
             
                 print("check622: \(user)")
 //            cell.user
-//            cell.userLabel.text = user.name
-//            DownloadPicture.sharedInstance.downloadFacebookImage(url: user.profilePictureURL as URL, imageView: cell.userImageView)
+            cell.userNameLabel.text = user.name
+
+            let profilePictureURL = NSURL(string: user.profilePictureURL)
+            DownloadPicture.sharedInstance.downloadFacebookImage(url: profilePictureURL! as URL, imageView: cell.userImageView)
         })
         return cell
     }
-//        let userItem = UserItem(snapshot: userItemRef as! DataSnapshot)
-//        print("check631: \(userItem)")
-    
-//        (.value, with: { snapshot in
-//
-//            //            Iterate over items in snapshot
-//            self.userTableRef.queryOrdered(byChild: "facebookID").queryEqual(toValue: joiningUserFacebookID).observe(.value, with: { snapshot in
-//|            })
-//
-//            for item in snapshot.children {
-//                
-
-//                
-//                //                Create database instance to get data per place
-//                let userItem = UserItem(snapshot: item as! DataSnapshot)
-//                
-//                let name = userItem.name
-//                let URL = userItem.profilePictureURL
-//                let profilePictureURL = NSURL(string: URL)
-//                
-//                DownloadPicture.sharedInstance.downloadFacebookImage(url: profilePictureURL! as URL, imageView: cell.userImageView)
-//                cell.userNameLabel.text = name
-//                
-//                //                Append data of single place to array
-//
-//                print("check64: \(joiningUserItem.facebookID)")
-//            }
-//
-//
-//
-//            //            Reload data in order se up to date view
-////            self.tableView.reloadData()
-//        })
-        
-        
+      
 
         
 }

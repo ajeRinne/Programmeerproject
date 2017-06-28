@@ -183,25 +183,24 @@ class MapViewController: UIViewController, UISearchBarDelegate, LocateOnTheMap, 
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        print("check30")
-        let lat = 52.370216
-        let lon = 4.895168
-        let position = CLLocationCoordinate2DMake(lat, lon)
-//        let marker = GMSMarker(position: position)
-        let camera = GMSCameraPosition.camera(withLatitude: lat, longitude: lon, zoom: 10)
-        
+//        print("check30")
 
-
+//        let position = CLLocationCoordinate2DMake(lat, lon)
+////        let marker = GMSMarker(position: position)
+//        let camera = GMSCameraPosition.camera(withLatitude: lat, longitude: lon, zoom: 10)
+//        
+//
+//
         self.googleMapsView = GMSMapView(frame: self.mapsView.frame)
-               self.googleMapsView.mapType = .normal
+//               self.googleMapsView.mapType = .normal
         self.googleMapsView.delegate = self
-        
-        self.view.addSubview(self.googleMapsView)
-
+//        
+//        self.view.addSubview(self.googleMapsView)
+//
         searchResultController = SearchResultsController()
         searchResultController.delegate = self
-        pickPlace(lat: lat, lon: lon)
-
+//        pickPlace(lat: lat, lon: lon)
+//
     }
     
 }
