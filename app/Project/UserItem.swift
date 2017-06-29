@@ -12,11 +12,13 @@ import FirebaseDatabase
 
 struct UserItem {
     
+//    constants
     let facebookID: String
     let password: String
     let name: String
     let profilePictureURL: String
     
+//    create instance
     init(facebookID: String, password: String, name: String, profilePictureURL: String) {
         self.facebookID = facebookID
         self.password = password
@@ -24,6 +26,7 @@ struct UserItem {
         self.profilePictureURL = profilePictureURL
     }
     
+//    make object of firebase data
     init(snapshot: DataSnapshot) {
         let snapshotValue = snapshot.value as! [String: AnyObject]
         facebookID = snapshotValue["facebookID"] as! String
@@ -32,6 +35,7 @@ struct UserItem {
         profilePictureURL = snapshotValue["profilePictureURL"] as! String
     }
     
+//    convert data to type any
     func toAnyObject() -> Any {
         return [
             "facebookID": facebookID,

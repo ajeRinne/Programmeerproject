@@ -13,6 +13,7 @@ import UIKit
 class TextView: UITextView {
     @IBInspectable var cornerRadius: CGFloat = 0 {
         didSet{
+            
             self.layer.cornerRadius = cornerRadius
         }
     }    

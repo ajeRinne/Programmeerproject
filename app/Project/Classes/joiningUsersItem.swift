@@ -12,19 +12,23 @@ import FirebaseDatabase
 
 struct JoiningUserItem {
     
+//    constant
     let facebookID: String
     
+//    create instance
     init(facebookID: String) {
         
         self.facebookID = facebookID
         
     }
     
+//    make object of firebase data
     init(snapshot: DataSnapshot) {
         let snapshotValue = snapshot.value as! [String: AnyObject]
         facebookID = snapshotValue["facebookID"] as! String
     }
     
+//    convert data to type any
     func toAnyObject() -> Any {
         return [
             "facebookID": facebookID,

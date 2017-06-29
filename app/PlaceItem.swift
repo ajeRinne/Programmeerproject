@@ -12,6 +12,7 @@ import FirebaseDatabase
 
 struct PlaceItem {
     
+//    constants
     let placeID: String
     let facebookID: String
     let placeName: String
@@ -19,6 +20,7 @@ struct PlaceItem {
     let placeTime: String
     let placeDescription: String
     
+//    create intance
     init(placeID: String, facebookID: String, placeName: String, eventName: String, placeTime: String, placeDescription: String) {
         
         self.placeID = placeID
@@ -29,6 +31,7 @@ struct PlaceItem {
         self.placeDescription = placeDescription
     }
     
+//    make object of firebase data
     init(snapshot: DataSnapshot) {
         
         let snapshotValue = snapshot.value as! [String: AnyObject]
@@ -40,6 +43,7 @@ struct PlaceItem {
         placeDescription = snapshotValue["placeDescription"] as! String
     }
     
+//    convert data to type any
     func toAnyObject() -> Any {
         
         return [
