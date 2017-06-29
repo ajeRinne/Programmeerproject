@@ -16,25 +16,28 @@ import GooglePlaces
 
 class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-//    MARK: Constants
+//    MARK: - Constants
+    
     let cellIdentifier: String = "cell"
     let placeTableRef = Database.database().reference(withPath: "placesTable")
     let userTableRef = Database.database().reference(withPath: "usersTable")
     
-//    MARK: Variables
+//    MARK: - Variables
+    
     var facebookID: String = ""
     var tableTag: Int = 0
     var addedByMeItems: [PlaceItem] = []
     var joiningEventsItems: [JoiningEventsItem] = []
 
-//    MARK: Outlets
+//    MARK: - Outlets
+    
     @IBOutlet var addedByMeTableView: UITableView!
     @IBOutlet var placesIJoinTableView: UITableView!
     @IBOutlet var searchPlacesButton: UIBarButtonItem!
     @IBOutlet var signOutButton: UIBarButtonItem!
     @IBOutlet var mapButton: UIBarButtonItem!
     
-//    MARK: Actions
+//    MARK: - Actions
     
 //    sign out button handler
     @IBAction func signOutButtonTouched(_ sender: Any) {
@@ -59,254 +62,263 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
         performSegue(withIdentifier: "myPlacesToMap", sender:nil)
     }
     
-//    
+    
+//    MARK: - ViewController
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        authenticate user
         self.facebookID = Facebook.sharedInstance.facebookID
         
-
+//        create reference to events that user attends
         let userItemRef = userTableRef.child(self.facebookID)
         let joiningEventsRef = userItemRef.child("joinsEvents")
+        
+//        look up events that user attends
         joiningEventsRef.queryOrdered(byChild: "joinsEvents").observe(.value, with: { snapshot in
 
             var joiningEventsItemsNew: [JoiningEventsItem] = []
+            
             for item in snapshot.children {
 
                 let joiningEventsItem = JoiningEventsItem(snapshot: item as! DataSnapshot)
                 joiningEventsItemsNew.append(joiningEventsItem)
             }
             
+//            set data in user in global array to load in tableView
             self.joiningEventsItems = joiningEventsItemsNew
+            
+//            update table view with new data
             self.placesIJoinTableView.reloadData()
         })
         
-        
-        
-        
+//        look up events that user has added
         placeTableRef.queryOrdered(byChild: "facebookID").queryEqual(toValue: facebookID).observe(.value, with:{
             snapshot in
-            print("check214: \(snapshot)")
+            
             var addedByMeItemsNew: [PlaceItem] = []
+            
             for item in snapshot.children {
                 
                 print("check211: \(item)")
                 let addedByMeItem = PlaceItem(snapshot: item as! DataSnapshot)
                 addedByMeItemsNew.append(addedByMeItem)
             }
+            
+//            set data in user in global array to load in tableView
             self.addedByMeItems = addedByMeItemsNew
+            
+            
+//            update table view with new data
            self.addedByMeTableView.reloadData()
         })
         
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     // MARK: - Table view data source
+    
+//    create valid number of rows per table using tableTag
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         if tableView.tag == 1 {
-            print("check207: \(addedByMeItems.count)")
+            
             return addedByMeItems.count
+            
         } else if tableView.tag == 2  {
-            print("check208: \(joiningEventsItems.count)")
+            
             return joiningEventsItems.count
         }
         return 0
     }
     
+//    create one section in tableview
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-
+//    set individual cells
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("check209")
-
+        
+//        check which table view
         if tableView.tag == 1 {
-            print("check28")
-
+            
+//            user cell for tag 1
             let cell = tableView.dequeueReusableCell(withIdentifier: "addedByMeCell") as! AddedByMeCell
+//            get right object out of events array
             let addedByMeItem = self.addedByMeItems[indexPath.row]
+            
+//            save variables out of object in local variables
             let placeID = addedByMeItem.placeID
             let placeName = addedByMeItem.placeName
             cell.placeLabel.text = placeName
             
+//            download place picture
             DownloadPicture.sharedInstance.loadFirstPhotoForPlace(placeID: placeID, imageView: cell.placeImageView)
 
-
             return cell
             
-            
-        } else if tableView.tag == 2 {
-            
-            print("check29")
-            
+
+        } else {
+ 
+//            use cel for tag 2
             let cell = tableView.dequeueReusableCell(withIdentifier: "eventsIJoinCell") as! EventsIJoinCell
-            print("check213")
+
+//            get placeID out of events array
             let joiningEventsItem = self.joiningEventsItems[indexPath.row]
             let placeID = joiningEventsItem.placeID
-            print("check212: \(placeID)")
+
+//            query database for specific placeID
             placeTableRef.queryOrdered(byChild: "placeID").queryEqual(toValue: placeID).observe(.value, with: { snapshot in
                 
-                //            Iterate over items in snapshot
-                self.placeTableRef.queryOrdered(byChild: "placeID").queryEqual(toValue: placeID).observe(.value, with: { snapshot in
-                    print("check202: \(snapshot)")
-                    for item in snapshot.children {
+                self.placeTableRef.child(placeID).observe(.value, with: { snapshot in
+                    
+//                        Create database instance to get data per place
+                    let placeItem = PlaceItem(snapshot: snapshot as! DataSnapshot)
+                    
+//                    save variables out of object in local variables
+                    cell.placeLabel.text = placeItem.placeName
+                    
+//                    laod place picute in image view
+                    let placeID = placeItem.placeID
+                    DownloadPicture.sharedInstance.loadFirstPhotoForPlace(placeID: placeItem.placeID, imageView: cell.placeImageView)
+                    
+//                    get facebookID of user that added the place
+                    let currentFacebookID = placeItem.facebookID
+                    
+//                    query database for username
+                    self.userTableRef.queryOrdered(byChild: "facebookID").queryEqual(toValue: currentFacebookID).observe(.value, with: { snapshot in
                         
-                        print("check203: \(item)")
-                        
-                        //                Create database instance to get data per place
-                        let placeItem = PlaceItem(snapshot: item as! DataSnapshot)
-                        print("check204: \(placeItem)")
-                        let placeName = placeItem.placeName
-                        let placeID = placeItem.placeID
-                        print("check205: \(placeID)")
-                        let addedByUser = placeItem.facebookID
-                        cell.placeLabel.text = placeName
-                        cell.addedByLabel.text = addedByUser
-
-
-                        DownloadPicture.sharedInstance.loadFirstPhotoForPlace(placeID: placeItem.placeID, imageView: cell.placeImageView)
-
-                    }
+                        for item in snapshot.children {
+                            
+                            let userItem = UserItem(snapshot: item as! DataSnapshot)
+                            let name = userItem.name
+                            cell.addedByLabel.text = name
+                        }
+                    })
                 })
             })
-            return cell
             
-        } else {
-            print("Doesn't enter a tagged cell")
-            let cell = tableView.dequeueReusableCell(withIdentifier: "joiningEventsCell") as! JoiningEventsCell
             return cell
         }
         
     }
     
+//    allow editing on row
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
+//    instantiate segues for click on table row
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if (tableView.tag == 1) {
-            print("check244:\(facebookID)")
+
             self.tableTag = 1
             self.performSegue(withIdentifier: "myPlacesToAddPlace", sender: nil)
-        } else if (tableView.tag == 2) {
-            print("check245:\(facebookID)")
+            
+        } else {
+
             self.tableTag = 2
             self.performSegue(withIdentifier: "myPlacesToAddPlace", sender: nil)
         }
         
     }
     
+//    instantiate delete option on rows
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
             if tableView.tag == 1 {
-                print("check217")
+
+//                remove references from users that have joined the event
                 let addedByMeItem = addedByMeItems[indexPath.row]
                 userTableRef.observe(.value, with: { (snapshot) in
+                    
+//                    query database users that have joined the event
                     for item in snapshot.children {
-                        print("check219: \(item)")
+
                         let addedByMeItem = self.addedByMeItems[indexPath.row]
-//                        let placeID = addedByMeItem.placeID
-                        print("check233")
+
                         let userItem = UserItem(snapshot: item as! DataSnapshot)
-                        print("check244")
+
                         let facebookID = userItem.facebookID
                         let userItemRef = self.userTableRef.child(facebookID)
                         let joiningEventsRef = userItemRef.child("joinsEvents").child(addedByMeItem.placeID)
-                        print("check255: \(joiningEventsRef)")
+
                         let placeID = joiningEventsRef.queryOrdered(byChild: "joinsEvents").queryEqual(toValue: addedByMeItem.placeID)
                         placeID.ref.removeValue()
                     }
-                    print("check277: \(addedByMeItem.placeID)")
+                    
+//                    remove reference to place
                     let placeItem = self.placeTableRef.child(addedByMeItem.placeID)
-                    print("check271: \(placeItem)")
                     let placeItemID =  placeItem.queryOrdered(byChild: "placeID").queryEqual(toValue: addedByMeItem.placeID)
+                    
                     placeItemID.ref.removeValue()
+                    
+//                    reload table view
                 self.addedByMeTableView.reloadData()
                 
                 })
-                
-                addedByMeTableView.reloadData()
-
         
-            } else if tableView.tag == 2  {
-                print("check218")
+            } else {
+
+//               remove reference to event that user joins
+//               query database for joinsEvent of user
                 let joiningEventsItem = joiningEventsItems[indexPath.row]
                 let currentPlaceID = joiningEventsItem.placeID
-                print("check219: \(joiningEventsItem)")
                 let userItemRef = userTableRef.child(facebookID)
                 let joiningEventRef = userItemRef.child("joinsEvents").child(currentPlaceID)
-                print(joiningEventRef)
                 let place = joiningEventRef.queryOrdered(byChild: "joinsEvents").queryEqual(toValue: currentPlaceID)
+                
+//                remove joinsEvent
                 place.ref.removeValue()
                 
+//                query database joining user with facebookID of user
                 let joiningUserItem = placeTableRef.child(joiningEventsItem.placeID).child("joiningUsers").child(facebookID)
-                print("check220: \(joiningUserItem)")
-//                joiningEventsItem.ref?.remove(at: indexPath.row)
+
+//                remove joiningUser
                 joiningUserItem.ref.removeValue()
                 self.placesIJoinTableView.reloadData()
             }
         }
     }
+    
+//    MARK: - Segue
+    
+//    prepare for segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        print("check22: \(self.facebookID)")
-        
-        
-        
-        if (segue.identifier == "myPlacesToMap") {
-            print("check23")
-            let viewController = segue.destination as! MapViewController
-            viewController.facebookID = self.facebookID
-        } else if (segue.identifier == "myPlacesToAddPlace") {
-            print("check24")
+
+        if (segue.identifier == "myPlacesToAddPlace") {
+
             let viewController = segue.destination as! AddPlaceViewController
             viewController.facebookID = self.facebookID
             
             if (self.tableTag == 1) {
-                print("check231")
+
+//                get placeID for table 1
                 let indexPath = addedByMeTableView.indexPathForSelectedRow
-                print(indexPath)
-                //            Get place item at selected row
-                if indexPath != nil {
-                    let placeItem = addedByMeItems[indexPath!.row]
-                    print("check232: \(placeItem)")
-                    let placeID = placeItem.placeID
+                let placeItem = addedByMeItems[indexPath!.row]
+                let placeID = placeItem.placeID
                     
-                    //                send current place to next view
-                    viewController.placeID = placeID
-                }
+//                send current place to next view
+                viewController.placeID = placeID
                 
-            } else if (self.tableTag == 2) {
-                print("check241")
+            } else {
+
+//                get placeID for table 2
                 let indexPath = placesIJoinTableView.indexPathForSelectedRow
-                print(indexPath)
-                //            Get place item at selected row
-                if indexPath != nil {
-                    let placeItem = joiningEventsItems[indexPath!.row]
-                    print("check242: \(placeItem)")
-                    let placeID = placeItem.placeID
-                    
-                    viewController.placeID = placeID
-                }
+                let placeItem = joiningEventsItems[indexPath!.row]
+                let placeID = placeItem.placeID
                 
-            } else if (self.tableTag == 0) {
-                print("async probs")
+//                send current place t onext view
+                viewController.placeID = placeID
             }
-            viewController.alreadyJoined = true
             
-        } else if(segue.identifier == "myPlacesToPlaces") {
-            print("check25")
-            let viewController = segue.destination as! PlacesTableViewController
-            viewController.facebookID = self.facebookID
+//            set variable so event cannot be added to list again
+            viewController.alreadyJoined = true
         }
-        
     }
-    
 }
 

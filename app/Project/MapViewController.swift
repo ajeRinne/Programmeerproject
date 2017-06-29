@@ -18,8 +18,12 @@ import GooglePlacePicker
 
 class MapViewController: UIViewController, UISearchBarDelegate, LocateOnTheMap, GMSMapViewDelegate {
 
+//    MARK: - Constants
+    
     let lat = 52.370216
     let lon = 4.895168
+    
+//    MARK: - Variables
     
     var placeID: String = ""
     var placeName: String = ""
@@ -28,19 +32,51 @@ class MapViewController: UIViewController, UISearchBarDelegate, LocateOnTheMap, 
     var searchResultController: SearchResultsController!
     var resultsArray = [String]()
 
+//    MARK: - Outlets
     
     @IBOutlet var searchButton: UIBarButtonItem!
+    @IBOutlet var mapsView: UIView!
     
+//    MARK: - Actions
+    
+//    initiate searchController
     @IBAction func searchButtonTouched(_ sender: Any) {
             let searchController = UISearchController(searchResultsController: searchResultController)
         searchController.searchBar.delegate = self
             self.present(searchController, animated: true, completion: nil)
     }
-
-    @IBOutlet var mapsView: UIView!
     
+//    MARK: - ViewController
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+//        authenticate user
+        self.facebookID = Facebook.sharedInstance.facebookID
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
 
+        
+//        configure MapsView
+        self.googleMapsView = GMSMapView(frame: self.mapsView.frame)
+        self.googleMapsView.mapType = .normal
+        self.googleMapsView.delegate = self
+        self.view.addSubview(self.googleMapsView)
+        
+//        configure searchbarController
+        searchResultController = SearchResultsController()
+        searchResultController.delegate = self
+        
+//        configure placePicker
+        pickPlace(lat: lat, lon: lon)
+    }
+
+
+//    MARK: - placePicker
+    
+//    get place data
     func csv(data: String) -> [[String]] {
         var result: [[String]] = []
         let rows = data.components(separatedBy: "\n")
@@ -51,6 +87,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, LocateOnTheMap, 
         return result
     }
     
+//    configure placePicker
     func pickPlace(lat: Double, lon: Double) {
         let center = CLLocationCoordinate2D(latitude: lat, longitude: lon)
         let northEast = CLLocationCoordinate2D(latitude: center.latitude + 0.001, longitude: center.longitude + 0.001)
@@ -59,20 +96,17 @@ class MapViewController: UIViewController, UISearchBarDelegate, LocateOnTheMap, 
         let config = GMSPlacePickerConfig(viewport: viewport)
         let placePicker = GMSPlacePicker(config: config)
 
+//        check place picker error
         placePicker.pickPlace(callback: {(place, error) -> Void in
             if let error = error {
                 print("Pick Place error: \(error.localizedDescription)")
                 return
             }
-            
-            if let place = place {
-                
-                print("check34")
-                print(place)
 
+//            save place info when place is picked
+            if let place = place {
 
                 self.placeID = place.placeID
-                print(self.placeID)
                 self.placeName = place.name
                 
 
@@ -80,45 +114,28 @@ class MapViewController: UIViewController, UISearchBarDelegate, LocateOnTheMap, 
             }
         })
     }
+    
+//    MARK: - Maps
 
     func locateWithLongitude(_ lon: Double, andLatitude lat: Double, andTitle title: String) {
         
         DispatchQueue.main.async() { () -> Void in
         
-            print("calculating lat lon")
+
             let position = CLLocationCoordinate2DMake(lat, lon)
             let marker = GMSMarker(position: position)
             let camera = GMSCameraPosition.camera(withLatitude: lat, longitude: lon, zoom: 10)
-            
-            if camera != nil {
-                print("check35")
-            }
             self.googleMapsView.camera = camera
             
             marker.title = "Address: \(title)"
             marker.map = self.googleMapsView
-            print("check36: \(marker)")
-            print("calculated lat lon")
             self.pickPlace(lat: lat, lon: lon)
             
         }
         
     }
     
-
-    
-//    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-////        let marker = GMSMarker()
-//        let place = marker.title
-//        print("Check37: \(place!)")
-//
-//
-//
-//        return true
-//    }
-
-    
-
+//    MARK: - Searchbar
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         let placeClient = GMSPlacesClient()
@@ -132,7 +149,6 @@ class MapViewController: UIViewController, UISearchBarDelegate, LocateOnTheMap, 
             for result in results! {
                 if let result = result as? GMSAutocompletePrediction {
                     self.resultsArray.append(result.attributedFullText.string)
-                    print("check38\(self.resultsArray)")
                 }
                 
             }
@@ -141,6 +157,8 @@ class MapViewController: UIViewController, UISearchBarDelegate, LocateOnTheMap, 
             
         }
     }
+    
+//    MARK: - Segue
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "mapToCreatePlace") {
@@ -150,39 +168,6 @@ class MapViewController: UIViewController, UISearchBarDelegate, LocateOnTheMap, 
             viewController.placeName = placeName
         }
     }
-
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        self.facebookID = Facebook.sharedInstance.facebookID 
-        print("check39")
-//        pickPlace(lat: lat, lon: lon)
-
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
-        print("check30")
-
-//        let position = CLLocationCoordinate2DMake(lat, lon)
-////        let marker = GMSMarker(position: position)
-//        let camera = GMSCameraPosition.camera(withLatitude: lat, longitude: lon, zoom: 10)
-//        
-//
-//
-        self.googleMapsView = GMSMapView(frame: self.mapsView.frame)
-        self.googleMapsView.mapType = .normal
-        self.googleMapsView.delegate = self
-//        
-        self.view.addSubview(self.googleMapsView)
-//
-        searchResultController = SearchResultsController()
-        searchResultController.delegate = self
-        pickPlace(lat: lat, lon: lon)
-//
-    }
-    
 }
 
 

@@ -14,24 +14,33 @@ import GooglePlaces
 
 class AddPlaceViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+//    MARK: - Constants
+    
     let placeTableRef = Database.database().reference(withPath: "placesTable")
     let userTableRef = Database.database().reference(withPath: "usersTable")
 
+//    MARK: - Variables
+    
     var facebookID: String = ""
     var placeID: String = ""
     var placeName: String = ""
     var items: [JoiningUserItem] = []
     var alreadyJoined: Bool = false
     
+//    MARK: - Outlets
+    
     @IBOutlet var addPlaceButton: UIBarButtonItem!
     @IBOutlet var joiningUsersTableView: UITableView!
     @IBOutlet var homeButton: UIBarButtonItem!
     @IBOutlet var placeImageView: UIImageView!
     @IBOutlet var placeNameLabel: UILabel!
-    @IBOutlet var addedByLabel: UILabel!
+    @IBOutlet var eventLabel: UILabel!
     @IBOutlet var timeLabel: UILabel!
+    @IBOutlet var descriptiontextView: UITextView!
     @IBOutlet var signOutButton: UIBarButtonItem!
     @IBOutlet var descriptionTextView: UITextView!
+    
+//    MARK: - Actions
     
     @IBAction func signOutButtonTouched(_ sender: Any) {
         do {
@@ -51,48 +60,38 @@ class AddPlaceViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBAction func addPlaceButtonTouched(_ sender: Any) {
         
-        print("check65")
-        print(facebookID)
-        print(placeID)
-        
         userTableRef.child("\(facebookID)/joinsEvents/\(placeID)").setValue(["placeID": placeID])
-        
         placeTableRef.child("\(placeID)/joiningUsers/\(facebookID)").setValue(["facebookID": facebookID])
-        
         
         _ = navigationController?.popViewController(animated: true)
     }
     
+//    MARK: - ViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("check69")
         
         self.facebookID = Facebook.sharedInstance.facebookID
         
         if alreadyJoined == true {
+            
             self.navigationItem.rightBarButtonItem = nil
         }
 
         self.placeNameLabel.text = self.placeName
         
-
         DownloadPicture.sharedInstance.loadFirstPhotoForPlace(placeID: placeID, imageView: self.placeImageView)
         
-        placeTableRef.queryOrdered(byChild: "placeName").observe(.value, with: { snapshot in
-            
-            //            Iterate over items in snapshot
-            for item in snapshot.children {
-                
-                //                Create database instance to get data per place
-                let placeItem = PlaceItem(snapshot: item as! DataSnapshot)
-                self.placeName = placeItem.placeName
-                let placeTime = placeItem.placeTime
-                let placeDescription = placeItem.placeDescription
+        placeTableRef.child(placeID).observe(.value, with: { snapshot in
 
-                self.descriptionTextView.text = placeDescription
-                self.timeLabel.text = placeTime
-            }
+//            Create database instance to get data per place
+            let placeItem = PlaceItem(snapshot: snapshot as! DataSnapshot)
+
+            self.placeNameLabel.text = placeItem.placeName
+            self.eventLabel.text = placeItem.eventName
+            self.timeLabel.text = placeItem.placeTime
+            self.descriptionTextView.text = placeItem.placeDescription
+            
             
         })
         let placeItemRef = placeTableRef.child(placeID)
@@ -101,15 +100,11 @@ class AddPlaceViewController: UIViewController, UITableViewDelegate, UITableView
             
             var joiningUserItems: [JoiningUserItem] = []
             for item in snapshot.children {
-                print("check604: \(item)")
                 let joiningUserItem = JoiningUserItem(snapshot: item as! DataSnapshot)
                 joiningUserItems.append(joiningUserItem)
             }
             
             self.items = joiningUserItems
-            print("check606: \(joiningUserItems)")
-            print("check605: \(self.items)")
-            print(self.items.count)
             self.joiningUsersTableView.reloadData()
         })
 
@@ -118,14 +113,11 @@ class AddPlaceViewController: UIViewController, UITableViewDelegate, UITableView
         
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        
-    }
-
     
     // MARK: - Table view data source
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("check60: \(items.count)")
+
         return items.count
     }
 
@@ -136,17 +128,15 @@ class AddPlaceViewController: UIViewController, UITableViewDelegate, UITableView
         
 
         //        Get places table
-        print("check62: \(self.items)")
+
         let joiningUserItem = self.items[indexPath.row]
         let joiningUserFacebookID = joiningUserItem.facebookID
         
         
-        print("check621: \(joiningUserFacebookID)")
         var userItemRef = userTableRef.child(joiningUserFacebookID).observe(.value, with: { snapshot in
             var user = UserItem(snapshot: snapshot)
             
-                print("check622: \(user)")
-//            cell.user
+
             cell.userNameLabel.text = user.name
 
             let profilePictureURL = NSURL(string: user.profilePictureURL)

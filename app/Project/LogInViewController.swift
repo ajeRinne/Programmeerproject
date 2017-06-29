@@ -14,26 +14,26 @@ import FacebookCore
 
 class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
 
-//    MARK: Variables
+//    MARK: - Variables
     var facebookID : String = ""
     var userTableRef : DatabaseReference!
     var password: String = "pass"
     var name : String = ""
     var profilePictureURL : String = ""
     
-//    MARK: Outlets
+//    MARK: - Outlets
     @IBOutlet var logInWithFacebookButton: Button!
     @IBOutlet var userNameTextField: Textfield!
     @IBOutlet var passwordTextField: Textfield!
     
-//    MARK: Actions
+//    MARK: - Actions
     @IBAction func logInWithFacebookButtonTouched(_ sender: Any) {
         print("check11")
         self.performSegue(withIdentifier: "loginToMyPlaces", sender: nil)
     }
     
     
-    // MARK: viewController
+    // MARK: - viewController
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -70,7 +70,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     }
 
     
-// MARK: Facebook login
+// MARK: - Facebook login
     
 //    log user in with FBSDKLoginButton
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
