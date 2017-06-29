@@ -35,6 +35,8 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet var mapButton: UIBarButtonItem!
     
 //    MARK: Actions
+    
+//    sign out button handler
     @IBAction func signOutButtonTouched(_ sender: Any) {
         do {
             let loginManager = FBSDKLoginManager()
@@ -46,17 +48,18 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
 
-    
+//  perform segue to map placesTableView searchButton is touched
     @IBAction func searchPlacesButtonTouched(_ sender: Any) {
 
         performSegue(withIdentifier: "myPlacesToPlaces", sender:nil)
     }
     
-    
+//    perform segue to map when mapButton is touched
     @IBAction func mapButtonTouched(_ sender: Any) {
         performSegue(withIdentifier: "myPlacesToMap", sender:nil)
     }
     
+//    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -79,7 +82,7 @@ class MyPlacesViewController: UIViewController, UITableViewDelegate, UITableView
         })
         
         
-//            .loadJoiningEventsTable(joiningEventsItem: joiningEventsItems)
+        
         
         placeTableRef.queryOrdered(byChild: "facebookID").queryEqual(toValue: facebookID).observe(.value, with:{
             snapshot in

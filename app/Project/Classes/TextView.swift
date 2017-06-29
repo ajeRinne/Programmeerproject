@@ -15,5 +15,5 @@ class TextView: UITextView {
         didSet{
             self.layer.cornerRadius = cornerRadius
         }
-    }
+    }    
 }

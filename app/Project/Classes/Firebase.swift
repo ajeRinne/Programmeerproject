@@ -17,9 +17,14 @@ class Firebase{
     let placeTableRef = Database.database().reference(withPath: "placesTable")
     let userTableRef = Database.database().reference(withPath: "usersTable")
     
-    func loadJoiningEventsTable(joiningEventsItem: [JoiningEventsItem]) {
+//    func loadUserItem(userID: String){
+//        let userItemRef = userTableRef.child(userID)
+//        userItemRef.observe.ste
+//    }
+    
+    func loadJoiningEventsTable(facebookID: String, joiningEventsItem: [JoiningEventsItem], addedByMeItems: [PlaceItem]) {
         
-//        let userItemRef = userTableRef.child(self.facebookID)
+        let userItemRef = userTableRef.child(facebookID)
         let joiningEventsRef = userItemRef.child("joinsEvents")
         joiningEventsRef.queryOrdered(byChild: "joinsEvents").observe(.value, with: { snapshot in
             

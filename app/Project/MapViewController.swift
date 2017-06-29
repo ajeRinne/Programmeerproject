@@ -99,6 +99,8 @@ class MapViewController: UIViewController, UISearchBarDelegate, LocateOnTheMap, 
             marker.map = self.googleMapsView
             print("check36: \(marker)")
             print("calculated lat lon")
+            self.pickPlace(lat: lat, lon: lon)
+            
         }
         
     }
@@ -155,13 +157,13 @@ class MapViewController: UIViewController, UISearchBarDelegate, LocateOnTheMap, 
         
         self.facebookID = Facebook.sharedInstance.facebookID 
         print("check39")
-        pickPlace(lat: lat, lon: lon)
+//        pickPlace(lat: lat, lon: lon)
 
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-//        print("check30")
+        print("check30")
 
 //        let position = CLLocationCoordinate2DMake(lat, lon)
 ////        let marker = GMSMarker(position: position)
@@ -170,14 +172,14 @@ class MapViewController: UIViewController, UISearchBarDelegate, LocateOnTheMap, 
 //
 //
         self.googleMapsView = GMSMapView(frame: self.mapsView.frame)
-//               self.googleMapsView.mapType = .normal
+        self.googleMapsView.mapType = .normal
         self.googleMapsView.delegate = self
 //        
-//        self.view.addSubview(self.googleMapsView)
+        self.view.addSubview(self.googleMapsView)
 //
         searchResultController = SearchResultsController()
         searchResultController.delegate = self
-//        pickPlace(lat: lat, lon: lon)
+        pickPlace(lat: lat, lon: lon)
 //
     }
     

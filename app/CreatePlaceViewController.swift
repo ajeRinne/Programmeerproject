@@ -13,7 +13,7 @@ import FacebookLogin
 import FacebookCore
 import GooglePlaces
 
-class CreatePlaceViewController: UIViewController {
+class CreatePlaceViewController: UIViewController, UITextViewDelegate {
     
     let placeTableRef = Database.database().reference(withPath: "placesTable")
     let userTableRef = Database.database().reference(withPath: "usersTable")
@@ -64,6 +64,31 @@ class CreatePlaceViewController: UIViewController {
         
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.facebookID = Facebook.sharedInstance.facebookID
+        
+
+        addDescriptionTextView.delegate = self as UITextViewDelegate
+        
+        addDescriptionTextView.text = "Describe what you want to do"
+        addDescriptionTextView.textColor = UIColor.lightGray
+        
+        
+        DownloadPicture.sharedInstance.loadFirstPhotoForPlace(placeID: placeID, imageView: self.placeImageView)
+        
+        self.placeNameLabel.text = self.placeName
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if addDescriptionTextView.textColor == UIColor.lightGray {
+            addDescriptionTextView.text = nil
+            addDescriptionTextView.textColor = UIColor.black
+        }
+    }
+
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         print("check68")
@@ -74,32 +99,6 @@ class CreatePlaceViewController: UIViewController {
             viewController.facebookID = self.facebookID
         }
         
-    }
-
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        self.facebookID = Facebook.sharedInstance.facebookID
-        print("check59")
-        print(facebookID)
-        print(placeID)
-        print(placeName)
-        
-        DownloadPicture.sharedInstance.loadFirstPhotoForPlace(placeID: placeID, imageView: self.placeImageView)
-
-        print(facebookID)
-        addEventNameTextField.text = ""
-        addTimeTextField.text = ""
-        addDescriptionTextView.text = ""
-
-        // Do any additional setup after loading the view.
-        self.placeNameLabel.text = self.placeName
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
 }
