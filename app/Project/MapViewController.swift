@@ -163,7 +163,6 @@ class MapViewController: UIViewController, UISearchBarDelegate, LocateOnTheMap, 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "mapToCreatePlace") {
             let viewController = segue.destination as! CreatePlaceViewController
-            viewController.facebookID = facebookID
             viewController.placeID = placeID
             viewController.placeName = placeName
         }

@@ -22,6 +22,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     var profilePictureURL : String = ""
     
 //    MARK: - Outlets
+    @IBOutlet var meetAppLabel: UILabel!
     @IBOutlet var logInWithFacebookButton: Button!
     @IBOutlet var userNameTextField: Textfield!
     @IBOutlet var passwordTextField: Textfield!
@@ -50,14 +51,15 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         
 //        add listeners
         NotificationCenter.default.addObserver(self, selector: #selector(facebookLoaded), name: NSNotification.Name("facebookIDLoaded"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(performSegueToMyPlaces), name: NSNotification.Name("userInstanceCreated"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(myPlacesSegue), name: NSNotification.Name("userInstanceCreated"), object: nil)
         
-//        set constraints
-        let horizontalConstraint = NSLayoutConstraint(item: loginButton, attribute: NSLayoutAttribute.centerX, relatedBy: NSLayoutRelation.equal, toItem: passwordTextField, attribute: NSLayoutAttribute.centerX, multiplier: 1, constant: 0)
-        let verticalConstraint = NSLayoutConstraint(item: loginButton, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: passwordTextField, attribute: NSLayoutAttribute.centerY, multiplier: 1, constant: 90)
+//        set constraints for loginButton
+        let horizontalConstraint = NSLayoutConstraint(item: loginButton, attribute: NSLayoutAttribute.centerX, relatedBy: NSLayoutRelation.equal, toItem: meetAppLabel, attribute: NSLayoutAttribute.centerX, multiplier: 1, constant: 0)
+        let verticalConstraint = NSLayoutConstraint(item: loginButton, attribute: NSLayoutAttribute.bottom, relatedBy: NSLayoutRelation.equal, toItem: view, attribute: NSLayoutAttribute.bottomMargin, multiplier: 1, constant: -100)
         let widthConstraint = NSLayoutConstraint(item: loginButton, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: 185)
         let heightConstraint = NSLayoutConstraint(item: loginButton, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: 25)
         
+//        add contraints to view
         view.addConstraints([horizontalConstraint, verticalConstraint, widthConstraint, heightConstraint])
         
 //        authenticate user
@@ -197,7 +199,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
 // MARK: Segue
     
 //    perform segue to MyPlacesViewController
-    func performSegueToMyPlaces(){
+    func myPlacesSegue(){
         self.performSegue(withIdentifier: "loginToMyPlaces", sender: nil)
         
     }
